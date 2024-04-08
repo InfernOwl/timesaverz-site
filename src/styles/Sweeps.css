@@ -1,0 +1,80 @@
+.sweepstakesWinner {
+    margin: auto;
+    border-radius: 10px;
+    width: 90% !important;
+    height: fit-content;
+  }
+  
+  .hor_spacer.sweepsBanner {
+    height: fit-content;
+    margin: auto;
+  }
+  
+  .hor_spacer.sweeps {
+    width: 90%;
+    pointer-events: all !important;
+    margin: auto;
+    display: flex;
+    justify-content: space-around;
+    padding-bottom: 2%;
+    padding-top: 2%;
+    font: bold 20px Verdana;
+  }
+  
+  .sweepsSynopsis {
+   color: white;
+   border: 5px solid yellow;
+   border-radius: 10px;
+   width: 95%;
+   height: 95%;
+   margin: auto;
+   overflow-y: auto;
+  }
+
+  .sweepsSynopsis::-webkit-scrollbar {
+    width: 0;
+  }
+
+  .sweepsSynopsis > h1 {
+    color: yellow;
+    font-family: "Madimi One", sans-serif;
+    font-size: 40px;
+    font-weight: 900;
+  }
+
+  .sweepsSynopsis > h2 {
+    color: yellow;
+    font-family: "Madimi One", sans-serif;
+  }
+  
+  .sweepsRules {
+    color: yellow;
+    width: 45%;
+    font-size: 15px;
+    overflow-y: auto;
+  }
+
+  .sweepsRules::-webkit-scrollbar {
+    width: 0;
+  }
+  
+  .sweepsForm {
+    color: white !important;
+    background: gray;
+    width: 45%;
+    border-radius: 20px;
+    display: flex;
+    overflow-y: scroll;
+  }
+  
+  .sweepsForm::-webkit-scrollbar {
+    width: 0;
+  }
+  
+  .sweepsFinePrint {
+    color: gray;
+    font: 10px Calibri;
+    width: 90%;
+    margin: auto;
+    padding: 10px;
+  }

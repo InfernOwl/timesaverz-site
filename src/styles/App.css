@@ -1,0 +1,123 @@
+.App {
+  overflow: hidden;
+  text-align: center;
+  background: black;
+  height: 100vh;
+}
+
+.App-logo {
+  height: 20vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/*----------------------------------------------------------*/
+/* CUSTOM CSS */
+
+.nav_container {
+  opacity: 1;
+}
+
+.logo {
+  background-color: yellow;
+  width: 15%;
+  height: 90%;
+  margin: auto;
+}
+
+.title {
+  background-color: pink;
+  width: 75%;
+  height: 90%;
+  margin: auto;
+}
+
+.hor_spacer {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  position: relative;
+}
+
+/* HEADER CSS */
+
+.page_container {
+  width: 100vw;
+  height: 90vh;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  background: black;
+  overflow-y: auto;
+}
+
+/* antd adjustment css */
+.ant-table {
+  background-color: gray !important;
+}
+
+th.ant-table-cell {
+  background-color: black !important;
+  color: white !important;
+}
+
+.ant-table-row {
+  height: fit-content;
+}
+
+.ant-table-cell {
+  font: bold 1.12em "Roboto";
+}
+
+.ant-spin-nested-loading {
+  width: 100%;
+  position: absolute;
+}
+
+.ant-pagination {
+  float: left;
+  display: none !important;
+}
+
+.ant-float-btn-primary > div.ant-float-btn-body {
+  background-color: gold !important;
+}
+
+.ant-float-btn-primary {
+  background-color: rgb(0,0,0,0);
+}
+
+.ant-float-btn-icon {
+  color: black !important;
+}

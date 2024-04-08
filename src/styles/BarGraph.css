@@ -1,0 +1,120 @@
+.barItem {
+    flex: 1;
+    height: 70%;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+}
+
+.barGraph {
+    position: relative;
+    width: 70%;
+    height: 70%;
+}
+  
+.barList {
+display: flex;
+align-items: flex-end;
+column-gap: 20px;
+width: 100%;
+height: 100%;
+}
+
+.barsLine {
+position: absolute;
+bottom: 0;
+left: 0;
+width: 100%;
+height: 1px;
+background-color: #505050;
+opacity: 0.5;
+pointer-events: none;
+}
+
+.barDataHolder {
+    height: 100%;
+    display: flex;
+    flex-direction: column-reverse;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+.bar {
+    width: 5vw;
+}
+
+.barLabel {
+  width: 100%;
+  padding-top: 10px;
+  color: #999999;
+  font-size: 12px;
+  line-height: 14px;
+  text-align: center;
+}
+
+.bar .barLabel {
+  color: #2c2c2c;
+}
+
+.lastBar {
+  border-radius: 10px 10px 0 0;
+}
+
+.race_1, .race_2, .race_3 {
+  opacity: .5;
+}
+
+.race_1:hover, .race_2:hover, .race_3:hover {
+  opacity: 1;
+}
+
+.race_1 {
+  background-color: pink;
+}
+
+.race_2 {
+  background-color: green;
+}
+
+.race_3 {
+  background-color: turquoise;
+}
+
+.popoverVod {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+
+.barGraphLegend {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.legendItemHolder {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+
+}
+
+.legendItem1 {
+  height: 20px;
+  width: 20px;
+  background-color: pink;
+}
+
+.legendItem2 {
+  height: 20px;
+  width: 20px;
+  background-color: green;
+}
+
+.legendItem3 {
+  height: 20px;
+  width: 20px;
+  background-color: turquoise;
+}

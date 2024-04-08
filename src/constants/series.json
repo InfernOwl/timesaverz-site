@@ -1,0 +1,373 @@
+{
+    "series" : [{
+        "series_id" : "1",
+        "races" : [{ 
+            "id" : "1",
+            "game_title" : "Wall-E",
+            "run_category" : "NG+",
+            "sr_game_link" : "https://www.speedrun.com/wallepc?h=PC-ng-No_Speedglitch&x=ndxexgvk-p85ree7n.21g52eol-38dp0008.jqz9xvk1",
+            "background_image" : "https://images.alphacoders.com/674/674638.jpg",
+            "game_box_image": "https://howlongtobeat.com/games/WALL-E_Coverart.jpg?width=250",
+            "game_info" : "Based on the 2008 computer animated film from Pixar Animation Studios, the video game version of WALL-E involves playing as the lonely robot as he navigates a trash-tainted world and begins an unlikely trek across the cosmos.",
+            "sweeps_start" : "02/01/2024",
+            "sweeps_end" : "03/28/2024",
+            "sweeps_winner" : "https://i.imgur.com/Nq2wKYP.png",
+            "game_store_link" : {
+                "steam" : "https://store.steampowered.com/app/331750/DisneyPixar_WALLE/",
+                "epic" : "",
+                "playstation" : "",
+                "xbox" : "",
+                "nintendo" : ""
+            },
+            "standings" : {
+                "started" : true,
+                "finished" : true,
+                "runners" : [
+                    {
+                        "name" : "Hoagiepops",
+                        "image" : "",
+                        "race_results" : [
+                            { 
+                                "points" : 1,
+                                "link" : "",
+                                "time" : "DNF"
+                            },
+                            { 
+                                "points" : 2,
+                                "link" : "https://www.twitch.tv/videos/2109551181",
+                                "time" : "1:30:19"
+                            },
+                            { 
+                                "points" : 3,
+                                "link" : "https://www.twitch.tv/videos/2104538451",
+                                "time" : "1:12:50"
+                            }
+                        ]
+                    },
+                    {
+                        "name" : "InfernOwl",
+                        "image" : "",
+                        "race_results" : [
+                            { 
+                                "points" : 3,
+                                "link" : "https://www.twitch.tv/videos/2109536863",
+                                "time" : "1:44:24"
+                            },
+                            { 
+                                "points" : 3,
+                                "link" : "https://www.twitch.tv/videos/2109547551",
+                                "time" : "1:28:58"
+                            },
+                            { 
+                                "points" : 1,
+                                "link" : "https://www.twitch.tv/videos/2061789048?t=0h0m1s",
+                                "time" : "1:25:36"
+                            }
+                        ]
+                    },
+                    {
+                        "name" : "LSJay",
+                        "image" : "",
+                        "race_results" : [
+                            { 
+                                "points" : 2,
+                                "link" : "https://www.twitch.tv/videos/2109549240",
+                                "time" : "1:59:38"
+                            },
+                            { 
+                                "points" : 1,
+                                "link" : "https://www.twitch.tv/videos/2109549930",
+                                "time" : "1:53:42"
+                            },
+                            { 
+                                "points" : 2,
+                                "link" : "https://www.youtube.com/watch?v=5nueZBsG0H0",
+                                "time" : "1:21:24"
+                            }
+                        ]
+                    }
+                ],
+                "top_time" : {
+                    "runner" : "Hoagiepops",
+                    "time" : "1:12:50"
+                }
+            }
+        },
+        {
+            "id" : "2",
+            "game_title" : "Hollow Knight",
+            "run_category" : "All Skills - No Major Glitches",
+            "sr_game_link" : "https://www.speedrun.com/hollowknight?h=All_Skills-no-major-glitches&x=n2y577zk-38dopp1l.81p49wv1",
+            "background_image" : "https://i.pinimg.com/originals/23/2e/1d/232e1d741664caf6068d793f4424f4e8.jpg",
+            "game_box_image" : "https://howlongtobeat.com/games/Hollow_Knight_collection_branding.jpg?width=250",
+            "game_info" : "Forge your own path in Hollow Knight! An epic action adventure through a vast ruined kingdom of insects and heroes. Explore twisting caverns, battle tainted creatures and befriend bizarre bugs, all in a classic, hand-drawn 2D style.",
+            "sweeps_start" : "04/04/2024",
+            "sweeps_end" : "06/27/2024",
+            "sweeps_winner" : "",
+            "game_store_link" : {
+                "steam" : "https://store.steampowered.com/app/367520/Hollow_Knight/",
+                "epic" : "",
+                "playstation" : "https://store.playstation.com/en-us/product/UP1822-CUSA13632_00-HOLLOWKNIGHT18US",
+                "xbox" : "https://www.xbox.com/en-US/games/store/hollow-knight-voidheart-edition/9MW9469V91LM/0010",
+                "nintendo" : "https://www.nintendo.com/us/store/products/hollow-knight-switch/"
+            },
+            "standings" : {
+                "started" : true,
+                "finished" : false,
+                "runners" : [
+                    {
+                        "name" : "Hoagiepops",
+                        "image" : "",
+                        "race_results" : [
+                            { 
+                                "points" : 0,
+                                "link" : "",
+                                "time" : ""
+                            },
+                            { 
+                                "points" : 0,
+                                "link" : "",
+                                "time" : ""
+                            },
+                            { 
+                                "points" : 0,
+                                "link" : "",
+                                "time" : ""
+                            }
+                        ]
+                    },
+                    {
+                        "name" : "InfernOwl",
+                        "image" : "",
+                        "race_results" : [
+                            { 
+                                "points" : 0,
+                                "link" : "",
+                                "time" : ""
+                            },
+                            { 
+                                "points" : 0,
+                                "link" : "",
+                                "time" : ""
+                            },
+                            { 
+                                "points" : 0,
+                                "link" : "",
+                                "time" : ""
+                            }
+                        ]
+                    },
+                    {
+                        "name" : "LSJay",
+                        "image" : "",
+                        "race_results" : [
+                            { 
+                                "points" : 0,
+                                "link" : "",
+                                "time" : ""
+                            },
+                            { 
+                                "points" : 0,
+                                "link" : "",
+                                "time" : ""
+                            },
+                            { 
+                                "points" : 0,
+                                "link" : "",
+                                "time" : ""
+                            }
+                        ]
+                    }
+                ],
+                "top_time" : {
+                    "runner" : "",
+                    "time" : ""
+                }
+            }
+        },
+        { 
+            "id" : "3",
+            "game_title" : "Sonic Adventure 2 Battle",
+            "run_category" : "NG+",
+            "sr_game_link" : "https://www.speedrun.com/wallepc?h=PC-ng-No_Speedglitch&x=ndxexgvk-p85ree7n.21g52eol-38dp0008.jqz9xvk1",
+            "background_image" : "https://preview.redd.it/9aq4wyh0exl21.png?width=640&crop=smart&auto=webp&s=20966b6e190507a31c7bb97a3d006f645c4b19f7",
+            "game_box_image" : "https://howlongtobeat.com/games/2kqxeg.jpg?width=250",
+            "game_info" : "Experience two unique adventures featuring both long-time heroes and new and returning villains as they battle for the fate of the world!",
+            "sweeps_start" : "",
+            "sweeps_end" : "",
+            "sweeps_winner" : "",
+            "game_store_link" : {
+                "steam" : "https://store.steampowered.com/app/213610/Sonic_Adventure_2/",
+                "epic" : "",
+                "playstation" : "",
+                "xbox" : "",
+                "nintendo" : ""
+            },
+            "standings" : {
+                "started" : false,
+                "finished" : false,
+                "runners" : [
+                    {
+                        "name" : "Hoagiepops",
+                        "image" : "",
+                        "race_results" : [
+                            { 
+                                "points" : 0,
+                                "link" : "",
+                                "time" : ""
+                            },
+                            { 
+                                "points" : 0,
+                                "link" : "",
+                                "time" : ""
+                            },
+                            { 
+                                "points" : 0,
+                                "link" : "",
+                                "time" : ""
+                            }
+                        ]
+                    },
+                    {
+                        "name" : "InfernOwl",
+                        "image" : "",
+                        "race_results" : [
+                            { 
+                                "points" : 0,
+                                "link" : "",
+                                "time" : ""
+                            },
+                            { 
+                                "points" : 0,
+                                "link" : "",
+                                "time" : ""
+                            },
+                            { 
+                                "points" : 0,
+                                "link" : "",
+                                "time" : ""
+                            }
+                        ]
+                    },
+                    {
+                        "name" : "LSJay",
+                        "image" : "",
+                        "race_results" : [
+                            { 
+                                "points" : 0,
+                                "link" : "",
+                                "time" : ""
+                            },
+                            { 
+                                "points" : 0,
+                                "link" : "",
+                                "time" : ""
+                            },
+                            { 
+                                "points" : 0,
+                                "link" : "",
+                                "time" : ""
+                            }
+                        ]
+                    }
+                ],
+                "top_time" : {
+                    "runner" : "",
+                    "time" : ""
+                }
+            }
+        },
+        { 
+            "id" : "4",
+            "game_title" : "Hotline Miami 2: Wrong Number",
+            "run_category" : "NG+",
+            "sr_game_link" : "https://www.speedrun.com/wallepc?h=PC-ng-No_Speedglitch&x=ndxexgvk-p85ree7n.21g52eol-38dp0008.jqz9xvk1",
+            "background_image" : "https://howlongtobeat.com/games/HotlineMiami2WrongNumber.jpg",
+            "game_box_image" : "https://howlongtobeat.com/games/HotlineMiami2WrongNumber.jpg?width=250",
+            "game_info" : "Hotline Miami 2: Wrong Number is the brutal conclusion to the Hotline Miami saga, set against a backdrop of escalating violence and retribution over spilled blood in the original game.",
+            "sweeps_start" : "",
+            "sweeps_end" : "",
+            "sweeps_winner" : "",
+            "game_store_link" : {
+                "steam" : "https://store.steampowered.com/app/274170/Hotline_Miami_2_Wrong_Number/",
+                "epic" : "",
+                "playstation" : "",
+                "xbox" : "",
+                "nintendo" : ""
+            },
+            "standings" : {
+                "started" : false,
+                "finished" : false,
+                "runners" : [
+                    {
+                        "name" : "Hoagiepops",
+                        "image" : "",
+                        "race_results" : [
+                            { 
+                                "points" : 0,
+                                "link" : "",
+                                "time" : ""
+                            },
+                            { 
+                                "points" : 0,
+                                "link" : "",
+                                "time" : ""
+                            },
+                            { 
+                                "points" : 0,
+                                "link" : "",
+                                "time" : ""
+                            }
+                        ]
+                    },
+                    {
+                        "name" : "InfernOwl",
+                        "image" : "",
+                        "race_results" : [
+                            { 
+                                "points" : 0,
+                                "link" : "",
+                                "time" : ""
+                            },
+                            { 
+                                "points" : 0,
+                                "link" : "",
+                                "time" : ""
+                            },
+                            { 
+                                "points" : 0,
+                                "link" : "",
+                                "time" : ""
+                            }
+                        ]
+                    },
+                    {
+                        "name" : "LSJay",
+                        "image" : "",
+                        "race_results" : [
+                            { 
+                                "points" : 0,
+                                "link" : "",
+                                "time" : ""
+                            },
+                            { 
+                                "points" : 0,
+                                "link" : "",
+                                "time" : ""
+                            },
+                            { 
+                                "points" : 0,
+                                "link" : "",
+                                "time" : ""
+                            }
+                        ]
+                    }
+                ],
+                "top_time" : {
+                    "runner" : "",
+                    "time" : ""
+                }
+            }
+        }]
+    }]
+}

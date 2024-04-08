@@ -1,0 +1,9 @@
+.footer {
+    color: slategray;
+    font: 8px Serif;
+    float: right;
+    text-align: right;
+    position: absolute;
+    right: 20px;
+    bottom: 5px;
+}

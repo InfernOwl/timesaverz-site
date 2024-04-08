@@ -1,0 +1,286 @@
+/* SERIES CONTAINER CSS */
+
+.series_container {
+    background-color: grey;
+    width: 95%;
+    height: 95%;
+    margin: auto;
+    display: flex;
+  }
+  
+  /* RACE CONTAINER CSS */
+  .race_container.race_focus {
+    max-width: unset;
+    height: 100%;
+    width: 100%;
+    transition: width .3s ease-in-out;
+    overflow: hidden;
+  }
+  
+  .race_container {
+    width: 10%;
+    height: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    transition: width .5s ease-in-out;
+    position: relative;
+  }
+  
+  .race_container::before {
+    content: " ";
+    background-image: var(--background-image);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    opacity: .5;
+  }
+  
+  .race_container.race_focus::before {
+    content: " ";
+    background-image: var(--background-image);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+    transition: opacity 1s ease-in-out;
+  }
+  
+  .race_container:hover {
+    background-color: white;
+  }
+  
+  .race_container > .ph_title,.race_title,.race_category,.parallaxScroll{
+    opacity: 0;
+    transition: opacity .2s ease-in-out;
+    pointer-events: none;
+  }
+  
+  .race_category {
+    padding-bottom: 3%
+  }
+  
+  .race_container.race_focus > div {
+    opacity: 1;
+    transition: opacity .7s ease-in-out .3s;
+    pointer-events: all;
+  }
+  
+  .race_title {
+    font-family: "Madimi One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 5vw;
+    color: cornsilk;
+    text-shadow: 3px 3px 2px black;
+    text-align: center;
+    text-wrap: wrap;
+    width: 95%;
+    height: 10%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+    position: relative;
+    pointer-events: none;
+    writing-mode: unset;
+    text-orientation: unset;
+  }
+  
+  .race_category {
+    font-family: "Madimi One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 4vw;
+    color: cornsilk;
+    text-shadow: 3px 3px 2px black;
+    text-align: center;
+    text-wrap: wrap;
+    width: 95%;
+    height: 10%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+    position: relative;
+    pointer-events: none;
+    writing-mode: unset;
+    text-orientation: unset;
+  }
+  
+  
+  /* Title for Placeholder Race Text*/
+  .ph_title {
+    font-family: "Madimi One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 4vw;
+    color: cornsilk;
+    text-shadow: 3px 3px 2px black;
+    text-align: center;
+    text-wrap: wrap;
+    width: 95%;
+    height: 10%;
+    margin: auto;
+    position: relative;
+    pointer-events: none;
+    writing-mode: unset;
+    text-orientation: unset;
+  }
+  
+  .race_container.race_focus > .race_vert_title {
+    opacity: 0;
+    transition: opacity .2s ease-in-out;
+  }
+  
+  .race_container > .race_vert_title {
+    font-family: "Madimi One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 3vw;
+    color: cornsilk;
+    text-shadow: 3px 3px 2px black;
+    text-align: center;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    width: 100%;
+    height: 100%;
+    margin-left: 20%;
+    position: absolute;
+    pointer-events: none;
+    transform: rotate(180deg);
+    opacity: 1;
+    transition: opacity .2s ease-in-out;
+  }
+  
+  .standings_container {
+    width: 45%;
+    height: 90%;
+    margin: auto;
+  }
+  
+  .standings_container::-webkit-scrollbar {
+    width: 0;
+  }
+  
+  .standings_container, .hor_spacer {
+    pointer-events: none;
+  }
+  
+  .race_container > .parallaxScroll > .hor_spacer > .standings_container,.gameSynopsis,.vert_spacer {
+    pointer-events: none;
+  }
+  
+  .race_container.race_focus > .parallaxScroll > .gameSynopsis {
+    margin: auto;
+    position: relative;
+    pointer-events: all;
+  }
+  
+  .race_container.race_focus > .parallaxScroll > .hor_spacer {
+    pointer-events: all;
+  }
+  
+  .race_container.race_focus > .parallaxScroll > .hor_spacer > .standings_container,.vert_spacer {
+    width: 70%;
+    height: 90%;
+    margin: auto;
+    position: relative;
+    pointer-events: all;
+    overflow-x: auto;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .bronzePlace {
+    color: #873e23 !important;
+  }
+  
+  .silverPlace {
+    color: #b7d0cc !important;
+  }
+  
+  .goldPlace {
+    color: #efe702 !important;
+  }
+  
+  .popoverLinks {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+  }
+  
+  .vert_spacer {
+    width: 25%;
+    height: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    position: relative;
+    margin: auto;
+    z-index: 2;
+  }
+  
+  .vert_spacer > a,button.pageButton {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    background: blue;
+    background-color: gray !important;
+  }
+  
+  .vert_spacer > a:hover.pageButton, button:hover.pageButton {
+    color:#efe702 !important;
+  }
+  
+  .pageButton {
+    height: 40%;
+    width: 100% !important;
+    margin: auto;
+  }
+  
+  .parallaxScroll {
+    height: 100%;
+    width: 100%;
+    overflow-y: scroll;
+    padding-right: 17%;
+    box-sizing: content-box;
+    z-index: 1;
+  }
+  
+  .parallaxSpacer {
+    height: 50%;
+  }
+  
+  .gameSynopsis {
+    width: 90%;
+    font: bold 2.2vw Verdana;
+    font-weight: 900;
+    color: blanchedalmond;
+    -webkit-text-stroke-color: black;
+    -webkit-text-stroke-width: .5px;
+    position: relative;
+    margin: auto;
+  }
+  
+  .boardItem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .boardButton {
+    margin-left: 10px;
+    margin-right: 10px;
+  }

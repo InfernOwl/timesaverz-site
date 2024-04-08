@@ -1,0 +1,54 @@
+{
+    "runners" : [
+        {
+            "name": "Hoagiepops",
+            "about": "I'm here to get you rats stat",
+            "image": "https://static-cdn.jtvnw.net/jtv_user_pictures/ef2b1be8-ea0a-4eca-9942-daad0bb50828-profile_image-70x70.jpg",
+            "links": [
+                {
+                    "twitter": "https://twitter.com/hoagiepops",
+                    "twitch": "https://www.twitch.tv/hoagiepops",
+                    "instagram": "",
+                    "TikTok": "",
+                    "Youtube": "https://www.youtube.com/@hoagiepops",
+                    "ko-fi": ""
+                }
+            ]
+        },
+        {
+            "name": "InfernOwl",
+            "about": "Name's InfernOwl and I'm just some dude so feel free to hang out!",
+            "image": "https://static-cdn.jtvnw.net/jtv_user_pictures/eea39019-4c31-41b6-b4f4-9873bcc00531-profile_image-70x70.png",
+            "links": [
+                {
+                    "twitter": "https://twitter.com/theinfernowl",
+                    "twitch": "https://www.twitch.tv/infernowl",
+                    "instagram": "",
+                    "TikTok": "https://www.tiktok.com/@infernowl",
+                    "Youtube": "https://www.youtube.com/@InfernOwl",
+                    "ko-fi": ""
+                }
+            ]
+        },
+        {
+            "name": "LSJay",
+            "about": "Speedrun some random stuff and play some wack games, you know the vibes",
+            "image": "https://static-cdn.jtvnw.net/jtv_user_pictures/21b267e1-c810-4034-81ed-ed3e21cc0459-profile_image-70x70.png",
+            "links": [
+                {
+                    "twitter": "https://twitter.com/LSJay_",
+                    "twitch": "https://www.twitch.tv/lsjay",
+                    "instagram": "",
+                    "TikTok": "",
+                    "Youtube": "https://www.youtube.com/@lsjay72",
+                    "ko-fi": ""
+                }
+            ]
+        }
+    ],
+    "game" : {
+        "name": "Hollow Knight",
+        "category": "All Skills - No Major Glitches",
+        "image": "https://howlongtobeat.com/games/Hollow_Knight_collection_branding.jpg?width=250"
+    }
+}
