@@ -1,0 +1,6 @@
+{
+  "AppSyncApiName": "timesaverzsite",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthModeLastUpdated": "2024-04-20T16:11:07.429Z"
+}

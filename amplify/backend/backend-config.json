@@ -1,0 +1,22 @@
+{
+  "api": {
+    "timesaverzsite": {
+      "dependsOn": [],
+      "output": {
+        "authConfig": {
+          "additionalAuthenticationProviders": [],
+          "defaultAuthentication": {
+            "apiKeyConfig": {
+              "apiKeyExpirationDate": "2025-04-20T16:11:03.682Z",
+              "apiKeyExpirationDays": 365,
+              "description": "graphql key for timesaverz"
+            },
+            "authenticationType": "API_KEY"
+          }
+        }
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "AppSync"
+    }
+  }
+}
