@@ -6,14 +6,16 @@
 
 /* eslint-disable */
 import * as React from "react";
-import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
+import { Button, Flex, Grid, SwitchField } from "@aws-amplify/ui-react";
 import { fetchByPath, getOverrideProps, validateField } from "./utils";
 import { generateClient } from "aws-amplify/api";
-import { createTodo } from "../graphql/mutations";
+import { getStandings } from "../graphql/queries";
+import { updateStandings } from "../graphql/mutations";
 const client = generateClient();
-export default function TodoCreateForm(props) {
+export default function StandingsUpdateForm(props) {
   const {
-    clearOnSuccess = true,
+    id: idProp,
+    standings: standingsModelProp,
     onSuccess,
     onError,
     onSubmit,
@@ -23,18 +25,40 @@ export default function TodoCreateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    Description: "",
+    started: false,
+    finished: false,
   };
-  const [Description, setDescription] = React.useState(
-    initialValues.Description
-  );
+  const [started, setStarted] = React.useState(initialValues.started);
+  const [finished, setFinished] = React.useState(initialValues.finished);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    setDescription(initialValues.Description);
+    const cleanValues = standingsRecord
+      ? { ...initialValues, ...standingsRecord }
+      : initialValues;
+    setStarted(cleanValues.started);
+    setFinished(cleanValues.finished);
     setErrors({});
   };
+  const [standingsRecord, setStandingsRecord] =
+    React.useState(standingsModelProp);
+  React.useEffect(() => {
+    const queryData = async () => {
+      const record = idProp
+        ? (
+            await client.graphql({
+              query: getStandings.replaceAll("__typename", ""),
+              variables: { id: idProp },
+            })
+          )?.data?.getStandings
+        : standingsModelProp;
+      setStandingsRecord(record);
+    };
+    queryData();
+  }, [idProp, standingsModelProp]);
+  React.useEffect(resetStateValues, [standingsRecord]);
   const validations = {
-    Description: [],
+    started: [],
+    finished: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -62,7 +86,8 @@ export default function TodoCreateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          Description,
+          started: started ?? null,
+          finished: finished ?? null,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -93,18 +118,16 @@ export default function TodoCreateForm(props) {
             }
           });
           await client.graphql({
-            query: createTodo.replaceAll("__typename", ""),
+            query: updateStandings.replaceAll("__typename", ""),
             variables: {
               input: {
+                id: standingsRecord.id,
                 ...modelFields,
               },
             },
           });
           if (onSuccess) {
             onSuccess(modelFields);
-          }
-          if (clearOnSuccess) {
-            resetStateValues();
           }
         } catch (err) {
           if (onError) {
@@ -113,45 +136,72 @@ export default function TodoCreateForm(props) {
           }
         }
       }}
-      {...getOverrideProps(overrides, "TodoCreateForm")}
+      {...getOverrideProps(overrides, "StandingsUpdateForm")}
       {...rest}
     >
-      <TextField
-        label="Description"
-        isRequired={false}
-        isReadOnly={false}
-        value={Description}
+      <SwitchField
+        label="Started"
+        defaultChecked={false}
+        isDisabled={false}
+        isChecked={started}
         onChange={(e) => {
-          let { value } = e.target;
+          let value = e.target.checked;
           if (onChange) {
             const modelFields = {
-              Description: value,
+              started: value,
+              finished,
             };
             const result = onChange(modelFields);
-            value = result?.Description ?? value;
+            value = result?.started ?? value;
           }
-          if (errors.Description?.hasError) {
-            runValidationTasks("Description", value);
+          if (errors.started?.hasError) {
+            runValidationTasks("started", value);
           }
-          setDescription(value);
+          setStarted(value);
         }}
-        onBlur={() => runValidationTasks("Description", Description)}
-        errorMessage={errors.Description?.errorMessage}
-        hasError={errors.Description?.hasError}
-        {...getOverrideProps(overrides, "Description")}
-      ></TextField>
+        onBlur={() => runValidationTasks("started", started)}
+        errorMessage={errors.started?.errorMessage}
+        hasError={errors.started?.hasError}
+        {...getOverrideProps(overrides, "started")}
+      ></SwitchField>
+      <SwitchField
+        label="Finished"
+        defaultChecked={false}
+        isDisabled={false}
+        isChecked={finished}
+        onChange={(e) => {
+          let value = e.target.checked;
+          if (onChange) {
+            const modelFields = {
+              started,
+              finished: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.finished ?? value;
+          }
+          if (errors.finished?.hasError) {
+            runValidationTasks("finished", value);
+          }
+          setFinished(value);
+        }}
+        onBlur={() => runValidationTasks("finished", finished)}
+        errorMessage={errors.finished?.errorMessage}
+        hasError={errors.finished?.hasError}
+        {...getOverrideProps(overrides, "finished")}
+      ></SwitchField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}
       >
         <Button
-          children="Clear"
+          children="Reset"
           type="reset"
           onClick={(event) => {
             event.preventDefault();
             resetStateValues();
           }}
-          {...getOverrideProps(overrides, "ClearButton")}
+          isDisabled={!(idProp || standingsModelProp)}
+          {...getOverrideProps(overrides, "ResetButton")}
         ></Button>
         <Flex
           gap="15px"
@@ -161,7 +211,10 @@ export default function TodoCreateForm(props) {
             children="Submit"
             type="submit"
             variation="primary"
-            isDisabled={Object.values(errors).some((e) => e?.hasError)}
+            isDisabled={
+              !(idProp || standingsModelProp) ||
+              Object.values(errors).some((e) => e?.hasError)
+            }
             {...getOverrideProps(overrides, "SubmitButton")}
           ></Button>
         </Flex>

@@ -2,31 +2,34 @@ import React from "react";
 import { Image, Form, Input, Button } from "antd";
 import '../styles/Home.css';
 import aboutJSON from '../constants/about.json';
-import { Suggestion } from "../models";
-import { DataStore } from "aws-amplify/datastore";
 import { useState } from "react";
 
+import { generateClient } from "aws-amplify/api";
+import { createSuggestions } from "../graphql/mutations";
+import { Amplify } from 'aws-amplify';
+
+Amplify.configure({
+    API: {
+      GraphQL: {
+        endpoint:
+          'https://fy4sxlzjtvc6xl7zoosikmr63m.appsync-api.us-east-2.amazonaws.com/graphql',
+        defaultAuthMode: 'apiKey'
+      }
+    }
+})
 
 const { TextArea } = Input;
+const client = generateClient();
+
 
 const onFinish = () => {
+    alert("This form has been submitted");
 
-}
-
-const onSubmit = (suggest: String) => {
-    try {
-        const post = DataStore.save(
-          new Suggestion({
-            suggestion: `${suggest}`
-          })
-        );
-        console.log('Post saved successfully!', post);
-      } catch (error) {
-        console.log('Error saving post', error);
-      }
 }
 
 const Main = () => {
+
+    
 
     const [state, setState] = useState({
         suggestion: "",
@@ -39,6 +42,27 @@ const Main = () => {
             suggestion: value
         })
     }
+
+    const onSubmit = async (suggest: string) => {
+        
+        try {
+            const newSuggestions = await client.graphql({
+                query: createSuggestions,
+                variables: {
+                    input: {
+                    "suggestion": suggest
+                }
+                }
+            });
+
+            console.log('Post saved successfully!', newSuggestions);
+
+          } catch (error) {
+            console.log('Error saving post', error);
+          }
+    }
+
+    
 
     // TODO: Succesfully update remote graphql database
     //          Add input field clear onFinish of form
@@ -68,7 +92,8 @@ const Main = () => {
                       layout="horizontal"
                       name="sweepsForm"
                       style={{ margin: "auto", paddingTop: '5%', width: '90%', color: 'white'}}
-                      initialValues={{remember: true}}>
+                      initialValues={{remember: true}}
+                      onFinish={onFinish}>
                         <Form.Item className="formLabel">
                             <TextArea rows={4} name="suggestionBox" value={state.suggestion} onChange={changeState}/>
                         </Form.Item>

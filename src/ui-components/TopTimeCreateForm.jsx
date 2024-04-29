@@ -9,13 +9,11 @@ import * as React from "react";
 import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
 import { fetchByPath, getOverrideProps, validateField } from "./utils";
 import { generateClient } from "aws-amplify/api";
-import { getTodo } from "../graphql/queries";
-import { updateTodo } from "../graphql/mutations";
+import { createTopTime } from "../graphql/mutations";
 const client = generateClient();
-export default function TodoUpdateForm(props) {
+export default function TopTimeCreateForm(props) {
   const {
-    id: idProp,
-    todo: todoModelProp,
+    clearOnSuccess = true,
     onSuccess,
     onError,
     onSubmit,
@@ -25,37 +23,20 @@ export default function TodoUpdateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    Description: "",
+    runner: "",
+    time: "",
   };
-  const [Description, setDescription] = React.useState(
-    initialValues.Description
-  );
+  const [runner, setRunner] = React.useState(initialValues.runner);
+  const [time, setTime] = React.useState(initialValues.time);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    const cleanValues = todoRecord
-      ? { ...initialValues, ...todoRecord }
-      : initialValues;
-    setDescription(cleanValues.Description);
+    setRunner(initialValues.runner);
+    setTime(initialValues.time);
     setErrors({});
   };
-  const [todoRecord, setTodoRecord] = React.useState(todoModelProp);
-  React.useEffect(() => {
-    const queryData = async () => {
-      const record = idProp
-        ? (
-            await client.graphql({
-              query: getTodo.replaceAll("__typename", ""),
-              variables: { id: idProp },
-            })
-          )?.data?.getTodo
-        : todoModelProp;
-      setTodoRecord(record);
-    };
-    queryData();
-  }, [idProp, todoModelProp]);
-  React.useEffect(resetStateValues, [todoRecord]);
   const validations = {
-    Description: [],
+    runner: [],
+    time: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -83,7 +64,8 @@ export default function TodoUpdateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          Description: Description ?? null,
+          runner,
+          time,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -114,16 +96,18 @@ export default function TodoUpdateForm(props) {
             }
           });
           await client.graphql({
-            query: updateTodo.replaceAll("__typename", ""),
+            query: createTopTime.replaceAll("__typename", ""),
             variables: {
               input: {
-                id: todoRecord.id,
                 ...modelFields,
               },
             },
           });
           if (onSuccess) {
             onSuccess(modelFields);
+          }
+          if (clearOnSuccess) {
+            resetStateValues();
           }
         } catch (err) {
           if (onError) {
@@ -132,46 +116,71 @@ export default function TodoUpdateForm(props) {
           }
         }
       }}
-      {...getOverrideProps(overrides, "TodoUpdateForm")}
+      {...getOverrideProps(overrides, "TopTimeCreateForm")}
       {...rest}
     >
       <TextField
-        label="Description"
+        label="Runner"
         isRequired={false}
         isReadOnly={false}
-        value={Description}
+        value={runner}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              Description: value,
+              runner: value,
+              time,
             };
             const result = onChange(modelFields);
-            value = result?.Description ?? value;
+            value = result?.runner ?? value;
           }
-          if (errors.Description?.hasError) {
-            runValidationTasks("Description", value);
+          if (errors.runner?.hasError) {
+            runValidationTasks("runner", value);
           }
-          setDescription(value);
+          setRunner(value);
         }}
-        onBlur={() => runValidationTasks("Description", Description)}
-        errorMessage={errors.Description?.errorMessage}
-        hasError={errors.Description?.hasError}
-        {...getOverrideProps(overrides, "Description")}
+        onBlur={() => runValidationTasks("runner", runner)}
+        errorMessage={errors.runner?.errorMessage}
+        hasError={errors.runner?.hasError}
+        {...getOverrideProps(overrides, "runner")}
+      ></TextField>
+      <TextField
+        label="Time"
+        isRequired={false}
+        isReadOnly={false}
+        value={time}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              runner,
+              time: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.time ?? value;
+          }
+          if (errors.time?.hasError) {
+            runValidationTasks("time", value);
+          }
+          setTime(value);
+        }}
+        onBlur={() => runValidationTasks("time", time)}
+        errorMessage={errors.time?.errorMessage}
+        hasError={errors.time?.hasError}
+        {...getOverrideProps(overrides, "time")}
       ></TextField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}
       >
         <Button
-          children="Reset"
+          children="Clear"
           type="reset"
           onClick={(event) => {
             event.preventDefault();
             resetStateValues();
           }}
-          isDisabled={!(idProp || todoModelProp)}
-          {...getOverrideProps(overrides, "ResetButton")}
+          {...getOverrideProps(overrides, "ClearButton")}
         ></Button>
         <Flex
           gap="15px"
@@ -181,10 +190,7 @@ export default function TodoUpdateForm(props) {
             children="Submit"
             type="submit"
             variation="primary"
-            isDisabled={
-              !(idProp || todoModelProp) ||
-              Object.values(errors).some((e) => e?.hasError)
-            }
+            isDisabled={Object.values(errors).some((e) => e?.hasError)}
             {...getOverrideProps(overrides, "SubmitButton")}
           ></Button>
         </Flex>

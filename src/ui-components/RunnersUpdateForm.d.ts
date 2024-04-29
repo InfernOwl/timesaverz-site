@@ -6,7 +6,7 @@
 
 import * as React from "react";
 import { GridProps, TextFieldProps } from "@aws-amplify/ui-react";
-import { Todo } from "../API.ts";
+import { Runners } from "../API.ts";
 export declare type EscapeHatchProps = {
     [elementHierarchy: string]: Record<string, unknown>;
 } | null;
@@ -22,26 +22,29 @@ export declare type ValidationResponse = {
     errorMessage?: string;
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
-export declare type TodoUpdateFormInputValues = {
-    Description?: string;
+export declare type RunnersUpdateFormInputValues = {
+    name?: string;
+    image?: string;
 };
-export declare type TodoUpdateFormValidationValues = {
-    Description?: ValidationFunction<string>;
+export declare type RunnersUpdateFormValidationValues = {
+    name?: ValidationFunction<string>;
+    image?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
-export declare type TodoUpdateFormOverridesProps = {
-    TodoUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
-    Description?: PrimitiveOverrideProps<TextFieldProps>;
+export declare type RunnersUpdateFormOverridesProps = {
+    RunnersUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
+    name?: PrimitiveOverrideProps<TextFieldProps>;
+    image?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
-export declare type TodoUpdateFormProps = React.PropsWithChildren<{
-    overrides?: TodoUpdateFormOverridesProps | undefined | null;
+export declare type RunnersUpdateFormProps = React.PropsWithChildren<{
+    overrides?: RunnersUpdateFormOverridesProps | undefined | null;
 } & {
     id?: string;
-    todo?: Todo;
-    onSubmit?: (fields: TodoUpdateFormInputValues) => TodoUpdateFormInputValues;
-    onSuccess?: (fields: TodoUpdateFormInputValues) => void;
-    onError?: (fields: TodoUpdateFormInputValues, errorMessage: string) => void;
-    onChange?: (fields: TodoUpdateFormInputValues) => TodoUpdateFormInputValues;
-    onValidate?: TodoUpdateFormValidationValues;
+    runners?: Runners;
+    onSubmit?: (fields: RunnersUpdateFormInputValues) => RunnersUpdateFormInputValues;
+    onSuccess?: (fields: RunnersUpdateFormInputValues) => void;
+    onError?: (fields: RunnersUpdateFormInputValues, errorMessage: string) => void;
+    onChange?: (fields: RunnersUpdateFormInputValues) => RunnersUpdateFormInputValues;
+    onValidate?: RunnersUpdateFormValidationValues;
 } & React.CSSProperties>;
-export default function TodoUpdateForm(props: TodoUpdateFormProps): React.ReactElement;
+export default function RunnersUpdateForm(props: RunnersUpdateFormProps): React.ReactElement;
