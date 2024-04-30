@@ -88,8 +88,8 @@ type SweepstakesEntry @model @auth(rules: [{allow: public}]) {
   email: String!
   game: String!
   steam_id: String!
-  speedrun_link: AWSURL!
-  screenshot: AWSURL!
+  speedrun_link: String!
+  screenshot: String
 }
 
 type Placeholder @model @auth(rules: [{allow: public}]) {

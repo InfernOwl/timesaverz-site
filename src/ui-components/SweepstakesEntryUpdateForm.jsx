@@ -76,8 +76,8 @@ export default function SweepstakesEntryUpdateForm(props) {
     email: [{ type: "Required" }],
     game: [{ type: "Required" }],
     steam_id: [{ type: "Required" }],
-    speedrun_link: [{ type: "Required" }, { type: "URL" }],
-    screenshot: [{ type: "Required" }, { type: "URL" }],
+    speedrun_link: [{ type: "Required" }],
+    screenshot: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -110,7 +110,7 @@ export default function SweepstakesEntryUpdateForm(props) {
           game,
           steam_id,
           speedrun_link,
-          screenshot,
+          screenshot: screenshot ?? null,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -309,7 +309,7 @@ export default function SweepstakesEntryUpdateForm(props) {
       ></TextField>
       <TextField
         label="Screenshot"
-        isRequired={true}
+        isRequired={false}
         isReadOnly={false}
         value={screenshot}
         onChange={(e) => {

@@ -23,6 +23,15 @@
       "StackName": "amplify-timesaverzsite-dev-d5a43",
       "StackId": "arn:aws:cloudformation:us-east-2:534823548223:stack/amplify-timesaverzsite-dev-d5a43/072efb70-03dd-11ef-80f9-0227561c2a79",
       "AmplifyAppId": "dk8gtj1pvs0bg"
+    },
+    "categories": {
+      "auth": {
+        "timesaverzsited1ef90be": {},
+        "timesaverzsite": {}
+      },
+      "storage": {
+        "s3timesaverzsweepsstorage": {}
+      }
     }
   }
 }

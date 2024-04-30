@@ -6,17 +6,26 @@ import type { UploadProps } from "antd";
 import { Button, Form, Input, TreeSelect, Upload, message  } from "antd";
 import seriesJSON from '../constants/series.json';
 
+import { generateClient } from "aws-amplify/api";
+import { createSuggestions, createSweepstakesEntry, updateSweepstakesEntry } from "../graphql/mutations";
+import { getUrl, uploadData } from "aws-amplify/storage";
+
+const client = generateClient();
+var file: any;
+
 
 const { Dragger } = Upload;
 
 const props: UploadProps = {
   name: 'file',
-  multiple: true,
+  multiple: false,
+  maxCount: 1,
   action: 'https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188',
   onChange(info) {
     const { status } = info.file;
     if (status !== 'uploading') {
       console.log(info.file, info.fileList);
+      file = info.file;
     }
     if (status === 'done') {
       message.success(`${info.file.name} file uploaded successfully.`);
@@ -32,13 +41,37 @@ const props: UploadProps = {
 
 const Sweepstakes = () => {
 
-    const [value, setValue] = useState<string>();    
+    const [form] = Form.useForm();
+    const [stateName, setStateName] = useState<string>("");    
+    const [stateEmail, setStateEmail] = useState<string>("");    
+    const [stateGame, setStateGame] = useState<string>("");    
+    const [stateSteam, setStateSteam] = useState<string>("");    
+    const [stateSpeedrunLink, setStateSpeedrunLink] = useState<string>("");
+
     var datesSet: boolean = false;
     var startDate: string = "";
     var endDate: string = "";
 
-    const onChange = (newValue: string) => {
-        setValue(newValue);
+    const onChangeName = (e: any) => {
+        
+        setStateName(e.target.value);
+    };
+
+    const onChangeEmail = (e: any) => {
+        setStateEmail(e.target.value);
+    };
+
+    const onChangeGame = (e: any) => {
+        console.log(e);
+        setStateGame(e);
+    };
+    
+    const onChangeSteam = (e: any) => {
+        setStateSteam(e.target.value);
+    };
+
+    const onChangeSpeedrunLink = (e: any) => {
+        setStateSpeedrunLink(e.target.value);
     };
 
     const normFile = (e: any) => {
@@ -65,7 +98,6 @@ const Sweepstakes = () => {
                     if (!k.standings.finished) {
 
                         if (!datesSet) {
-                            console.log(k);
                             startDate = k.sweeps_start;
                             endDate = k.sweeps_end;
                             datesSet = true;
@@ -96,9 +128,75 @@ const Sweepstakes = () => {
             treeDataArray.push(currentSeries[0]);
         })
 
-        console.log(treeDataArray);
         return treeDataArray;
     }
+
+    const onSubmit = async () => {    
+        
+        const sweepsEntryDetails = {
+            "name": stateName,
+            "email": stateEmail,
+            "game": stateGame,
+            "steam_id": stateSteam,
+            "speedrun_link": stateSpeedrunLink
+        }
+        
+
+        // Create the sweepstakes entry without a screenshot
+        console.log(sweepsEntryDetails);
+        try {
+            const newSweepsEntry = await client.graphql({
+                query: createSweepstakesEntry,
+                variables: {input: sweepsEntryDetails}
+            });
+
+            const sweepsEntry = newSweepsEntry.data.createSweepstakesEntry;
+
+            if (!sweepsEntry) return;
+
+            // Upload the screenshot in question
+            const result = await uploadData({
+                key: `${sweepsEntry.name}-${file.name}`,
+                data: file,
+                options: {
+                    contentType: file.type
+                }
+            }).result
+
+
+            // Add the file association to the afforementioned record
+            const updateSweepsDetails = {
+                id: sweepsEntry.id,
+                screenshot: result?.key
+            }
+
+            const updatedResponse = await client.graphql({
+                query: updateSweepstakesEntry,
+                variables: {input: updateSweepsDetails}
+            })
+
+            const updatedSweeps = updatedResponse.data.updateSweepstakesEntry
+
+            // If the record has no associated screenshot, return early
+            if (!updatedSweeps.screenshot) return;
+
+            console.log('Post saved successfully!', newSweepsEntry);
+            
+        } catch (error) {
+            console.log('Error saving post', error);
+        }
+        
+
+        // Reset form fields
+        form.resetFields();
+        
+    }
+
+    // TODO:
+    // Add form validation for sweepsForm
+    // Email as email
+    // Speedrun link as html
+    // Upload as png or jpeg
 
     return (
         <>
@@ -124,6 +222,7 @@ const Sweepstakes = () => {
                 </div>
                 <div className="sweepsForm">
                     <Form
+                    form={form}
                     labelCol={{offset: 2}}
                     labelAlign="left"
                     layout="horizontal"
@@ -131,25 +230,25 @@ const Sweepstakes = () => {
                     style={{ margin: "auto", paddingTop: '5%', width: '90%', color: 'white'}}
                     initialValues={{remember: true}}>
                         <Form.Item label="Name">
-                            <Input placeholder="Full Name"/>
+                            <Input placeholder="Full Name" value={stateName} onChange={onChangeName}/>
                         </Form.Item>
                         <Form.Item label="Email">
-                            <Input placeholder="Email Address"/>
+                            <Input placeholder="Email Address" value={stateEmail} onChange={onChangeEmail}/>
                         </Form.Item>
                         <Form.Item label="Game">
                             <TreeSelect showSearch 
-                              value={value}
+                              value={stateGame}
                               dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
                               placeholder="Please Select Game"
-                              onChange={onChange}
+                              onChange={onChangeGame}
                               treeData={seriesGamesSort()} />
                         </Form.Item>
                         <Form.Item label="SteamID">
-                            <Input placeholder="Steam Username"/>
+                            <Input placeholder="Steam Username" value={stateSteam} onChange={onChangeSteam}/>
                         </Form.Item>
 
                         <Form.Item label="Speedrun.com Link">
-                            <Input placeholder="Link to Speedrun.com Submission"/>
+                            <Input placeholder="Link to Speedrun.com Submission" value={stateSpeedrunLink} onChange={onChangeSpeedrunLink}/>
                         </Form.Item>
                         <Form.Item label="Upload" valuePropName="fileList" getValueFromEvent={normFile}>
                         <Dragger {...props}>
@@ -162,7 +261,7 @@ const Sweepstakes = () => {
                         </Form.Item>
 
                         <Form.Item>
-                            <Button type="primary" name="Submit">Submit</Button>
+                            <Button type="primary" name="Submit"  onClick={onSubmit}>Submit</Button>
                         </Form.Item>
                     </Form>
                 </div>
