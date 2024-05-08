@@ -132,11 +132,6 @@ const Sweepstakes = () => {
         })
     }
 
-    // TODO:
-    // Add form validation for sweepsForm
-    // Email as email
-    // Speedrun link as html
-
     return (
         <>
             <div className="hor_spacer sweeps">
