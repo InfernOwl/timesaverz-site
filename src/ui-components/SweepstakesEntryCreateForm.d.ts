@@ -27,7 +27,6 @@ export declare type SweepstakesEntryCreateFormInputValues = {
     game?: string;
     steam_id?: string;
     speedrun_link?: string;
-    screenshot?: string;
 };
 export declare type SweepstakesEntryCreateFormValidationValues = {
     name?: ValidationFunction<string>;
@@ -35,7 +34,6 @@ export declare type SweepstakesEntryCreateFormValidationValues = {
     game?: ValidationFunction<string>;
     steam_id?: ValidationFunction<string>;
     speedrun_link?: ValidationFunction<string>;
-    screenshot?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type SweepstakesEntryCreateFormOverridesProps = {
@@ -45,7 +43,6 @@ export declare type SweepstakesEntryCreateFormOverridesProps = {
     game?: PrimitiveOverrideProps<TextFieldProps>;
     steam_id?: PrimitiveOverrideProps<TextFieldProps>;
     speedrun_link?: PrimitiveOverrideProps<TextFieldProps>;
-    screenshot?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type SweepstakesEntryCreateFormProps = React.PropsWithChildren<{
     overrides?: SweepstakesEntryCreateFormOverridesProps | undefined | null;

@@ -541,7 +541,6 @@ export const getSweepstakesEntry = /* GraphQL */ `query GetSweepstakesEntry($id:
     game
     steam_id
     speedrun_link
-    screenshot
     createdAt
     updatedAt
     __typename
@@ -568,7 +567,6 @@ export const listSweepstakesEntries = /* GraphQL */ `query ListSweepstakesEntrie
       game
       steam_id
       speedrun_link
-      screenshot
       createdAt
       updatedAt
       __typename

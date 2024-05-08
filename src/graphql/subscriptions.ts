@@ -756,7 +756,6 @@ export const onCreateSweepstakesEntry = /* GraphQL */ `subscription OnCreateSwee
     game
     steam_id
     speedrun_link
-    screenshot
     createdAt
     updatedAt
     __typename
@@ -776,7 +775,6 @@ export const onUpdateSweepstakesEntry = /* GraphQL */ `subscription OnUpdateSwee
     game
     steam_id
     speedrun_link
-    screenshot
     createdAt
     updatedAt
     __typename
@@ -796,7 +794,6 @@ export const onDeleteSweepstakesEntry = /* GraphQL */ `subscription OnDeleteSwee
     game
     steam_id
     speedrun_link
-    screenshot
     createdAt
     updatedAt
     __typename

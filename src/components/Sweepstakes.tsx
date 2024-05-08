@@ -1,43 +1,21 @@
 import React from "react";
 import '../styles/Sweeps.css';
 import { useState } from "react";
-import { InboxOutlined } from "@ant-design/icons";
-import type { UploadProps } from "antd";
-import { Button, Form, Input, TreeSelect, Upload, message  } from "antd";
+import { Button, Form, Input, TreeSelect  } from "antd";
 import seriesJSON from '../constants/series.json';
 
 import { generateClient } from "aws-amplify/api";
-import { createSuggestions, createSweepstakesEntry, updateSweepstakesEntry } from "../graphql/mutations";
-import { getUrl, uploadData } from "aws-amplify/storage";
+import { createSweepstakesEntry} from "../graphql/mutations";
+
+type FieldType = {
+    name?: string;
+    email?: string;
+    game?: string;
+    steamID?: string;
+    speedrunLink?: string;
+}
 
 const client = generateClient();
-var file: any;
-
-
-const { Dragger } = Upload;
-
-const props: UploadProps = {
-  name: 'file',
-  multiple: false,
-  maxCount: 1,
-  action: 'https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188',
-  onChange(info) {
-    const { status } = info.file;
-    if (status !== 'uploading') {
-      console.log(info.file, info.fileList);
-      file = info.file;
-    }
-    if (status === 'done') {
-      message.success(`${info.file.name} file uploaded successfully.`);
-    } else if (status === 'error') {
-      message.error(`${info.file.name} file upload failed.`);
-    }
-  },
-  onDrop(e) {
-    console.log('Dropped files', e.dataTransfer.files);
-  },
-};
-
 
 const Sweepstakes = () => {
 
@@ -72,14 +50,6 @@ const Sweepstakes = () => {
 
     const onChangeSpeedrunLink = (e: any) => {
         setStateSpeedrunLink(e.target.value);
-    };
-
-    const normFile = (e: any) => {
-        if (Array.isArray(e)) {
-            return e;
-        }
-
-        return e?.fileList;
     };
 
     const seriesGamesSort = () => {
@@ -131,8 +101,10 @@ const Sweepstakes = () => {
         return treeDataArray;
     }
 
+    
+
     const onSubmit = async () => {    
-        
+
         const sweepsEntryDetails = {
             "name": stateName,
             "email": stateEmail,
@@ -141,62 +113,29 @@ const Sweepstakes = () => {
             "speedrun_link": stateSpeedrunLink
         }
         
+        form.validateFields().then(async () => {
+        // Create the sweepstakes entry for the graphql database
+            if (sweepsEntryDetails.name !== "" && sweepsEntryDetails.email !== "" && sweepsEntryDetails.game !== "" && sweepsEntryDetails.steam_id !== "" && sweepsEntryDetails.speedrun_link !== "") {
+                const newSweepsEntry = await client.graphql({
+                    query: createSweepstakesEntry,
+                    variables: {input: sweepsEntryDetails}
+                });
 
-        // Create the sweepstakes entry without a screenshot
-        console.log(sweepsEntryDetails);
-        try {
-            const newSweepsEntry = await client.graphql({
-                query: createSweepstakesEntry,
-                variables: {input: sweepsEntryDetails}
-            });
+                console.log('Post saved successfully!', newSweepsEntry);
+                alert("Thank you for your entry into the Sweepstakes!\nGood Luck!")
 
-            const sweepsEntry = newSweepsEntry.data.createSweepstakesEntry;
-
-            if (!sweepsEntry) return;
-
-            // Upload the screenshot in question
-            const result = await uploadData({
-                key: `${sweepsEntry.name}-${file.name}`,
-                data: file,
-                options: {
-                    contentType: file.type
-                }
-            }).result
-
-
-            // Add the file association to the afforementioned record
-            const updateSweepsDetails = {
-                id: sweepsEntry.id,
-                screenshot: result?.key
+                // Reset form fields on successful submission
+                form.resetFields();
             }
-
-            const updatedResponse = await client.graphql({
-                query: updateSweepstakesEntry,
-                variables: {input: updateSweepsDetails}
-            })
-
-            const updatedSweeps = updatedResponse.data.updateSweepstakesEntry
-
-            // If the record has no associated screenshot, return early
-            if (!updatedSweeps.screenshot) return;
-
-            console.log('Post saved successfully!', newSweepsEntry);
-            
-        } catch (error) {
-            console.log('Error saving post', error);
-        }
-        
-
-        // Reset form fields
-        form.resetFields();
-        
+        }).catch((errors) => {
+            console.log('Error saving post', errors);
+        })
     }
 
     // TODO:
     // Add form validation for sweepsForm
     // Email as email
     // Speedrun link as html
-    // Upload as png or jpeg
 
     return (
         <>
@@ -229,39 +168,44 @@ const Sweepstakes = () => {
                     name="sweepsForm"
                     style={{ margin: "auto", paddingTop: '5%', width: '90%', color: 'white'}}
                     initialValues={{remember: true}}>
-                        <Form.Item label="Name">
+                        <Form.Item<FieldType>
+                          label="Name"
+                          name="name"
+                          rules={[{ required: true, type: 'string', message : "Please add a name to the form."}]}>
                             <Input placeholder="Full Name" value={stateName} onChange={onChangeName}/>
                         </Form.Item>
-                        <Form.Item label="Email">
-                            <Input placeholder="Email Address" value={stateEmail} onChange={onChangeEmail}/>
+                        <Form.Item<FieldType>
+                          label="Email"
+                          name="email"
+                          rules={[{ required: true, type: 'email', message : "Please add a valid email address to the form."}]}>
+                          <Input placeholder="Email Address" value={stateEmail} onChange={onChangeEmail}/>
                         </Form.Item>
-                        <Form.Item label="Game">
+                        <Form.Item<FieldType>
+                          label="Game"
+                          name="game"
+                          rules={[{ required: true, type: 'string', message : "Please select the correct game."}]}>
                             <TreeSelect showSearch 
-                              value={stateGame}
                               dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
                               placeholder="Please Select Game"
                               onChange={onChangeGame}
                               treeData={seriesGamesSort()} />
                         </Form.Item>
-                        <Form.Item label="SteamID">
+                        <Form.Item<FieldType>
+                          label="Steam ID"
+                          name="steamID"
+                          rules={[{ required: true, type: 'string', message : "Please add your Steam Tag."}]}>
                             <Input placeholder="Steam Username" value={stateSteam} onChange={onChangeSteam}/>
                         </Form.Item>
 
-                        <Form.Item label="Speedrun.com Link">
+                        <Form.Item<FieldType>
+                          label="Speedrun.com Link"
+                          name="speedrunLink"
+                          rules={[{ required: true, type: 'url', message : "Please add the submission link to the form."}]}>
                             <Input placeholder="Link to Speedrun.com Submission" value={stateSpeedrunLink} onChange={onChangeSpeedrunLink}/>
-                        </Form.Item>
-                        <Form.Item label="Upload" valuePropName="fileList" getValueFromEvent={normFile}>
-                        <Dragger {...props}>
-                            <p className="ant-upload-drag-icon">
-                                <InboxOutlined />
-                            </p>
-                            <p className="ant-upload-text">Click or Drag Screenshot of Speedrun.com</p>
-                            <p className="ant-upload-text">Submission to this Area to Upload</p>
-                        </Dragger>
                         </Form.Item>
 
                         <Form.Item>
-                            <Button type="primary" name="Submit"  onClick={onSubmit}>Submit</Button>
+                            <Button type="primary" name="Submit" htmlType="submit"  onClick={onSubmit}>Submit</Button>
                         </Form.Item>
                     </Form>
                 </div>
@@ -281,3 +225,13 @@ const Sweepstakes = () => {
 }
 
 export default Sweepstakes;
+
+/* Dragger Form Functionality
+    <Dragger {...props}>
+        <p className="ant-upload-drag-icon">
+            <InboxOutlined />
+        </p>
+        <p className="ant-upload-text">Click or Drag Screenshot of Speedrun.com</p>
+        <p className="ant-upload-text">Submission to this Area to Upload</p>
+    </Dragger>
+*/

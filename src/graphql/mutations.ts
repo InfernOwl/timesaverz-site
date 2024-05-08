@@ -835,7 +835,6 @@ export const createSweepstakesEntry = /* GraphQL */ `mutation CreateSweepstakesE
     game
     steam_id
     speedrun_link
-    screenshot
     createdAt
     updatedAt
     __typename
@@ -856,7 +855,6 @@ export const updateSweepstakesEntry = /* GraphQL */ `mutation UpdateSweepstakesE
     game
     steam_id
     speedrun_link
-    screenshot
     createdAt
     updatedAt
     __typename
@@ -877,7 +875,6 @@ export const deleteSweepstakesEntry = /* GraphQL */ `mutation DeleteSweepstakesE
     game
     steam_id
     speedrun_link
-    screenshot
     createdAt
     updatedAt
     __typename

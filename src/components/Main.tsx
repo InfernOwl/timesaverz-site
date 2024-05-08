@@ -11,12 +11,18 @@ import config from "../amplifyconfiguration.json";
 
 Amplify.configure(config);
 
+
 const { TextArea } = Input;
 const client = generateClient();
 
+type FieldType = {
+    suggestion?: string;
+}
+
 
 const Main = () => {
-
+    
+    const [form] = Form.useForm();
     const [state, setState] = useState({
         suggestion: "",
     })
@@ -29,24 +35,31 @@ const Main = () => {
         })
     }
 
-    const onSubmit = async (suggest: string) => {        
-        try {
-            const newSuggestions = await client.graphql({
-                query: createSuggestions,
-                variables: {
-                    input: {
-                    "suggestion": suggest
-                }
-                }
-            });
+    const onSubmit = async (suggest: string) => {       
+        
+        form.validateFields().then(async () => {
+            // Create the sweepstakes entry for the graphql database
+            if (state.suggestion !== "") {
+                const newSuggestions = await client.graphql({
+                    query: createSuggestions,
+                    variables: {
+                        input: {
+                            "suggestion": suggest
+                        }
+                    }
+                });
 
-            console.log('Post saved successfully!', newSuggestions);
+                console.log('Post saved successfully!', newSuggestions);
+                alert("Thank you for your Suggestion!")
 
-          } catch (error) {
-            console.log('Error saving post', error);
-          }
+                // Reset form fields on successful submission
+                form.resetFields();
+            }
+        }).catch((errors) => {
+            console.log('Error saving post', errors);
+        })
     }
-    
+
     const onFinish = () => {
         setState({
             suggestion: ""
@@ -74,6 +87,7 @@ const Main = () => {
                         Submit them below and it'll send them straight to us!<br />
                         We appreciate any and all suggestions!</p>
                     <Form
+                      form={form}
                       labelCol={{offset: 2}}
                       labelAlign="left"
                       layout="horizontal"
@@ -81,7 +95,11 @@ const Main = () => {
                       style={{ margin: "auto", paddingTop: '5%', width: '90%', color: 'white'}}
                       initialValues={{remember: true}}
                       onFinish={onFinish}>
-                        <Form.Item className="formLabel">
+                        <Form.Item<FieldType>
+                          label="Suggestion"
+                          name="suggestion"
+                          className="formLabel"
+                          rules={[{ required: true, type: 'string', message : "Unfortunately we can't take a blank suggestion."}]}>
                             <TextArea rows={4} name="suggestionBox" value={state.suggestion} onChange={changeState} allowClear/>
                         </Form.Item>
                         <Form.Item>

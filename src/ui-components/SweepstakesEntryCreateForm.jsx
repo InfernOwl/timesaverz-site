@@ -28,7 +28,6 @@ export default function SweepstakesEntryCreateForm(props) {
     game: "",
     steam_id: "",
     speedrun_link: "",
-    screenshot: "",
   };
   const [name, setName] = React.useState(initialValues.name);
   const [email, setEmail] = React.useState(initialValues.email);
@@ -37,7 +36,6 @@ export default function SweepstakesEntryCreateForm(props) {
   const [speedrun_link, setSpeedrun_link] = React.useState(
     initialValues.speedrun_link
   );
-  const [screenshot, setScreenshot] = React.useState(initialValues.screenshot);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setName(initialValues.name);
@@ -45,7 +43,6 @@ export default function SweepstakesEntryCreateForm(props) {
     setGame(initialValues.game);
     setSteam_id(initialValues.steam_id);
     setSpeedrun_link(initialValues.speedrun_link);
-    setScreenshot(initialValues.screenshot);
     setErrors({});
   };
   const validations = {
@@ -54,7 +51,6 @@ export default function SweepstakesEntryCreateForm(props) {
     game: [{ type: "Required" }],
     steam_id: [{ type: "Required" }],
     speedrun_link: [{ type: "Required" }],
-    screenshot: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -87,7 +83,6 @@ export default function SweepstakesEntryCreateForm(props) {
           game,
           steam_id,
           speedrun_link,
-          screenshot,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -155,7 +150,6 @@ export default function SweepstakesEntryCreateForm(props) {
               game,
               steam_id,
               speedrun_link,
-              screenshot,
             };
             const result = onChange(modelFields);
             value = result?.name ?? value;
@@ -184,7 +178,6 @@ export default function SweepstakesEntryCreateForm(props) {
               game,
               steam_id,
               speedrun_link,
-              screenshot,
             };
             const result = onChange(modelFields);
             value = result?.email ?? value;
@@ -213,7 +206,6 @@ export default function SweepstakesEntryCreateForm(props) {
               game: value,
               steam_id,
               speedrun_link,
-              screenshot,
             };
             const result = onChange(modelFields);
             value = result?.game ?? value;
@@ -242,7 +234,6 @@ export default function SweepstakesEntryCreateForm(props) {
               game,
               steam_id: value,
               speedrun_link,
-              screenshot,
             };
             const result = onChange(modelFields);
             value = result?.steam_id ?? value;
@@ -271,7 +262,6 @@ export default function SweepstakesEntryCreateForm(props) {
               game,
               steam_id,
               speedrun_link: value,
-              screenshot,
             };
             const result = onChange(modelFields);
             value = result?.speedrun_link ?? value;
@@ -285,35 +275,6 @@ export default function SweepstakesEntryCreateForm(props) {
         errorMessage={errors.speedrun_link?.errorMessage}
         hasError={errors.speedrun_link?.hasError}
         {...getOverrideProps(overrides, "speedrun_link")}
-      ></TextField>
-      <TextField
-        label="Screenshot"
-        isRequired={false}
-        isReadOnly={false}
-        value={screenshot}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              name,
-              email,
-              game,
-              steam_id,
-              speedrun_link,
-              screenshot: value,
-            };
-            const result = onChange(modelFields);
-            value = result?.screenshot ?? value;
-          }
-          if (errors.screenshot?.hasError) {
-            runValidationTasks("screenshot", value);
-          }
-          setScreenshot(value);
-        }}
-        onBlur={() => runValidationTasks("screenshot", screenshot)}
-        errorMessage={errors.screenshot?.errorMessage}
-        hasError={errors.screenshot?.hasError}
-        {...getOverrideProps(overrides, "screenshot")}
       ></TextField>
       <Flex
         justifyContent="space-between"
