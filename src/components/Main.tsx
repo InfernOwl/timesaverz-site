@@ -55,7 +55,7 @@ const Main = () => {
                 // Reset form fields on successful submission
                 form.resetFields();
             }
-        }).catch((errors) => {
+        }).catch((errors:any) => {
             console.log('Error saving post', errors);
         })
     }
@@ -64,7 +64,6 @@ const Main = () => {
         setState({
             suggestion: ""
         })
-        alert(`Your suggestion has been successfully submitted!`);
         
     }
 
