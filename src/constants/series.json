@@ -22,7 +22,7 @@
             "standings" : {
                 "started" : true,
                 "finished" : true,
-                "runners" : [
+                "runners" : [   
                     {
                         "name" : "Hoagiepops",
                         "image" : "",
@@ -120,14 +120,14 @@
                         "image" : "",
                         "race_results" : [
                             { 
-                                "points" : 0,
+                                "points" : 1,
                                 "link" : "",
-                                "time" : ""
+                                "time" : "DNF"
                             },
                             { 
-                                "points" : 0,
+                                "points" : 2,
                                 "link" : "",
-                                "time" : ""
+                                "time" : "1:30:28"
                             },
                             { 
                                 "points" : 0,
@@ -141,14 +141,14 @@
                         "image" : "",
                         "race_results" : [
                             { 
-                                "points" : 0,
+                                "points" : 2,
                                 "link" : "",
-                                "time" : ""
+                                "time" : "2:27:17"
                             },
                             { 
-                                "points" : 0,
+                                "points" : 1,
                                 "link" : "",
-                                "time" : ""
+                                "time" : "1:36:31"
                             },
                             { 
                                 "points" : 0,
@@ -162,14 +162,14 @@
                         "image" : "",
                         "race_results" : [
                             { 
-                                "points" : 0,
+                                "points" : 3,
                                 "link" : "",
-                                "time" : ""
+                                "time" : "1:45:20"
                             },
                             { 
-                                "points" : 0,
+                                "points" : 3,
                                 "link" : "",
-                                "time" : ""
+                                "time" : "1:25:28"
                             },
                             { 
                                 "points" : 0,
@@ -180,8 +180,8 @@
                     }
                 ],
                 "top_time" : {
-                    "runner" : "",
-                    "time" : ""
+                    "runner" : "InfernOwl",
+                    "time" : "1:15:18"
                 }
             }
         },
