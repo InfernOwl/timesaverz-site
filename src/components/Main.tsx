@@ -1,11 +1,11 @@
 import React from "react";
 import { Image, Form, Input, Button } from "antd";
 import '../styles/Home.css';
-import aboutJSON from '../constants/about.json';
 import { useState } from "react";
 
 import { generateClient } from "aws-amplify/api";
 import { createSuggestions } from "../graphql/mutations";
+import { listRaces, getGame } from "../graphql/queries";
 import { Amplify } from 'aws-amplify';
 import config from "../amplifyconfiguration.json";
 
@@ -14,31 +14,68 @@ Amplify.configure(config);
 
 const { TextArea } = Input;
 const client = generateClient();
+var currentRaceData: any;
 
 type FieldType = {
     suggestion?: string;
 }
 
-
 const Main = () => {
     
+    
+
     const [form] = Form.useForm();
     const [state, setState] = useState({
         suggestion: "",
-    })
+    });
+    const [gameData, setGameData] = useState({
+        gameName: "",
+        gameCat: "",
+        gameImage: ""
+    });
 
     const changeState = (e:any) => {
         const {value} = e.target;
-        console.log(value);
         setState({
             suggestion: value
         })
     }
 
+    // Query backend database for current race information
+    // then use that return to query for current game info to populate on page
+    const raceGrab = async () => {
+        currentRaceData = await client.graphql({
+            query: listRaces,
+            variables: { 
+                filter: {
+                    active: { eq: true }
+                }
+            }
+        })
+
+    
+        if (currentRaceData !== undefined) {
+            const currentGameData = await client.graphql({
+                query: getGame,
+                variables: { id: currentRaceData.data.listRaces.items[0].gameID }
+            })
+    
+            setGameData({
+                gameName: (currentGameData.data.getGame?.game_title) ? currentGameData.data.getGame?.game_title : "",
+                gameCat: (currentGameData.data.getGame?.run_category) ? currentGameData.data.getGame?.run_category : "",
+                gameImage: (currentGameData.data.getGame?.game_box_image) ? currentGameData.data.getGame?.game_box_image : ""
+            })
+        }
+    }
+    
+    if (JSON.stringify(gameData) === JSON.stringify({ gameName: "", gameCat: "", gameImage: "" })) {
+        raceGrab();
+    }
+
     const onSubmit = async (suggest: string) => {       
         
         form.validateFields().then(async () => {
-            // Create the sweepstakes entry for the graphql database
+            // Create the sweepstakes entry for the backend database
             if (state.suggestion !== "") {
                 const newSuggestions = await client.graphql({
                     query: createSuggestions,
@@ -110,11 +147,11 @@ const Main = () => {
                 <div className="currentGame">
                     <div className="currentGameText">
                         <h2>Check out what we're currently running!</h2>
-                        <p>{aboutJSON.game.name}</p>
-                        <p>{aboutJSON.game.category}</p>
+                        <p>{gameData.gameName}</p>
+                        <p>{gameData.gameCat}</p>
                     </div>
                     <div className="currentGameImage">
-                        <Image src={aboutJSON.game.image} preview={false} width={"100%"}></Image>
+                        <Image src={gameData.gameImage} preview={false} width={"100%"}></Image>
                     </div>
                 </div>
             </div>

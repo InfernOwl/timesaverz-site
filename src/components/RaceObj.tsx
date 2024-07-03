@@ -3,6 +3,16 @@ import { Button, Image, Popover } from "antd";
 import { TrophyOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import Standings from "./Standings";
 import placeholderRace from "../constants/placeholder_race.json";
+import { useState } from "react";
+
+import { generateClient } from "aws-amplify/api";
+import { getGame, raceResultsByGameID } from "../graphql/queries";
+import { Amplify } from "aws-amplify";
+import config from "../amplifyconfiguration.json";
+
+Amplify.configure(config);
+
+const client = generateClient();
 
 
 type RaceProps = {
@@ -12,22 +22,52 @@ type RaceProps = {
 }
 
 interface LinksObject {
-    steam: string;
-    epic: string;
-    playstation: string;
-    xbox: string;
-    nintendo: string;
+    steam?: string;
+    epic?: string;
+    playstation?: string;
+    xbox?: string;
+    nintendo?: string;
 }
 
 const RaceObj = (props: RaceProps) => {
 
+    const [gameData, setGameData] = useState<any>();
+    const [standingsData, setStandingsData] = useState<any>();
+
+    const gameGrab = async () => {
+        const currentGameData = await client.graphql({
+            query: getGame,
+            variables: { id : props.race_obj.gameID }
+        })
+
+        setGameData(currentGameData.data.getGame);
+        
+    }
+
+    if (gameData === undefined) {
+        gameGrab();
+    }
+
+    const standingsGrab = async () => {
+        const currentStandingData = await client.graphql({
+            query: raceResultsByGameID,
+            variables: { gameID: props.race_obj.gameID}
+        });
+
+        setStandingsData(currentStandingData.data.raceResultsByGameID.items);
+    }
+
+    if (standingsData === undefined) {
+        standingsGrab();
+    }
+
     const content= (data: LinksObject) => {
 
-        let steam = (data.steam !== "") ? <Button type="primary" href={data.steam} target="_blank">Steam</Button>: "";
-        let epic = (data.epic !== "") ? <Button type="primary" href={data.epic} target="_blank">Epic</Button>: "";
-        let playstation = (data.playstation !== "") ? <Button type="primary" href={data.playstation} target="_blank">Playstation</Button>: "";
-        let xbox = (data.xbox !== "") ? <Button type="primary" href={data.xbox} target="_blank">Xbox</Button>: "";
-        let nintendo = (data.nintendo !== "") ? <Button type="primary" href={data.nintendo} target="_blank">Nintendo</Button>: "";
+        let steam = (data.steam !== "" && data.steam !== null) ? <Button type="primary" href={data.steam} target="_blank">Steam</Button>: "";
+        let epic = (data.epic !== "" && data.epic !== null) ? <Button type="primary" href={data.epic} target="_blank">Epic</Button>: "";
+        let playstation = (data.playstation !== "" && data.playstation !== null) ? <Button type="primary" href={data.playstation} target="_blank">Playstation</Button>: "";
+        let xbox = (data.xbox !== "" && data.xbox !== null) ? <Button type="primary" href={data.xbox} target="_blank">Xbox</Button>: "";
+        let nintendo = (data.nintendo !== "" && data.nintendo !== null) ? <Button type="primary" href={data.nintendo} target="_blank">Nintendo</Button>: "";
 
 
         return (
@@ -51,7 +91,10 @@ const RaceObj = (props: RaceProps) => {
     };
 
     const sweepsWinner = () => {
-        if (props.race_obj.standings.finished) {
+        var today = new Date();
+        var end_date = new Date(props.race_obj.ended);
+
+        if (end_date < today) {
             return (
                 props.race_obj.sweeps_winner
             )
@@ -100,33 +143,33 @@ const RaceObj = (props: RaceProps) => {
 
     }
 
-    const backgroundStyle = {"--background-image": `url(${props.race_obj.background_image})`} as React.CSSProperties;
+    const backgroundStyle = {"--background-image": `url(${gameData?gameData.background_image:""})`} as React.CSSProperties;
 
     return (
         <>
             <div style={backgroundStyle}
               className={props.focused ? "race_container race_focus" : "race_container" } 
-              id={"race" + props.series + "_" + props.race_obj.id} onClick={clickHandler}>
+              id={"race 1_" + props.race_obj.id} onClick={clickHandler}>
                 
-                <div className="race_vert_title">{props.race_obj.game_title}</div>
-                <div className="race_title">{props.race_obj.game_title}</div>
-                <div className="race_category">{props.race_obj.run_category}</div>
+                <div className="race_vert_title">{(gameData !== undefined)?gameData.game_title:""}</div>
+                <div className="race_title">{gameData?gameData.game_title:""}</div>
+                <div className="race_category">{gameData?gameData.run_category:""}</div>
                 
                 <div className="parallaxScroll" onScroll={handleScroll}>
                     <div className="parallaxSpacer"></div>
                     <div className="gameSynopsis">
-                        <p>{props.race_obj.game_info}</p>
+                        <p>{gameData?gameData.game_info:""}</p>
                     </div>
                     <div className="hor_spacer">
-                        <Standings started={props.race_obj.standings.started} 
-                        finished={props.race_obj.standings.finished} 
-                        runners={props.race_obj.standings.runners} 
-                        top_time={props.race_obj.standings.top_time}></Standings>
+                        
+                        <Standings started={true} 
+                        finished={props.race_obj.finished?props.race_obj.finished:true} 
+                        runners={(standingsData !== undefined)?standingsData:[]} top_time={props.race_obj.top_time?props.race_obj.top_time:[{runner: "bitch", time: "also"}]}></Standings>
                         <div className="vert_spacer">
-                            <Popover content={content(props.race_obj.game_store_link)} trigger="click">
+                            <Popover content={content(gameData?gameData.GameStoreLink:{steam:""})} trigger="click">
                                 <Button className="pageButton"><ShoppingCartOutlined style={{ fontSize: '5vw'}}/></Button>
                             </Popover>
-                            <Button className="pageButton" href={props.race_obj.sr_game_link} target="_blank"><TrophyOutlined style={{ fontSize: '5vw'}}/></Button>
+                            <Button className="pageButton" href={gameData?gameData.sr_game_link:""} target="_blank"><TrophyOutlined style={{ fontSize: '5vw'}}/></Button>
                         </div>
                     </div>
                     <div className="hor_spacer sweepsBanner">

@@ -1,0 +1,99 @@
+type Game @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  game_title: String
+  run_category: String
+  sr_game_link: String
+  background_image: String
+  game_box_image: String
+  game_info: String
+  GameStoreLink: GameStoreLink @hasOne
+}
+
+type TopTime @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  runner: String
+  time: String
+  Game: Game @hasOne
+}
+
+type RaceResults @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  points: Int
+  link: AWSURL
+  time: String
+  Game: Game @hasOne
+  aboutID: ID! @index(name: "byRacers")
+  race_num: Int
+}
+
+type GameStoreLink @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  steam: AWSURL
+  epic: AWSURL
+  playstation: AWSURL
+  xbox: AWSURL
+  nintendo: AWSURL
+  Game: Game @belongsTo
+}
+
+type Races @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  sweeps_start: String
+  sweeps_end: String
+  sweeps_winner: String
+  seriesID: ID! @index(name: "bySeries")
+  Game: Game @hasOne
+  Racers: [Racers] @manyToMany(relationName: "RacesRacers")
+  active: Boolean
+  ended: AWSDate
+  started: AWSDate
+}
+
+type Series @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  races: [Races] @hasMany(indexName: "bySeries", fields: ["id"])
+  title: String
+}
+
+type Links @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  twitter: AWSURL
+  instagram: AWSURL
+  twitch: AWSURL
+  tiktok: AWSURL
+  youtube: AWSURL
+  kofi: AWSURL
+}
+
+type Racers @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String!
+  about_info: String
+  image: AWSURL
+  links: Links @hasOne
+  RaceResults: [RaceResults] @hasMany(indexName: "byRacers", fields: ["id"])
+  racess: [Races] @manyToMany(relationName: "RacesRacers")
+}
+
+type SweepstakesEntry @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String!
+  email: String!
+  game: String!
+  steam_id: String!
+  speedrun_link: String!
+}
+
+type Placeholder @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  game_title: String
+  game_image_alt: String
+  background_image: AWSURL
+  sweeps_winner: String
+}
+
+type Suggestions @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  suggestion: String!
+}
+ 

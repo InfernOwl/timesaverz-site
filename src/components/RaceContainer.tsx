@@ -9,8 +9,10 @@ type RaceProps = {
 }
 
 const RaceContainer = (props: RaceProps) => {
+    var startedDate = new Date(props.race_obj.started);
+    var today = new Date();
 
-    if (props.race_obj.standings.started) {
+    if (startedDate === null || (startedDate < today || props.race_obj.active) ) {
         return (
             <>
                 <RaceObj series={props.series} race_obj={props.race_obj} focused={props.focused}></RaceObj>
