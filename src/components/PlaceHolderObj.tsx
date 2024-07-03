@@ -10,20 +10,20 @@ const PlaceHolderObj = (props: any) => {
     
     const toggleFocus = (element: any) => {
         // Handle unfocusing of race_container that is currently focused
-        console.log(element);
         if (element.classList.contains("race_container")) {
             if (element.classList.contains("race_focus") === false) {
                 // Remove focus from other elements
                 var e = document.getElementsByClassName('race_focus')[0];
-                e.classList.toggle("race_focus");
-                e.childNodes.forEach((child: any) => {
-                    if (!child.className.includes('hor_spacer')) {
-                    } else {
-                        child.childNodes.forEach((more_child: any) => {
-                        })
-                    }
-                })
-    
+                if (e !== undefined) {
+                    e.classList.toggle("race_focus");
+                    e.childNodes.forEach((child: any) => {
+                        if (!child.className.includes('hor_spacer')) {
+                        } else {
+                            child.childNodes.forEach((more_child: any) => {
+                            })
+                        }
+                    })
+                }
     
                 // Handle focusing of race_container being selected
                 element.className = element.className + " race_focus";
@@ -44,7 +44,7 @@ const PlaceHolderObj = (props: any) => {
         <>
             <div style={backgroundStyle}
               className={props.focused ? "race_container race_focus" : "race_container" } 
-              id={"race" + props.series + "_" + placeholderRace.id} onClick={clickHandler}>
+              id={"race1_" + placeholderRace.id} onClick={clickHandler}>
                 
                 <div className="race_vert_title">{placeholderRace.game_title}</div>
                 <div className="ph_title">{placeholderRace.game_image_alt}</div>
