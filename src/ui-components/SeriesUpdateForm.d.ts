@@ -5,7 +5,7 @@
  **************************************************************************/
 
 import * as React from "react";
-import { GridProps } from "@aws-amplify/ui-react";
+import { GridProps, TextFieldProps } from "@aws-amplify/ui-react";
 import { Series } from "../API.ts";
 export declare type EscapeHatchProps = {
     [elementHierarchy: string]: Record<string, unknown>;
@@ -22,11 +22,16 @@ export declare type ValidationResponse = {
     errorMessage?: string;
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
-export declare type SeriesUpdateFormInputValues = {};
-export declare type SeriesUpdateFormValidationValues = {};
+export declare type SeriesUpdateFormInputValues = {
+    title?: string;
+};
+export declare type SeriesUpdateFormValidationValues = {
+    title?: ValidationFunction<string>;
+};
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type SeriesUpdateFormOverridesProps = {
     SeriesUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
+    title?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type SeriesUpdateFormProps = React.PropsWithChildren<{
     overrides?: SeriesUpdateFormOverridesProps | undefined | null;

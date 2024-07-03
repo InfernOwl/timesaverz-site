@@ -6,7 +6,7 @@
 
 /* eslint-disable */
 import * as React from "react";
-import { Button, Flex, Grid } from "@aws-amplify/ui-react";
+import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
 import { fetchByPath, getOverrideProps, validateField } from "./utils";
 import { generateClient } from "aws-amplify/api";
 import { createSeries } from "../graphql/mutations";
@@ -22,12 +22,18 @@ export default function SeriesCreateForm(props) {
     overrides,
     ...rest
   } = props;
-  const initialValues = {};
+  const initialValues = {
+    title: "",
+  };
+  const [title, setTitle] = React.useState(initialValues.title);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
+    setTitle(initialValues.title);
     setErrors({});
   };
-  const validations = {};
+  const validations = {
+    title: [],
+  };
   const runValidationTasks = async (
     fieldName,
     currentValue,
@@ -53,7 +59,9 @@ export default function SeriesCreateForm(props) {
       padding="20px"
       onSubmit={async (event) => {
         event.preventDefault();
-        let modelFields = {};
+        let modelFields = {
+          title,
+        };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
             if (Array.isArray(modelFields[fieldName])) {
@@ -106,6 +114,30 @@ export default function SeriesCreateForm(props) {
       {...getOverrideProps(overrides, "SeriesCreateForm")}
       {...rest}
     >
+      <TextField
+        label="Title"
+        isRequired={false}
+        isReadOnly={false}
+        value={title}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              title: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.title ?? value;
+          }
+          if (errors.title?.hasError) {
+            runValidationTasks("title", value);
+          }
+          setTitle(value);
+        }}
+        onBlur={() => runValidationTasks("title", title)}
+        errorMessage={errors.title?.errorMessage}
+        hasError={errors.title?.hasError}
+        {...getOverrideProps(overrides, "title")}
+      ></TextField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}

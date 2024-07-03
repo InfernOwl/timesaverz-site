@@ -101,4 +101,4 @@ type Placeholder @model @auth(rules: [{allow: public}]) {
 type Suggestions @model @auth(rules: [{allow: public}]) {
   id: ID!
   suggestion: String!
-}
+} 
