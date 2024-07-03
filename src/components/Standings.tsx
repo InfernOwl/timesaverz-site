@@ -36,7 +36,6 @@ var currentRacers: any;
 
 const vidType = (vidLink: string) => {
 
-    console.log(vidLink);
     vidLink = vidLink[0];
 
     if (vidLink.indexOf("twitch.tv") !== -1) {
@@ -210,7 +209,6 @@ const Standings = (props: StandingProps) => {
     const [standingsState, setStandingsState] = useState<any>();
 
     // List of racers for standings reference
-    console.log(currentRacers);
     const [racersState, setRacersState] = useState<any>(currentRacers.data.listRacers.items);
 
     // Eventual table DOM
@@ -225,12 +223,15 @@ const Standings = (props: StandingProps) => {
 
         for (let i = 0; i < totalArr.length; i++) {
             if (props.finished) {
-                if (totalArr[i].person === props.top_time.runner) {
+                if (totalArr[i].person === props.top_time[0].runner) {
                     totalArr[i].total += 2;
                 }
 
                 totals = totalArr.map(a => a.total);
             }
+        }
+
+        for (let i = 0; i < totalArr.length; i++) {
 
             if (totalArr[i].total >= Math.max(...totals)) {
                 switch (totalArr[i].person) {
@@ -281,7 +282,6 @@ const Standings = (props: StandingProps) => {
     }
 
     if (tableDataStuff.length === 0 && props.runners.length !== 0) {
-        console.log("Test");
         const holdUP = async () => {
             for (let runner = 0; runner < props.runners.length; runner++) {
                 let total = 0;
@@ -371,8 +371,6 @@ const Standings = (props: StandingProps) => {
             tableDataStuff.push(race3Row);
 
             if (standingsState === undefined && tableDataStuff.length !== 0 && (JSON.stringify(tableDataStuff) !== JSON.stringify(standingsState))) {
-
-
                 race1Row.race = "Race 1:";
                 race2Row.race = "Race 2:";
                 race3Row.race = "Race 3:";
@@ -390,8 +388,6 @@ const Standings = (props: StandingProps) => {
 
         if (tablePopped && standingsState !== undefined && tableDOM.type === "div") {
             const tableLabelHoldUp = async () => {
-                console.log("Made it part 2");
-                console.log(standingsState);
                 setTableDOM(<Table className="sr_leaderboard" dataSource={(standingsState !== undefined) ? standingsState : []} columns={TableLabels}></Table>);
             }
 

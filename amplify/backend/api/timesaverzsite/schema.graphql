@@ -9,13 +9,14 @@ type Game @model @auth(rules: [{allow: public}]) {
   GameStoreLink: GameStoreLink @hasOne
   RaceResults: [RaceResults] @hasMany(indexName: "byGame", fields: ["id"])
   Races: [Races] @hasMany(indexName: "byGame", fields: ["id"])
+  TopTime: TopTime @hasOne
 }
 
 type TopTime @model @auth(rules: [{allow: public}]) {
   id: ID!
   runner: String
   time: String
-  Game: Game @hasOne
+  Game: Game @belongsTo
 }
 
 type RaceResults @model @auth(rules: [{allow: public}]) {

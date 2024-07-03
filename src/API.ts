@@ -11,6 +11,7 @@ export type CreateGameInput = {
   game_box_image?: string | null,
   game_info?: string | null,
   gameGameStoreLinkId?: string | null,
+  gameTopTimeId?: string | null,
 };
 
 export type ModelGameConditionInput = {
@@ -26,6 +27,7 @@ export type ModelGameConditionInput = {
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
   gameGameStoreLinkId?: ModelIDInput | null,
+  gameTopTimeId?: ModelIDInput | null,
 };
 
 export type ModelStringInput = {
@@ -96,9 +98,11 @@ export type Game = {
   GameStoreLink?: GameStoreLink | null,
   RaceResults?: ModelRaceResultsConnection | null,
   Races?: ModelRacesConnection | null,
+  TopTime?: TopTime | null,
   createdAt: string,
   updatedAt: string,
   gameGameStoreLinkId?: string | null,
+  gameTopTimeId?: string | null,
 };
 
 export type GameStoreLink = {
@@ -203,6 +207,17 @@ export type Links = {
   updatedAt: string,
 };
 
+export type TopTime = {
+  __typename: "TopTime",
+  id: string,
+  runner?: string | null,
+  time?: string | null,
+  Game?: Game | null,
+  createdAt: string,
+  updatedAt: string,
+  topTimeGameId?: string | null,
+};
+
 export type UpdateGameInput = {
   id: string,
   game_title?: string | null,
@@ -212,6 +227,7 @@ export type UpdateGameInput = {
   game_box_image?: string | null,
   game_info?: string | null,
   gameGameStoreLinkId?: string | null,
+  gameTopTimeId?: string | null,
 };
 
 export type DeleteGameInput = {
@@ -234,17 +250,6 @@ export type ModelTopTimeConditionInput = {
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
   topTimeGameId?: ModelIDInput | null,
-};
-
-export type TopTime = {
-  __typename: "TopTime",
-  id: string,
-  runner?: string | null,
-  time?: string | null,
-  Game?: Game | null,
-  createdAt: string,
-  updatedAt: string,
-  topTimeGameId?: string | null,
 };
 
 export type UpdateTopTimeInput = {
@@ -657,6 +662,7 @@ export type ModelGameFilterInput = {
   or?: Array< ModelGameFilterInput | null > | null,
   not?: ModelGameFilterInput | null,
   gameGameStoreLinkId?: ModelIDInput | null,
+  gameTopTimeId?: ModelIDInput | null,
 };
 
 export type ModelGameConnection = {
@@ -890,6 +896,7 @@ export type ModelSubscriptionGameFilterInput = {
   and?: Array< ModelSubscriptionGameFilterInput | null > | null,
   or?: Array< ModelSubscriptionGameFilterInput | null > | null,
   gameGameStoreLinkId?: ModelSubscriptionIDInput | null,
+  gameTopTimeId?: ModelSubscriptionIDInput | null,
 };
 
 export type ModelSubscriptionIDInput = {
@@ -1099,9 +1106,19 @@ export type CreateGameMutation = {
       __typename: "ModelRacesConnection",
       nextToken?: string | null,
     } | null,
+    TopTime?:  {
+      __typename: "TopTime",
+      id: string,
+      runner?: string | null,
+      time?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      topTimeGameId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     gameGameStoreLinkId?: string | null,
+    gameTopTimeId?: string | null,
   } | null,
 };
 
@@ -1140,9 +1157,19 @@ export type UpdateGameMutation = {
       __typename: "ModelRacesConnection",
       nextToken?: string | null,
     } | null,
+    TopTime?:  {
+      __typename: "TopTime",
+      id: string,
+      runner?: string | null,
+      time?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      topTimeGameId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     gameGameStoreLinkId?: string | null,
+    gameTopTimeId?: string | null,
   } | null,
 };
 
@@ -1181,9 +1208,19 @@ export type DeleteGameMutation = {
       __typename: "ModelRacesConnection",
       nextToken?: string | null,
     } | null,
+    TopTime?:  {
+      __typename: "TopTime",
+      id: string,
+      runner?: string | null,
+      time?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      topTimeGameId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     gameGameStoreLinkId?: string | null,
+    gameTopTimeId?: string | null,
   } | null,
 };
 
@@ -1210,6 +1247,7 @@ export type CreateTopTimeMutation = {
       createdAt: string,
       updatedAt: string,
       gameGameStoreLinkId?: string | null,
+      gameTopTimeId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -1240,6 +1278,7 @@ export type UpdateTopTimeMutation = {
       createdAt: string,
       updatedAt: string,
       gameGameStoreLinkId?: string | null,
+      gameTopTimeId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -1270,6 +1309,7 @@ export type DeleteTopTimeMutation = {
       createdAt: string,
       updatedAt: string,
       gameGameStoreLinkId?: string | null,
+      gameTopTimeId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -1378,6 +1418,7 @@ export type CreateGameStoreLinkMutation = {
       createdAt: string,
       updatedAt: string,
       gameGameStoreLinkId?: string | null,
+      gameTopTimeId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -1411,6 +1452,7 @@ export type UpdateGameStoreLinkMutation = {
       createdAt: string,
       updatedAt: string,
       gameGameStoreLinkId?: string | null,
+      gameTopTimeId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -1444,6 +1486,7 @@ export type DeleteGameStoreLinkMutation = {
       createdAt: string,
       updatedAt: string,
       gameGameStoreLinkId?: string | null,
+      gameTopTimeId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -2058,9 +2101,19 @@ export type GetGameQuery = {
       __typename: "ModelRacesConnection",
       nextToken?: string | null,
     } | null,
+    TopTime?:  {
+      __typename: "TopTime",
+      id: string,
+      runner?: string | null,
+      time?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      topTimeGameId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     gameGameStoreLinkId?: string | null,
+    gameTopTimeId?: string | null,
   } | null,
 };
 
@@ -2085,6 +2138,7 @@ export type ListGamesQuery = {
       createdAt: string,
       updatedAt: string,
       gameGameStoreLinkId?: string | null,
+      gameTopTimeId?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -2112,6 +2166,7 @@ export type GetTopTimeQuery = {
       createdAt: string,
       updatedAt: string,
       gameGameStoreLinkId?: string | null,
+      gameTopTimeId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -2284,6 +2339,7 @@ export type GetGameStoreLinkQuery = {
       createdAt: string,
       updatedAt: string,
       gameGameStoreLinkId?: string | null,
+      gameTopTimeId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -2815,9 +2871,19 @@ export type OnCreateGameSubscription = {
       __typename: "ModelRacesConnection",
       nextToken?: string | null,
     } | null,
+    TopTime?:  {
+      __typename: "TopTime",
+      id: string,
+      runner?: string | null,
+      time?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      topTimeGameId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     gameGameStoreLinkId?: string | null,
+    gameTopTimeId?: string | null,
   } | null,
 };
 
@@ -2855,9 +2921,19 @@ export type OnUpdateGameSubscription = {
       __typename: "ModelRacesConnection",
       nextToken?: string | null,
     } | null,
+    TopTime?:  {
+      __typename: "TopTime",
+      id: string,
+      runner?: string | null,
+      time?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      topTimeGameId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     gameGameStoreLinkId?: string | null,
+    gameTopTimeId?: string | null,
   } | null,
 };
 
@@ -2895,9 +2971,19 @@ export type OnDeleteGameSubscription = {
       __typename: "ModelRacesConnection",
       nextToken?: string | null,
     } | null,
+    TopTime?:  {
+      __typename: "TopTime",
+      id: string,
+      runner?: string | null,
+      time?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      topTimeGameId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     gameGameStoreLinkId?: string | null,
+    gameTopTimeId?: string | null,
   } | null,
 };
 
@@ -2923,6 +3009,7 @@ export type OnCreateTopTimeSubscription = {
       createdAt: string,
       updatedAt: string,
       gameGameStoreLinkId?: string | null,
+      gameTopTimeId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -2952,6 +3039,7 @@ export type OnUpdateTopTimeSubscription = {
       createdAt: string,
       updatedAt: string,
       gameGameStoreLinkId?: string | null,
+      gameTopTimeId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -2981,6 +3069,7 @@ export type OnDeleteTopTimeSubscription = {
       createdAt: string,
       updatedAt: string,
       gameGameStoreLinkId?: string | null,
+      gameTopTimeId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -3085,6 +3174,7 @@ export type OnCreateGameStoreLinkSubscription = {
       createdAt: string,
       updatedAt: string,
       gameGameStoreLinkId?: string | null,
+      gameTopTimeId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -3117,6 +3207,7 @@ export type OnUpdateGameStoreLinkSubscription = {
       createdAt: string,
       updatedAt: string,
       gameGameStoreLinkId?: string | null,
+      gameTopTimeId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -3149,6 +3240,7 @@ export type OnDeleteGameStoreLinkSubscription = {
       createdAt: string,
       updatedAt: string,
       gameGameStoreLinkId?: string | null,
+      gameTopTimeId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,

@@ -37,9 +37,19 @@ export const onCreateGame = /* GraphQL */ `subscription OnCreateGame($filter: Mo
       nextToken
       __typename
     }
+    TopTime {
+      id
+      runner
+      time
+      createdAt
+      updatedAt
+      topTimeGameId
+      __typename
+    }
     createdAt
     updatedAt
     gameGameStoreLinkId
+    gameTopTimeId
     __typename
   }
 }
@@ -76,9 +86,19 @@ export const onUpdateGame = /* GraphQL */ `subscription OnUpdateGame($filter: Mo
       nextToken
       __typename
     }
+    TopTime {
+      id
+      runner
+      time
+      createdAt
+      updatedAt
+      topTimeGameId
+      __typename
+    }
     createdAt
     updatedAt
     gameGameStoreLinkId
+    gameTopTimeId
     __typename
   }
 }
@@ -115,9 +135,19 @@ export const onDeleteGame = /* GraphQL */ `subscription OnDeleteGame($filter: Mo
       nextToken
       __typename
     }
+    TopTime {
+      id
+      runner
+      time
+      createdAt
+      updatedAt
+      topTimeGameId
+      __typename
+    }
     createdAt
     updatedAt
     gameGameStoreLinkId
+    gameTopTimeId
     __typename
   }
 }
@@ -141,6 +171,7 @@ export const onCreateTopTime = /* GraphQL */ `subscription OnCreateTopTime($filt
       createdAt
       updatedAt
       gameGameStoreLinkId
+      gameTopTimeId
       __typename
     }
     createdAt
@@ -169,6 +200,7 @@ export const onUpdateTopTime = /* GraphQL */ `subscription OnUpdateTopTime($filt
       createdAt
       updatedAt
       gameGameStoreLinkId
+      gameTopTimeId
       __typename
     }
     createdAt
@@ -197,6 +229,7 @@ export const onDeleteTopTime = /* GraphQL */ `subscription OnDeleteTopTime($filt
       createdAt
       updatedAt
       gameGameStoreLinkId
+      gameTopTimeId
       __typename
     }
     createdAt
@@ -305,6 +338,7 @@ export const onCreateGameStoreLink = /* GraphQL */ `subscription OnCreateGameSto
       createdAt
       updatedAt
       gameGameStoreLinkId
+      gameTopTimeId
       __typename
     }
     createdAt
@@ -338,6 +372,7 @@ export const onUpdateGameStoreLink = /* GraphQL */ `subscription OnUpdateGameSto
       createdAt
       updatedAt
       gameGameStoreLinkId
+      gameTopTimeId
       __typename
     }
     createdAt
@@ -371,6 +406,7 @@ export const onDeleteGameStoreLink = /* GraphQL */ `subscription OnDeleteGameSto
       createdAt
       updatedAt
       gameGameStoreLinkId
+      gameTopTimeId
       __typename
     }
     createdAt

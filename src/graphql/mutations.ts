@@ -40,9 +40,19 @@ export const createGame = /* GraphQL */ `mutation CreateGame(
       nextToken
       __typename
     }
+    TopTime {
+      id
+      runner
+      time
+      createdAt
+      updatedAt
+      topTimeGameId
+      __typename
+    }
     createdAt
     updatedAt
     gameGameStoreLinkId
+    gameTopTimeId
     __typename
   }
 }
@@ -82,9 +92,19 @@ export const updateGame = /* GraphQL */ `mutation UpdateGame(
       nextToken
       __typename
     }
+    TopTime {
+      id
+      runner
+      time
+      createdAt
+      updatedAt
+      topTimeGameId
+      __typename
+    }
     createdAt
     updatedAt
     gameGameStoreLinkId
+    gameTopTimeId
     __typename
   }
 }
@@ -124,9 +144,19 @@ export const deleteGame = /* GraphQL */ `mutation DeleteGame(
       nextToken
       __typename
     }
+    TopTime {
+      id
+      runner
+      time
+      createdAt
+      updatedAt
+      topTimeGameId
+      __typename
+    }
     createdAt
     updatedAt
     gameGameStoreLinkId
+    gameTopTimeId
     __typename
   }
 }
@@ -153,6 +183,7 @@ export const createTopTime = /* GraphQL */ `mutation CreateTopTime(
       createdAt
       updatedAt
       gameGameStoreLinkId
+      gameTopTimeId
       __typename
     }
     createdAt
@@ -184,6 +215,7 @@ export const updateTopTime = /* GraphQL */ `mutation UpdateTopTime(
       createdAt
       updatedAt
       gameGameStoreLinkId
+      gameTopTimeId
       __typename
     }
     createdAt
@@ -215,6 +247,7 @@ export const deleteTopTime = /* GraphQL */ `mutation DeleteTopTime(
       createdAt
       updatedAt
       gameGameStoreLinkId
+      gameTopTimeId
       __typename
     }
     createdAt
@@ -327,6 +360,7 @@ export const createGameStoreLink = /* GraphQL */ `mutation CreateGameStoreLink(
       createdAt
       updatedAt
       gameGameStoreLinkId
+      gameTopTimeId
       __typename
     }
     createdAt
@@ -361,6 +395,7 @@ export const updateGameStoreLink = /* GraphQL */ `mutation UpdateGameStoreLink(
       createdAt
       updatedAt
       gameGameStoreLinkId
+      gameTopTimeId
       __typename
     }
     createdAt
@@ -395,6 +430,7 @@ export const deleteGameStoreLink = /* GraphQL */ `mutation DeleteGameStoreLink(
       createdAt
       updatedAt
       gameGameStoreLinkId
+      gameTopTimeId
       __typename
     }
     createdAt

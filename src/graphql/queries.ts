@@ -37,9 +37,19 @@ export const getGame = /* GraphQL */ `query GetGame($id: ID!) {
       nextToken
       __typename
     }
+    TopTime {
+      id
+      runner
+      time
+      createdAt
+      updatedAt
+      topTimeGameId
+      __typename
+    }
     createdAt
     updatedAt
     gameGameStoreLinkId
+    gameTopTimeId
     __typename
   }
 }
@@ -61,6 +71,7 @@ export const listGames = /* GraphQL */ `query ListGames(
       createdAt
       updatedAt
       gameGameStoreLinkId
+      gameTopTimeId
       __typename
     }
     nextToken
@@ -84,6 +95,7 @@ export const getTopTime = /* GraphQL */ `query GetTopTime($id: ID!) {
       createdAt
       updatedAt
       gameGameStoreLinkId
+      gameTopTimeId
       __typename
     }
     createdAt
@@ -270,6 +282,7 @@ export const getGameStoreLink = /* GraphQL */ `query GetGameStoreLink($id: ID!) 
       createdAt
       updatedAt
       gameGameStoreLinkId
+      gameTopTimeId
       __typename
     }
     createdAt
