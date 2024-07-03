@@ -21,25 +21,31 @@ export declare type ValidationResponse = {
     errorMessage?: string;
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
-export declare type SeriesCreateFormInputValues = {
-    title?: string;
+export declare type RacersCreateFormInputValues = {
+    name?: string;
+    about_info?: string;
+    image?: string;
 };
-export declare type SeriesCreateFormValidationValues = {
-    title?: ValidationFunction<string>;
+export declare type RacersCreateFormValidationValues = {
+    name?: ValidationFunction<string>;
+    about_info?: ValidationFunction<string>;
+    image?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
-export declare type SeriesCreateFormOverridesProps = {
-    SeriesCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
-    title?: PrimitiveOverrideProps<TextFieldProps>;
+export declare type RacersCreateFormOverridesProps = {
+    RacersCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
+    name?: PrimitiveOverrideProps<TextFieldProps>;
+    about_info?: PrimitiveOverrideProps<TextFieldProps>;
+    image?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
-export declare type SeriesCreateFormProps = React.PropsWithChildren<{
-    overrides?: SeriesCreateFormOverridesProps | undefined | null;
+export declare type RacersCreateFormProps = React.PropsWithChildren<{
+    overrides?: RacersCreateFormOverridesProps | undefined | null;
 } & {
     clearOnSuccess?: boolean;
-    onSubmit?: (fields: SeriesCreateFormInputValues) => SeriesCreateFormInputValues;
-    onSuccess?: (fields: SeriesCreateFormInputValues) => void;
-    onError?: (fields: SeriesCreateFormInputValues, errorMessage: string) => void;
-    onChange?: (fields: SeriesCreateFormInputValues) => SeriesCreateFormInputValues;
-    onValidate?: SeriesCreateFormValidationValues;
+    onSubmit?: (fields: RacersCreateFormInputValues) => RacersCreateFormInputValues;
+    onSuccess?: (fields: RacersCreateFormInputValues) => void;
+    onError?: (fields: RacersCreateFormInputValues, errorMessage: string) => void;
+    onChange?: (fields: RacersCreateFormInputValues) => RacersCreateFormInputValues;
+    onValidate?: RacersCreateFormValidationValues;
 } & React.CSSProperties>;
-export default function SeriesCreateForm(props: SeriesCreateFormProps): React.ReactElement;
+export default function RacersCreateForm(props: RacersCreateFormProps): React.ReactElement;

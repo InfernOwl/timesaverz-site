@@ -9,13 +9,11 @@ import * as React from "react";
 import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
 import { fetchByPath, getOverrideProps, validateField } from "./utils";
 import { generateClient } from "aws-amplify/api";
-import { getSeries } from "../graphql/queries";
-import { updateSeries } from "../graphql/mutations";
+import { createRacers } from "../graphql/mutations";
 const client = generateClient();
-export default function SeriesUpdateForm(props) {
+export default function RacersCreateForm(props) {
   const {
-    id: idProp,
-    series: seriesModelProp,
+    clearOnSuccess = true,
     onSuccess,
     onError,
     onSubmit,
@@ -25,35 +23,24 @@ export default function SeriesUpdateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    title: "",
+    name: "",
+    about_info: "",
+    image: "",
   };
-  const [title, setTitle] = React.useState(initialValues.title);
+  const [name, setName] = React.useState(initialValues.name);
+  const [about_info, setAbout_info] = React.useState(initialValues.about_info);
+  const [image, setImage] = React.useState(initialValues.image);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    const cleanValues = seriesRecord
-      ? { ...initialValues, ...seriesRecord }
-      : initialValues;
-    setTitle(cleanValues.title);
+    setName(initialValues.name);
+    setAbout_info(initialValues.about_info);
+    setImage(initialValues.image);
     setErrors({});
   };
-  const [seriesRecord, setSeriesRecord] = React.useState(seriesModelProp);
-  React.useEffect(() => {
-    const queryData = async () => {
-      const record = idProp
-        ? (
-            await client.graphql({
-              query: getSeries.replaceAll("__typename", ""),
-              variables: { id: idProp },
-            })
-          )?.data?.getSeries
-        : seriesModelProp;
-      setSeriesRecord(record);
-    };
-    queryData();
-  }, [idProp, seriesModelProp]);
-  React.useEffect(resetStateValues, [seriesRecord]);
   const validations = {
-    title: [],
+    name: [{ type: "Required" }],
+    about_info: [],
+    image: [{ type: "URL" }],
   };
   const runValidationTasks = async (
     fieldName,
@@ -81,7 +68,9 @@ export default function SeriesUpdateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          title: title ?? null,
+          name,
+          about_info,
+          image,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -112,16 +101,18 @@ export default function SeriesUpdateForm(props) {
             }
           });
           await client.graphql({
-            query: updateSeries.replaceAll("__typename", ""),
+            query: createRacers.replaceAll("__typename", ""),
             variables: {
               input: {
-                id: seriesRecord.id,
                 ...modelFields,
               },
             },
           });
           if (onSuccess) {
             onSuccess(modelFields);
+          }
+          if (clearOnSuccess) {
+            resetStateValues();
           }
         } catch (err) {
           if (onError) {
@@ -130,46 +121,99 @@ export default function SeriesUpdateForm(props) {
           }
         }
       }}
-      {...getOverrideProps(overrides, "SeriesUpdateForm")}
+      {...getOverrideProps(overrides, "RacersCreateForm")}
       {...rest}
     >
       <TextField
-        label="Title"
-        isRequired={false}
+        label="Name"
+        isRequired={true}
         isReadOnly={false}
-        value={title}
+        value={name}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              title: value,
+              name: value,
+              about_info,
+              image,
             };
             const result = onChange(modelFields);
-            value = result?.title ?? value;
+            value = result?.name ?? value;
           }
-          if (errors.title?.hasError) {
-            runValidationTasks("title", value);
+          if (errors.name?.hasError) {
+            runValidationTasks("name", value);
           }
-          setTitle(value);
+          setName(value);
         }}
-        onBlur={() => runValidationTasks("title", title)}
-        errorMessage={errors.title?.errorMessage}
-        hasError={errors.title?.hasError}
-        {...getOverrideProps(overrides, "title")}
+        onBlur={() => runValidationTasks("name", name)}
+        errorMessage={errors.name?.errorMessage}
+        hasError={errors.name?.hasError}
+        {...getOverrideProps(overrides, "name")}
+      ></TextField>
+      <TextField
+        label="About info"
+        isRequired={false}
+        isReadOnly={false}
+        value={about_info}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              name,
+              about_info: value,
+              image,
+            };
+            const result = onChange(modelFields);
+            value = result?.about_info ?? value;
+          }
+          if (errors.about_info?.hasError) {
+            runValidationTasks("about_info", value);
+          }
+          setAbout_info(value);
+        }}
+        onBlur={() => runValidationTasks("about_info", about_info)}
+        errorMessage={errors.about_info?.errorMessage}
+        hasError={errors.about_info?.hasError}
+        {...getOverrideProps(overrides, "about_info")}
+      ></TextField>
+      <TextField
+        label="Image"
+        isRequired={false}
+        isReadOnly={false}
+        value={image}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              name,
+              about_info,
+              image: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.image ?? value;
+          }
+          if (errors.image?.hasError) {
+            runValidationTasks("image", value);
+          }
+          setImage(value);
+        }}
+        onBlur={() => runValidationTasks("image", image)}
+        errorMessage={errors.image?.errorMessage}
+        hasError={errors.image?.hasError}
+        {...getOverrideProps(overrides, "image")}
       ></TextField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}
       >
         <Button
-          children="Reset"
+          children="Clear"
           type="reset"
           onClick={(event) => {
             event.preventDefault();
             resetStateValues();
           }}
-          isDisabled={!(idProp || seriesModelProp)}
-          {...getOverrideProps(overrides, "ResetButton")}
+          {...getOverrideProps(overrides, "ClearButton")}
         ></Button>
         <Flex
           gap="15px"
@@ -179,10 +223,7 @@ export default function SeriesUpdateForm(props) {
             children="Submit"
             type="submit"
             variation="primary"
-            isDisabled={
-              !(idProp || seriesModelProp) ||
-              Object.values(errors).some((e) => e?.hasError)
-            }
+            isDisabled={Object.values(errors).some((e) => e?.hasError)}
             {...getOverrideProps(overrides, "SubmitButton")}
           ></Button>
         </Flex>
