@@ -7,37 +7,31 @@ type Game @model @auth(rules: [{allow: public}]) {
   game_box_image: String
   game_info: String
   GameStoreLink: GameStoreLink @hasOne
+  RaceResults: [RaceResults] @hasMany(indexName: "byGame", fields: ["id"])
+  Races: [Races] @hasMany(indexName: "byGame", fields: ["id"])
+  TopTime: TopTime @hasOne
 }
 
 type TopTime @model @auth(rules: [{allow: public}]) {
   id: ID!
   runner: String
   time: String
+  Game: Game @belongsTo
 }
 
 type RaceResults @model @auth(rules: [{allow: public}]) {
   id: ID!
-  points: Int
-  link: AWSURL
-  time: String
-  runnersID: ID! @index(name: "byRunners")
-  Game: Game @hasOne
-}
-
-type Runners @model @auth(rules: [{allow: public}]) {
-  id: ID!
-  name: String
-  image: AWSURL
-  race_results: [RaceResults] @hasMany(indexName: "byRunners", fields: ["id"])
-  standingss: [Standings] @manyToMany(relationName: "StandingsRunners")
-}
-
-type Standings @model @auth(rules: [{allow: public}]) {
-  id: ID!
-  started: Boolean
-  finished: Boolean
-  runners: [Runners] @manyToMany(relationName: "StandingsRunners")
-  top_time: TopTime @hasOne
+  aboutID: ID! @index(name: "byRacers")
+  r1_points: String
+  r1_link: String
+  r1_time: String
+  r2_points: String
+  r2_link: String
+  r2_time: String
+  r3_points: String
+  r3_link: String
+  r3_time: String
+  gameID: ID! @index(name: "byGame")
 }
 
 type GameStoreLink @model @auth(rules: [{allow: public}]) {
@@ -47,21 +41,24 @@ type GameStoreLink @model @auth(rules: [{allow: public}]) {
   playstation: AWSURL
   xbox: AWSURL
   nintendo: AWSURL
+  Game: Game @belongsTo
 }
 
 type Races @model @auth(rules: [{allow: public}]) {
   id: ID!
-  sweeps_start: String
-  sweeps_end: String
   sweeps_winner: String
   seriesID: ID! @index(name: "bySeries")
-  standings: Standings @hasOne
-  Game: Game @hasOne
+  Racers: [Racers] @manyToMany(relationName: "RacesRacers")
+  active: Boolean
+  ended: AWSDate
+  started: AWSDate
+  gameID: ID! @index(name: "byGame", sortKeyFields: ["started"])
 }
 
 type Series @model @auth(rules: [{allow: public}]) {
   id: ID!
   races: [Races] @hasMany(indexName: "bySeries", fields: ["id"])
+  title: String
 }
 
 type Links @model @auth(rules: [{allow: public}]) {
@@ -74,12 +71,14 @@ type Links @model @auth(rules: [{allow: public}]) {
   kofi: AWSURL
 }
 
-type About @model @auth(rules: [{allow: public}]) {
+type Racers @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String!
   about_info: String
   image: AWSURL
   links: Links @hasOne
+  RaceResults: [RaceResults] @hasMany(indexName: "byRacers", fields: ["id"])
+  racess: [Races] @manyToMany(relationName: "RacesRacers")
 }
 
 type SweepstakesEntry @model @auth(rules: [{allow: public}]) {
