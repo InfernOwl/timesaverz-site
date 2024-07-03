@@ -11,7 +11,6 @@ export type CreateGameInput = {
   game_box_image?: string | null,
   game_info?: string | null,
   gameGameStoreLinkId?: string | null,
-  gameTopTimeId?: string | null,
 };
 
 export type ModelGameConditionInput = {
@@ -27,7 +26,6 @@ export type ModelGameConditionInput = {
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
   gameGameStoreLinkId?: ModelIDInput | null,
-  gameTopTimeId?: ModelIDInput | null,
 };
 
 export type ModelStringInput = {
@@ -96,13 +94,9 @@ export type Game = {
   game_box_image?: string | null,
   game_info?: string | null,
   GameStoreLink?: GameStoreLink | null,
-  RaceResults?: ModelRaceResultsConnection | null,
-  Races?: ModelRacesConnection | null,
-  TopTime?: TopTime | null,
   createdAt: string,
   updatedAt: string,
   gameGameStoreLinkId?: string | null,
-  gameTopTimeId?: string | null,
 };
 
 export type GameStoreLink = {
@@ -113,109 +107,8 @@ export type GameStoreLink = {
   playstation?: string | null,
   xbox?: string | null,
   nintendo?: string | null,
-  Game?: Game | null,
   createdAt: string,
   updatedAt: string,
-  gameStoreLinkGameId?: string | null,
-};
-
-export type ModelRaceResultsConnection = {
-  __typename: "ModelRaceResultsConnection",
-  items:  Array<RaceResults | null >,
-  nextToken?: string | null,
-};
-
-export type RaceResults = {
-  __typename: "RaceResults",
-  id: string,
-  aboutID: string,
-  r1_points?: string | null,
-  r1_link?: string | null,
-  r1_time?: string | null,
-  r2_points?: string | null,
-  r2_link?: string | null,
-  r2_time?: string | null,
-  r3_points?: string | null,
-  r3_link?: string | null,
-  r3_time?: string | null,
-  gameID: string,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type ModelRacesConnection = {
-  __typename: "ModelRacesConnection",
-  items:  Array<Races | null >,
-  nextToken?: string | null,
-};
-
-export type Races = {
-  __typename: "Races",
-  id: string,
-  sweeps_winner?: string | null,
-  seriesID: string,
-  Racers?: ModelRacesRacersConnection | null,
-  active?: boolean | null,
-  ended?: string | null,
-  started?: string | null,
-  gameID: string,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type ModelRacesRacersConnection = {
-  __typename: "ModelRacesRacersConnection",
-  items:  Array<RacesRacers | null >,
-  nextToken?: string | null,
-};
-
-export type RacesRacers = {
-  __typename: "RacesRacers",
-  id: string,
-  racesId: string,
-  racersId: string,
-  races: Races,
-  racers: Racers,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type Racers = {
-  __typename: "Racers",
-  id: string,
-  name: string,
-  about_info?: string | null,
-  image?: string | null,
-  links?: Links | null,
-  RaceResults?: ModelRaceResultsConnection | null,
-  racess?: ModelRacesRacersConnection | null,
-  createdAt: string,
-  updatedAt: string,
-  racersLinksId?: string | null,
-};
-
-export type Links = {
-  __typename: "Links",
-  id: string,
-  twitter?: string | null,
-  instagram?: string | null,
-  twitch?: string | null,
-  tiktok?: string | null,
-  youtube?: string | null,
-  kofi?: string | null,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type TopTime = {
-  __typename: "TopTime",
-  id: string,
-  runner?: string | null,
-  time?: string | null,
-  Game?: Game | null,
-  createdAt: string,
-  updatedAt: string,
-  topTimeGameId?: string | null,
 };
 
 export type UpdateGameInput = {
@@ -227,7 +120,6 @@ export type UpdateGameInput = {
   game_box_image?: string | null,
   game_info?: string | null,
   gameGameStoreLinkId?: string | null,
-  gameTopTimeId?: string | null,
 };
 
 export type DeleteGameInput = {
@@ -238,7 +130,6 @@ export type CreateTopTimeInput = {
   id?: string | null,
   runner?: string | null,
   time?: string | null,
-  topTimeGameId?: string | null,
 };
 
 export type ModelTopTimeConditionInput = {
@@ -249,14 +140,21 @@ export type ModelTopTimeConditionInput = {
   not?: ModelTopTimeConditionInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
-  topTimeGameId?: ModelIDInput | null,
+};
+
+export type TopTime = {
+  __typename: "TopTime",
+  id: string,
+  runner?: string | null,
+  time?: string | null,
+  createdAt: string,
+  updatedAt: string,
 };
 
 export type UpdateTopTimeInput = {
   id: string,
   runner?: string | null,
   time?: string | null,
-  topTimeGameId?: string | null,
 };
 
 export type DeleteTopTimeInput = {
@@ -265,51 +163,54 @@ export type DeleteTopTimeInput = {
 
 export type CreateRaceResultsInput = {
   id?: string | null,
-  aboutID: string,
-  r1_points?: string | null,
-  r1_link?: string | null,
-  r1_time?: string | null,
-  r2_points?: string | null,
-  r2_link?: string | null,
-  r2_time?: string | null,
-  r3_points?: string | null,
-  r3_link?: string | null,
-  r3_time?: string | null,
-  gameID: string,
+  points?: number | null,
+  link?: string | null,
+  time?: string | null,
+  raceResultsGameId?: string | null,
 };
 
 export type ModelRaceResultsConditionInput = {
-  aboutID?: ModelIDInput | null,
-  r1_points?: ModelStringInput | null,
-  r1_link?: ModelStringInput | null,
-  r1_time?: ModelStringInput | null,
-  r2_points?: ModelStringInput | null,
-  r2_link?: ModelStringInput | null,
-  r2_time?: ModelStringInput | null,
-  r3_points?: ModelStringInput | null,
-  r3_link?: ModelStringInput | null,
-  r3_time?: ModelStringInput | null,
-  gameID?: ModelIDInput | null,
+  points?: ModelIntInput | null,
+  link?: ModelStringInput | null,
+  time?: ModelStringInput | null,
   and?: Array< ModelRaceResultsConditionInput | null > | null,
   or?: Array< ModelRaceResultsConditionInput | null > | null,
   not?: ModelRaceResultsConditionInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
+  raceResultsGameId?: ModelIDInput | null,
+};
+
+export type ModelIntInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
+export type RaceResults = {
+  __typename: "RaceResults",
+  id: string,
+  points?: number | null,
+  link?: string | null,
+  time?: string | null,
+  Game?: Game | null,
+  createdAt: string,
+  updatedAt: string,
+  raceResultsGameId?: string | null,
 };
 
 export type UpdateRaceResultsInput = {
   id: string,
-  aboutID?: string | null,
-  r1_points?: string | null,
-  r1_link?: string | null,
-  r1_time?: string | null,
-  r2_points?: string | null,
-  r2_link?: string | null,
-  r2_time?: string | null,
-  r3_points?: string | null,
-  r3_link?: string | null,
-  r3_time?: string | null,
-  gameID?: string | null,
+  points?: number | null,
+  link?: string | null,
+  time?: string | null,
+  raceResultsGameId?: string | null,
 };
 
 export type DeleteRaceResultsInput = {
@@ -323,7 +224,6 @@ export type CreateGameStoreLinkInput = {
   playstation?: string | null,
   xbox?: string | null,
   nintendo?: string | null,
-  gameStoreLinkGameId?: string | null,
 };
 
 export type ModelGameStoreLinkConditionInput = {
@@ -337,7 +237,6 @@ export type ModelGameStoreLinkConditionInput = {
   not?: ModelGameStoreLinkConditionInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
-  gameStoreLinkGameId?: ModelIDInput | null,
 };
 
 export type UpdateGameStoreLinkInput = {
@@ -347,7 +246,6 @@ export type UpdateGameStoreLinkInput = {
   playstation?: string | null,
   xbox?: string | null,
   nintendo?: string | null,
-  gameStoreLinkGameId?: string | null,
 };
 
 export type DeleteGameStoreLinkInput = {
@@ -356,43 +254,46 @@ export type DeleteGameStoreLinkInput = {
 
 export type CreateRacesInput = {
   id?: string | null,
+  sweeps_start?: string | null,
+  sweeps_end?: string | null,
   sweeps_winner?: string | null,
   seriesID: string,
-  active?: boolean | null,
-  ended?: string | null,
-  started?: string | null,
-  gameID: string,
+  racesGameId?: string | null,
 };
 
 export type ModelRacesConditionInput = {
+  sweeps_start?: ModelStringInput | null,
+  sweeps_end?: ModelStringInput | null,
   sweeps_winner?: ModelStringInput | null,
   seriesID?: ModelIDInput | null,
-  active?: ModelBooleanInput | null,
-  ended?: ModelStringInput | null,
-  started?: ModelStringInput | null,
-  gameID?: ModelIDInput | null,
   and?: Array< ModelRacesConditionInput | null > | null,
   or?: Array< ModelRacesConditionInput | null > | null,
   not?: ModelRacesConditionInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
+  racesGameId?: ModelIDInput | null,
 };
 
-export type ModelBooleanInput = {
-  ne?: boolean | null,
-  eq?: boolean | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
+export type Races = {
+  __typename: "Races",
+  id: string,
+  sweeps_start?: string | null,
+  sweeps_end?: string | null,
+  sweeps_winner?: string | null,
+  seriesID: string,
+  Game?: Game | null,
+  createdAt: string,
+  updatedAt: string,
+  racesGameId?: string | null,
 };
 
 export type UpdateRacesInput = {
   id: string,
+  sweeps_start?: string | null,
+  sweeps_end?: string | null,
   sweeps_winner?: string | null,
   seriesID?: string | null,
-  active?: boolean | null,
-  ended?: string | null,
-  started?: string | null,
-  gameID?: string | null,
+  racesGameId?: string | null,
 };
 
 export type DeleteRacesInput = {
@@ -401,11 +302,9 @@ export type DeleteRacesInput = {
 
 export type CreateSeriesInput = {
   id?: string | null,
-  title?: string | null,
 };
 
 export type ModelSeriesConditionInput = {
-  title?: ModelStringInput | null,
   and?: Array< ModelSeriesConditionInput | null > | null,
   or?: Array< ModelSeriesConditionInput | null > | null,
   not?: ModelSeriesConditionInput | null,
@@ -417,14 +316,18 @@ export type Series = {
   __typename: "Series",
   id: string,
   races?: ModelRacesConnection | null,
-  title?: string | null,
   createdAt: string,
   updatedAt: string,
 };
 
+export type ModelRacesConnection = {
+  __typename: "ModelRacesConnection",
+  items:  Array<Races | null >,
+  nextToken?: string | null,
+};
+
 export type UpdateSeriesInput = {
   id: string,
-  title?: string | null,
 };
 
 export type DeleteSeriesInput = {
@@ -455,6 +358,19 @@ export type ModelLinksConditionInput = {
   updatedAt?: ModelStringInput | null,
 };
 
+export type Links = {
+  __typename: "Links",
+  id: string,
+  twitter?: string | null,
+  instagram?: string | null,
+  twitch?: string | null,
+  tiktok?: string | null,
+  youtube?: string | null,
+  kofi?: string | null,
+  createdAt: string,
+  updatedAt: string,
+};
+
 export type UpdateLinksInput = {
   id: string,
   twitter?: string | null,
@@ -466,38 +382,6 @@ export type UpdateLinksInput = {
 };
 
 export type DeleteLinksInput = {
-  id: string,
-};
-
-export type CreateRacersInput = {
-  id?: string | null,
-  name: string,
-  about_info?: string | null,
-  image?: string | null,
-  racersLinksId?: string | null,
-};
-
-export type ModelRacersConditionInput = {
-  name?: ModelStringInput | null,
-  about_info?: ModelStringInput | null,
-  image?: ModelStringInput | null,
-  and?: Array< ModelRacersConditionInput | null > | null,
-  or?: Array< ModelRacersConditionInput | null > | null,
-  not?: ModelRacersConditionInput | null,
-  createdAt?: ModelStringInput | null,
-  updatedAt?: ModelStringInput | null,
-  racersLinksId?: ModelIDInput | null,
-};
-
-export type UpdateRacersInput = {
-  id: string,
-  name?: string | null,
-  about_info?: string | null,
-  image?: string | null,
-  racersLinksId?: string | null,
-};
-
-export type DeleteRacersInput = {
   id: string,
 };
 
@@ -622,32 +506,6 @@ export type DeleteSuggestionsInput = {
   id: string,
 };
 
-export type CreateRacesRacersInput = {
-  id?: string | null,
-  racesId: string,
-  racersId: string,
-};
-
-export type ModelRacesRacersConditionInput = {
-  racesId?: ModelIDInput | null,
-  racersId?: ModelIDInput | null,
-  and?: Array< ModelRacesRacersConditionInput | null > | null,
-  or?: Array< ModelRacesRacersConditionInput | null > | null,
-  not?: ModelRacesRacersConditionInput | null,
-  createdAt?: ModelStringInput | null,
-  updatedAt?: ModelStringInput | null,
-};
-
-export type UpdateRacesRacersInput = {
-  id: string,
-  racesId?: string | null,
-  racersId?: string | null,
-};
-
-export type DeleteRacesRacersInput = {
-  id: string,
-};
-
 export type ModelGameFilterInput = {
   id?: ModelIDInput | null,
   game_title?: ModelStringInput | null,
@@ -662,7 +520,6 @@ export type ModelGameFilterInput = {
   or?: Array< ModelGameFilterInput | null > | null,
   not?: ModelGameFilterInput | null,
   gameGameStoreLinkId?: ModelIDInput | null,
-  gameTopTimeId?: ModelIDInput | null,
 };
 
 export type ModelGameConnection = {
@@ -680,7 +537,6 @@ export type ModelTopTimeFilterInput = {
   and?: Array< ModelTopTimeFilterInput | null > | null,
   or?: Array< ModelTopTimeFilterInput | null > | null,
   not?: ModelTopTimeFilterInput | null,
-  topTimeGameId?: ModelIDInput | null,
 };
 
 export type ModelTopTimeConnection = {
@@ -691,29 +547,22 @@ export type ModelTopTimeConnection = {
 
 export type ModelRaceResultsFilterInput = {
   id?: ModelIDInput | null,
-  aboutID?: ModelIDInput | null,
-  r1_points?: ModelStringInput | null,
-  r1_link?: ModelStringInput | null,
-  r1_time?: ModelStringInput | null,
-  r2_points?: ModelStringInput | null,
-  r2_link?: ModelStringInput | null,
-  r2_time?: ModelStringInput | null,
-  r3_points?: ModelStringInput | null,
-  r3_link?: ModelStringInput | null,
-  r3_time?: ModelStringInput | null,
-  gameID?: ModelIDInput | null,
+  points?: ModelIntInput | null,
+  link?: ModelStringInput | null,
+  time?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
   and?: Array< ModelRaceResultsFilterInput | null > | null,
   or?: Array< ModelRaceResultsFilterInput | null > | null,
   not?: ModelRaceResultsFilterInput | null,
+  raceResultsGameId?: ModelIDInput | null,
 };
 
-export enum ModelSortDirection {
-  ASC = "ASC",
-  DESC = "DESC",
-}
-
+export type ModelRaceResultsConnection = {
+  __typename: "ModelRaceResultsConnection",
+  items:  Array<RaceResults | null >,
+  nextToken?: string | null,
+};
 
 export type ModelGameStoreLinkFilterInput = {
   id?: ModelIDInput | null,
@@ -727,7 +576,6 @@ export type ModelGameStoreLinkFilterInput = {
   and?: Array< ModelGameStoreLinkFilterInput | null > | null,
   or?: Array< ModelGameStoreLinkFilterInput | null > | null,
   not?: ModelGameStoreLinkFilterInput | null,
-  gameStoreLinkGameId?: ModelIDInput | null,
 };
 
 export type ModelGameStoreLinkConnection = {
@@ -738,32 +586,26 @@ export type ModelGameStoreLinkConnection = {
 
 export type ModelRacesFilterInput = {
   id?: ModelIDInput | null,
+  sweeps_start?: ModelStringInput | null,
+  sweeps_end?: ModelStringInput | null,
   sweeps_winner?: ModelStringInput | null,
   seriesID?: ModelIDInput | null,
-  active?: ModelBooleanInput | null,
-  ended?: ModelStringInput | null,
-  started?: ModelStringInput | null,
-  gameID?: ModelIDInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
   and?: Array< ModelRacesFilterInput | null > | null,
   or?: Array< ModelRacesFilterInput | null > | null,
   not?: ModelRacesFilterInput | null,
+  racesGameId?: ModelIDInput | null,
 };
 
-export type ModelStringKeyConditionInput = {
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
-};
+export enum ModelSortDirection {
+  ASC = "ASC",
+  DESC = "DESC",
+}
+
 
 export type ModelSeriesFilterInput = {
   id?: ModelIDInput | null,
-  title?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
   and?: Array< ModelSeriesFilterInput | null > | null,
@@ -795,25 +637,6 @@ export type ModelLinksFilterInput = {
 export type ModelLinksConnection = {
   __typename: "ModelLinksConnection",
   items:  Array<Links | null >,
-  nextToken?: string | null,
-};
-
-export type ModelRacersFilterInput = {
-  id?: ModelIDInput | null,
-  name?: ModelStringInput | null,
-  about_info?: ModelStringInput | null,
-  image?: ModelStringInput | null,
-  createdAt?: ModelStringInput | null,
-  updatedAt?: ModelStringInput | null,
-  and?: Array< ModelRacersFilterInput | null > | null,
-  or?: Array< ModelRacersFilterInput | null > | null,
-  not?: ModelRacersFilterInput | null,
-  racersLinksId?: ModelIDInput | null,
-};
-
-export type ModelRacersConnection = {
-  __typename: "ModelRacersConnection",
-  items:  Array<Racers | null >,
   nextToken?: string | null,
 };
 
@@ -872,17 +695,6 @@ export type ModelSuggestionsConnection = {
   nextToken?: string | null,
 };
 
-export type ModelRacesRacersFilterInput = {
-  id?: ModelIDInput | null,
-  racesId?: ModelIDInput | null,
-  racersId?: ModelIDInput | null,
-  createdAt?: ModelStringInput | null,
-  updatedAt?: ModelStringInput | null,
-  and?: Array< ModelRacesRacersFilterInput | null > | null,
-  or?: Array< ModelRacesRacersFilterInput | null > | null,
-  not?: ModelRacesRacersFilterInput | null,
-};
-
 export type ModelSubscriptionGameFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   game_title?: ModelSubscriptionStringInput | null,
@@ -896,7 +708,6 @@ export type ModelSubscriptionGameFilterInput = {
   and?: Array< ModelSubscriptionGameFilterInput | null > | null,
   or?: Array< ModelSubscriptionGameFilterInput | null > | null,
   gameGameStoreLinkId?: ModelSubscriptionIDInput | null,
-  gameTopTimeId?: ModelSubscriptionIDInput | null,
 };
 
 export type ModelSubscriptionIDInput = {
@@ -937,26 +748,30 @@ export type ModelSubscriptionTopTimeFilterInput = {
   updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionTopTimeFilterInput | null > | null,
   or?: Array< ModelSubscriptionTopTimeFilterInput | null > | null,
-  topTimeGameId?: ModelSubscriptionIDInput | null,
 };
 
 export type ModelSubscriptionRaceResultsFilterInput = {
   id?: ModelSubscriptionIDInput | null,
-  aboutID?: ModelSubscriptionIDInput | null,
-  r1_points?: ModelSubscriptionStringInput | null,
-  r1_link?: ModelSubscriptionStringInput | null,
-  r1_time?: ModelSubscriptionStringInput | null,
-  r2_points?: ModelSubscriptionStringInput | null,
-  r2_link?: ModelSubscriptionStringInput | null,
-  r2_time?: ModelSubscriptionStringInput | null,
-  r3_points?: ModelSubscriptionStringInput | null,
-  r3_link?: ModelSubscriptionStringInput | null,
-  r3_time?: ModelSubscriptionStringInput | null,
-  gameID?: ModelSubscriptionIDInput | null,
+  points?: ModelSubscriptionIntInput | null,
+  link?: ModelSubscriptionStringInput | null,
+  time?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
   updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionRaceResultsFilterInput | null > | null,
   or?: Array< ModelSubscriptionRaceResultsFilterInput | null > | null,
+  raceResultsGameId?: ModelSubscriptionIDInput | null,
+};
+
+export type ModelSubscriptionIntInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+  in?: Array< number | null > | null,
+  notIn?: Array< number | null > | null,
 };
 
 export type ModelSubscriptionGameStoreLinkFilterInput = {
@@ -970,31 +785,23 @@ export type ModelSubscriptionGameStoreLinkFilterInput = {
   updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionGameStoreLinkFilterInput | null > | null,
   or?: Array< ModelSubscriptionGameStoreLinkFilterInput | null > | null,
-  gameStoreLinkGameId?: ModelSubscriptionIDInput | null,
 };
 
 export type ModelSubscriptionRacesFilterInput = {
   id?: ModelSubscriptionIDInput | null,
+  sweeps_start?: ModelSubscriptionStringInput | null,
+  sweeps_end?: ModelSubscriptionStringInput | null,
   sweeps_winner?: ModelSubscriptionStringInput | null,
   seriesID?: ModelSubscriptionIDInput | null,
-  active?: ModelSubscriptionBooleanInput | null,
-  ended?: ModelSubscriptionStringInput | null,
-  started?: ModelSubscriptionStringInput | null,
-  gameID?: ModelSubscriptionIDInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
   updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionRacesFilterInput | null > | null,
   or?: Array< ModelSubscriptionRacesFilterInput | null > | null,
-};
-
-export type ModelSubscriptionBooleanInput = {
-  ne?: boolean | null,
-  eq?: boolean | null,
+  racesGameId?: ModelSubscriptionIDInput | null,
 };
 
 export type ModelSubscriptionSeriesFilterInput = {
   id?: ModelSubscriptionIDInput | null,
-  title?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
   updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionSeriesFilterInput | null > | null,
@@ -1013,18 +820,6 @@ export type ModelSubscriptionLinksFilterInput = {
   updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionLinksFilterInput | null > | null,
   or?: Array< ModelSubscriptionLinksFilterInput | null > | null,
-};
-
-export type ModelSubscriptionRacersFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  name?: ModelSubscriptionStringInput | null,
-  about_info?: ModelSubscriptionStringInput | null,
-  image?: ModelSubscriptionStringInput | null,
-  createdAt?: ModelSubscriptionStringInput | null,
-  updatedAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionRacersFilterInput | null > | null,
-  or?: Array< ModelSubscriptionRacersFilterInput | null > | null,
-  racersLinksId?: ModelSubscriptionIDInput | null,
 };
 
 export type ModelSubscriptionSweepstakesEntryFilterInput = {
@@ -1061,16 +856,6 @@ export type ModelSubscriptionSuggestionsFilterInput = {
   or?: Array< ModelSubscriptionSuggestionsFilterInput | null > | null,
 };
 
-export type ModelSubscriptionRacesRacersFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  racesId?: ModelSubscriptionIDInput | null,
-  racersId?: ModelSubscriptionIDInput | null,
-  createdAt?: ModelSubscriptionStringInput | null,
-  updatedAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionRacesRacersFilterInput | null > | null,
-  or?: Array< ModelSubscriptionRacesRacersFilterInput | null > | null,
-};
-
 export type CreateGameMutationVariables = {
   input: CreateGameInput,
   condition?: ModelGameConditionInput | null,
@@ -1096,29 +881,10 @@ export type CreateGameMutation = {
       nintendo?: string | null,
       createdAt: string,
       updatedAt: string,
-      gameStoreLinkGameId?: string | null,
-    } | null,
-    RaceResults?:  {
-      __typename: "ModelRaceResultsConnection",
-      nextToken?: string | null,
-    } | null,
-    Races?:  {
-      __typename: "ModelRacesConnection",
-      nextToken?: string | null,
-    } | null,
-    TopTime?:  {
-      __typename: "TopTime",
-      id: string,
-      runner?: string | null,
-      time?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      topTimeGameId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
     gameGameStoreLinkId?: string | null,
-    gameTopTimeId?: string | null,
   } | null,
 };
 
@@ -1147,29 +913,10 @@ export type UpdateGameMutation = {
       nintendo?: string | null,
       createdAt: string,
       updatedAt: string,
-      gameStoreLinkGameId?: string | null,
-    } | null,
-    RaceResults?:  {
-      __typename: "ModelRaceResultsConnection",
-      nextToken?: string | null,
-    } | null,
-    Races?:  {
-      __typename: "ModelRacesConnection",
-      nextToken?: string | null,
-    } | null,
-    TopTime?:  {
-      __typename: "TopTime",
-      id: string,
-      runner?: string | null,
-      time?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      topTimeGameId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
     gameGameStoreLinkId?: string | null,
-    gameTopTimeId?: string | null,
   } | null,
 };
 
@@ -1198,29 +945,10 @@ export type DeleteGameMutation = {
       nintendo?: string | null,
       createdAt: string,
       updatedAt: string,
-      gameStoreLinkGameId?: string | null,
-    } | null,
-    RaceResults?:  {
-      __typename: "ModelRaceResultsConnection",
-      nextToken?: string | null,
-    } | null,
-    Races?:  {
-      __typename: "ModelRacesConnection",
-      nextToken?: string | null,
-    } | null,
-    TopTime?:  {
-      __typename: "TopTime",
-      id: string,
-      runner?: string | null,
-      time?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      topTimeGameId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
     gameGameStoreLinkId?: string | null,
-    gameTopTimeId?: string | null,
   } | null,
 };
 
@@ -1235,23 +963,8 @@ export type CreateTopTimeMutation = {
     id: string,
     runner?: string | null,
     time?: string | null,
-    Game?:  {
-      __typename: "Game",
-      id: string,
-      game_title?: string | null,
-      run_category?: string | null,
-      sr_game_link?: string | null,
-      background_image?: string | null,
-      game_box_image?: string | null,
-      game_info?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      gameGameStoreLinkId?: string | null,
-      gameTopTimeId?: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
-    topTimeGameId?: string | null,
   } | null,
 };
 
@@ -1266,23 +979,8 @@ export type UpdateTopTimeMutation = {
     id: string,
     runner?: string | null,
     time?: string | null,
-    Game?:  {
-      __typename: "Game",
-      id: string,
-      game_title?: string | null,
-      run_category?: string | null,
-      sr_game_link?: string | null,
-      background_image?: string | null,
-      game_box_image?: string | null,
-      game_info?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      gameGameStoreLinkId?: string | null,
-      gameTopTimeId?: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
-    topTimeGameId?: string | null,
   } | null,
 };
 
@@ -1297,23 +995,8 @@ export type DeleteTopTimeMutation = {
     id: string,
     runner?: string | null,
     time?: string | null,
-    Game?:  {
-      __typename: "Game",
-      id: string,
-      game_title?: string | null,
-      run_category?: string | null,
-      sr_game_link?: string | null,
-      background_image?: string | null,
-      game_box_image?: string | null,
-      game_info?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      gameGameStoreLinkId?: string | null,
-      gameTopTimeId?: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
-    topTimeGameId?: string | null,
   } | null,
 };
 
@@ -1326,19 +1009,25 @@ export type CreateRaceResultsMutation = {
   createRaceResults?:  {
     __typename: "RaceResults",
     id: string,
-    aboutID: string,
-    r1_points?: string | null,
-    r1_link?: string | null,
-    r1_time?: string | null,
-    r2_points?: string | null,
-    r2_link?: string | null,
-    r2_time?: string | null,
-    r3_points?: string | null,
-    r3_link?: string | null,
-    r3_time?: string | null,
-    gameID: string,
+    points?: number | null,
+    link?: string | null,
+    time?: string | null,
+    Game?:  {
+      __typename: "Game",
+      id: string,
+      game_title?: string | null,
+      run_category?: string | null,
+      sr_game_link?: string | null,
+      background_image?: string | null,
+      game_box_image?: string | null,
+      game_info?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      gameGameStoreLinkId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
+    raceResultsGameId?: string | null,
   } | null,
 };
 
@@ -1351,19 +1040,25 @@ export type UpdateRaceResultsMutation = {
   updateRaceResults?:  {
     __typename: "RaceResults",
     id: string,
-    aboutID: string,
-    r1_points?: string | null,
-    r1_link?: string | null,
-    r1_time?: string | null,
-    r2_points?: string | null,
-    r2_link?: string | null,
-    r2_time?: string | null,
-    r3_points?: string | null,
-    r3_link?: string | null,
-    r3_time?: string | null,
-    gameID: string,
+    points?: number | null,
+    link?: string | null,
+    time?: string | null,
+    Game?:  {
+      __typename: "Game",
+      id: string,
+      game_title?: string | null,
+      run_category?: string | null,
+      sr_game_link?: string | null,
+      background_image?: string | null,
+      game_box_image?: string | null,
+      game_info?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      gameGameStoreLinkId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
+    raceResultsGameId?: string | null,
   } | null,
 };
 
@@ -1376,19 +1071,25 @@ export type DeleteRaceResultsMutation = {
   deleteRaceResults?:  {
     __typename: "RaceResults",
     id: string,
-    aboutID: string,
-    r1_points?: string | null,
-    r1_link?: string | null,
-    r1_time?: string | null,
-    r2_points?: string | null,
-    r2_link?: string | null,
-    r2_time?: string | null,
-    r3_points?: string | null,
-    r3_link?: string | null,
-    r3_time?: string | null,
-    gameID: string,
+    points?: number | null,
+    link?: string | null,
+    time?: string | null,
+    Game?:  {
+      __typename: "Game",
+      id: string,
+      game_title?: string | null,
+      run_category?: string | null,
+      sr_game_link?: string | null,
+      background_image?: string | null,
+      game_box_image?: string | null,
+      game_info?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      gameGameStoreLinkId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
+    raceResultsGameId?: string | null,
   } | null,
 };
 
@@ -1406,23 +1107,8 @@ export type CreateGameStoreLinkMutation = {
     playstation?: string | null,
     xbox?: string | null,
     nintendo?: string | null,
-    Game?:  {
-      __typename: "Game",
-      id: string,
-      game_title?: string | null,
-      run_category?: string | null,
-      sr_game_link?: string | null,
-      background_image?: string | null,
-      game_box_image?: string | null,
-      game_info?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      gameGameStoreLinkId?: string | null,
-      gameTopTimeId?: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
-    gameStoreLinkGameId?: string | null,
   } | null,
 };
 
@@ -1440,23 +1126,8 @@ export type UpdateGameStoreLinkMutation = {
     playstation?: string | null,
     xbox?: string | null,
     nintendo?: string | null,
-    Game?:  {
-      __typename: "Game",
-      id: string,
-      game_title?: string | null,
-      run_category?: string | null,
-      sr_game_link?: string | null,
-      background_image?: string | null,
-      game_box_image?: string | null,
-      game_info?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      gameGameStoreLinkId?: string | null,
-      gameTopTimeId?: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
-    gameStoreLinkGameId?: string | null,
   } | null,
 };
 
@@ -1474,23 +1145,8 @@ export type DeleteGameStoreLinkMutation = {
     playstation?: string | null,
     xbox?: string | null,
     nintendo?: string | null,
-    Game?:  {
-      __typename: "Game",
-      id: string,
-      game_title?: string | null,
-      run_category?: string | null,
-      sr_game_link?: string | null,
-      background_image?: string | null,
-      game_box_image?: string | null,
-      game_info?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      gameGameStoreLinkId?: string | null,
-      gameTopTimeId?: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
-    gameStoreLinkGameId?: string | null,
   } | null,
 };
 
@@ -1503,18 +1159,26 @@ export type CreateRacesMutation = {
   createRaces?:  {
     __typename: "Races",
     id: string,
+    sweeps_start?: string | null,
+    sweeps_end?: string | null,
     sweeps_winner?: string | null,
     seriesID: string,
-    Racers?:  {
-      __typename: "ModelRacesRacersConnection",
-      nextToken?: string | null,
+    Game?:  {
+      __typename: "Game",
+      id: string,
+      game_title?: string | null,
+      run_category?: string | null,
+      sr_game_link?: string | null,
+      background_image?: string | null,
+      game_box_image?: string | null,
+      game_info?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      gameGameStoreLinkId?: string | null,
     } | null,
-    active?: boolean | null,
-    ended?: string | null,
-    started?: string | null,
-    gameID: string,
     createdAt: string,
     updatedAt: string,
+    racesGameId?: string | null,
   } | null,
 };
 
@@ -1527,18 +1191,26 @@ export type UpdateRacesMutation = {
   updateRaces?:  {
     __typename: "Races",
     id: string,
+    sweeps_start?: string | null,
+    sweeps_end?: string | null,
     sweeps_winner?: string | null,
     seriesID: string,
-    Racers?:  {
-      __typename: "ModelRacesRacersConnection",
-      nextToken?: string | null,
+    Game?:  {
+      __typename: "Game",
+      id: string,
+      game_title?: string | null,
+      run_category?: string | null,
+      sr_game_link?: string | null,
+      background_image?: string | null,
+      game_box_image?: string | null,
+      game_info?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      gameGameStoreLinkId?: string | null,
     } | null,
-    active?: boolean | null,
-    ended?: string | null,
-    started?: string | null,
-    gameID: string,
     createdAt: string,
     updatedAt: string,
+    racesGameId?: string | null,
   } | null,
 };
 
@@ -1551,18 +1223,26 @@ export type DeleteRacesMutation = {
   deleteRaces?:  {
     __typename: "Races",
     id: string,
+    sweeps_start?: string | null,
+    sweeps_end?: string | null,
     sweeps_winner?: string | null,
     seriesID: string,
-    Racers?:  {
-      __typename: "ModelRacesRacersConnection",
-      nextToken?: string | null,
+    Game?:  {
+      __typename: "Game",
+      id: string,
+      game_title?: string | null,
+      run_category?: string | null,
+      sr_game_link?: string | null,
+      background_image?: string | null,
+      game_box_image?: string | null,
+      game_info?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      gameGameStoreLinkId?: string | null,
     } | null,
-    active?: boolean | null,
-    ended?: string | null,
-    started?: string | null,
-    gameID: string,
     createdAt: string,
     updatedAt: string,
+    racesGameId?: string | null,
   } | null,
 };
 
@@ -1579,7 +1259,6 @@ export type CreateSeriesMutation = {
       __typename: "ModelRacesConnection",
       nextToken?: string | null,
     } | null,
-    title?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1598,7 +1277,6 @@ export type UpdateSeriesMutation = {
       __typename: "ModelRacesConnection",
       nextToken?: string | null,
     } | null,
-    title?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1617,7 +1295,6 @@ export type DeleteSeriesMutation = {
       __typename: "ModelRacesConnection",
       nextToken?: string | null,
     } | null,
-    title?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1680,120 +1357,6 @@ export type DeleteLinksMutation = {
     kofi?: string | null,
     createdAt: string,
     updatedAt: string,
-  } | null,
-};
-
-export type CreateRacersMutationVariables = {
-  input: CreateRacersInput,
-  condition?: ModelRacersConditionInput | null,
-};
-
-export type CreateRacersMutation = {
-  createRacers?:  {
-    __typename: "Racers",
-    id: string,
-    name: string,
-    about_info?: string | null,
-    image?: string | null,
-    links?:  {
-      __typename: "Links",
-      id: string,
-      twitter?: string | null,
-      instagram?: string | null,
-      twitch?: string | null,
-      tiktok?: string | null,
-      youtube?: string | null,
-      kofi?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    RaceResults?:  {
-      __typename: "ModelRaceResultsConnection",
-      nextToken?: string | null,
-    } | null,
-    racess?:  {
-      __typename: "ModelRacesRacersConnection",
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    racersLinksId?: string | null,
-  } | null,
-};
-
-export type UpdateRacersMutationVariables = {
-  input: UpdateRacersInput,
-  condition?: ModelRacersConditionInput | null,
-};
-
-export type UpdateRacersMutation = {
-  updateRacers?:  {
-    __typename: "Racers",
-    id: string,
-    name: string,
-    about_info?: string | null,
-    image?: string | null,
-    links?:  {
-      __typename: "Links",
-      id: string,
-      twitter?: string | null,
-      instagram?: string | null,
-      twitch?: string | null,
-      tiktok?: string | null,
-      youtube?: string | null,
-      kofi?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    RaceResults?:  {
-      __typename: "ModelRaceResultsConnection",
-      nextToken?: string | null,
-    } | null,
-    racess?:  {
-      __typename: "ModelRacesRacersConnection",
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    racersLinksId?: string | null,
-  } | null,
-};
-
-export type DeleteRacersMutationVariables = {
-  input: DeleteRacersInput,
-  condition?: ModelRacersConditionInput | null,
-};
-
-export type DeleteRacersMutation = {
-  deleteRacers?:  {
-    __typename: "Racers",
-    id: string,
-    name: string,
-    about_info?: string | null,
-    image?: string | null,
-    links?:  {
-      __typename: "Links",
-      id: string,
-      twitter?: string | null,
-      instagram?: string | null,
-      twitch?: string | null,
-      tiktok?: string | null,
-      youtube?: string | null,
-      kofi?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    RaceResults?:  {
-      __typename: "ModelRaceResultsConnection",
-      nextToken?: string | null,
-    } | null,
-    racess?:  {
-      __typename: "ModelRacesRacersConnection",
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    racersLinksId?: string | null,
   } | null,
 };
 
@@ -1953,120 +1516,6 @@ export type DeleteSuggestionsMutation = {
   } | null,
 };
 
-export type CreateRacesRacersMutationVariables = {
-  input: CreateRacesRacersInput,
-  condition?: ModelRacesRacersConditionInput | null,
-};
-
-export type CreateRacesRacersMutation = {
-  createRacesRacers?:  {
-    __typename: "RacesRacers",
-    id: string,
-    racesId: string,
-    racersId: string,
-    races:  {
-      __typename: "Races",
-      id: string,
-      sweeps_winner?: string | null,
-      seriesID: string,
-      active?: boolean | null,
-      ended?: string | null,
-      started?: string | null,
-      gameID: string,
-      createdAt: string,
-      updatedAt: string,
-    },
-    racers:  {
-      __typename: "Racers",
-      id: string,
-      name: string,
-      about_info?: string | null,
-      image?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      racersLinksId?: string | null,
-    },
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type UpdateRacesRacersMutationVariables = {
-  input: UpdateRacesRacersInput,
-  condition?: ModelRacesRacersConditionInput | null,
-};
-
-export type UpdateRacesRacersMutation = {
-  updateRacesRacers?:  {
-    __typename: "RacesRacers",
-    id: string,
-    racesId: string,
-    racersId: string,
-    races:  {
-      __typename: "Races",
-      id: string,
-      sweeps_winner?: string | null,
-      seriesID: string,
-      active?: boolean | null,
-      ended?: string | null,
-      started?: string | null,
-      gameID: string,
-      createdAt: string,
-      updatedAt: string,
-    },
-    racers:  {
-      __typename: "Racers",
-      id: string,
-      name: string,
-      about_info?: string | null,
-      image?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      racersLinksId?: string | null,
-    },
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type DeleteRacesRacersMutationVariables = {
-  input: DeleteRacesRacersInput,
-  condition?: ModelRacesRacersConditionInput | null,
-};
-
-export type DeleteRacesRacersMutation = {
-  deleteRacesRacers?:  {
-    __typename: "RacesRacers",
-    id: string,
-    racesId: string,
-    racersId: string,
-    races:  {
-      __typename: "Races",
-      id: string,
-      sweeps_winner?: string | null,
-      seriesID: string,
-      active?: boolean | null,
-      ended?: string | null,
-      started?: string | null,
-      gameID: string,
-      createdAt: string,
-      updatedAt: string,
-    },
-    racers:  {
-      __typename: "Racers",
-      id: string,
-      name: string,
-      about_info?: string | null,
-      image?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      racersLinksId?: string | null,
-    },
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
 export type GetGameQueryVariables = {
   id: string,
 };
@@ -2091,29 +1540,10 @@ export type GetGameQuery = {
       nintendo?: string | null,
       createdAt: string,
       updatedAt: string,
-      gameStoreLinkGameId?: string | null,
-    } | null,
-    RaceResults?:  {
-      __typename: "ModelRaceResultsConnection",
-      nextToken?: string | null,
-    } | null,
-    Races?:  {
-      __typename: "ModelRacesConnection",
-      nextToken?: string | null,
-    } | null,
-    TopTime?:  {
-      __typename: "TopTime",
-      id: string,
-      runner?: string | null,
-      time?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      topTimeGameId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
     gameGameStoreLinkId?: string | null,
-    gameTopTimeId?: string | null,
   } | null,
 };
 
@@ -2138,7 +1568,6 @@ export type ListGamesQuery = {
       createdAt: string,
       updatedAt: string,
       gameGameStoreLinkId?: string | null,
-      gameTopTimeId?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -2154,23 +1583,8 @@ export type GetTopTimeQuery = {
     id: string,
     runner?: string | null,
     time?: string | null,
-    Game?:  {
-      __typename: "Game",
-      id: string,
-      game_title?: string | null,
-      run_category?: string | null,
-      sr_game_link?: string | null,
-      background_image?: string | null,
-      game_box_image?: string | null,
-      game_info?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      gameGameStoreLinkId?: string | null,
-      gameTopTimeId?: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
-    topTimeGameId?: string | null,
   } | null,
 };
 
@@ -2190,7 +1604,6 @@ export type ListTopTimesQuery = {
       time?: string | null,
       createdAt: string,
       updatedAt: string,
-      topTimeGameId?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -2204,19 +1617,25 @@ export type GetRaceResultsQuery = {
   getRaceResults?:  {
     __typename: "RaceResults",
     id: string,
-    aboutID: string,
-    r1_points?: string | null,
-    r1_link?: string | null,
-    r1_time?: string | null,
-    r2_points?: string | null,
-    r2_link?: string | null,
-    r2_time?: string | null,
-    r3_points?: string | null,
-    r3_link?: string | null,
-    r3_time?: string | null,
-    gameID: string,
+    points?: number | null,
+    link?: string | null,
+    time?: string | null,
+    Game?:  {
+      __typename: "Game",
+      id: string,
+      game_title?: string | null,
+      run_category?: string | null,
+      sr_game_link?: string | null,
+      background_image?: string | null,
+      game_box_image?: string | null,
+      game_info?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      gameGameStoreLinkId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
+    raceResultsGameId?: string | null,
   } | null,
 };
 
@@ -2232,83 +1651,12 @@ export type ListRaceResultsQuery = {
     items:  Array< {
       __typename: "RaceResults",
       id: string,
-      aboutID: string,
-      r1_points?: string | null,
-      r1_link?: string | null,
-      r1_time?: string | null,
-      r2_points?: string | null,
-      r2_link?: string | null,
-      r2_time?: string | null,
-      r3_points?: string | null,
-      r3_link?: string | null,
-      r3_time?: string | null,
-      gameID: string,
+      points?: number | null,
+      link?: string | null,
+      time?: string | null,
       createdAt: string,
       updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type RaceResultsByAboutIDQueryVariables = {
-  aboutID: string,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelRaceResultsFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type RaceResultsByAboutIDQuery = {
-  raceResultsByAboutID?:  {
-    __typename: "ModelRaceResultsConnection",
-    items:  Array< {
-      __typename: "RaceResults",
-      id: string,
-      aboutID: string,
-      r1_points?: string | null,
-      r1_link?: string | null,
-      r1_time?: string | null,
-      r2_points?: string | null,
-      r2_link?: string | null,
-      r2_time?: string | null,
-      r3_points?: string | null,
-      r3_link?: string | null,
-      r3_time?: string | null,
-      gameID: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type RaceResultsByGameIDQueryVariables = {
-  gameID: string,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelRaceResultsFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type RaceResultsByGameIDQuery = {
-  raceResultsByGameID?:  {
-    __typename: "ModelRaceResultsConnection",
-    items:  Array< {
-      __typename: "RaceResults",
-      id: string,
-      aboutID: string,
-      r1_points?: string | null,
-      r1_link?: string | null,
-      r1_time?: string | null,
-      r2_points?: string | null,
-      r2_link?: string | null,
-      r2_time?: string | null,
-      r3_points?: string | null,
-      r3_link?: string | null,
-      r3_time?: string | null,
-      gameID: string,
-      createdAt: string,
-      updatedAt: string,
+      raceResultsGameId?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -2327,23 +1675,8 @@ export type GetGameStoreLinkQuery = {
     playstation?: string | null,
     xbox?: string | null,
     nintendo?: string | null,
-    Game?:  {
-      __typename: "Game",
-      id: string,
-      game_title?: string | null,
-      run_category?: string | null,
-      sr_game_link?: string | null,
-      background_image?: string | null,
-      game_box_image?: string | null,
-      game_info?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      gameGameStoreLinkId?: string | null,
-      gameTopTimeId?: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
-    gameStoreLinkGameId?: string | null,
   } | null,
 };
 
@@ -2366,7 +1699,6 @@ export type ListGameStoreLinksQuery = {
       nintendo?: string | null,
       createdAt: string,
       updatedAt: string,
-      gameStoreLinkGameId?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -2380,18 +1712,26 @@ export type GetRacesQuery = {
   getRaces?:  {
     __typename: "Races",
     id: string,
+    sweeps_start?: string | null,
+    sweeps_end?: string | null,
     sweeps_winner?: string | null,
     seriesID: string,
-    Racers?:  {
-      __typename: "ModelRacesRacersConnection",
-      nextToken?: string | null,
+    Game?:  {
+      __typename: "Game",
+      id: string,
+      game_title?: string | null,
+      run_category?: string | null,
+      sr_game_link?: string | null,
+      background_image?: string | null,
+      game_box_image?: string | null,
+      game_info?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      gameGameStoreLinkId?: string | null,
     } | null,
-    active?: boolean | null,
-    ended?: string | null,
-    started?: string | null,
-    gameID: string,
     createdAt: string,
     updatedAt: string,
+    racesGameId?: string | null,
   } | null,
 };
 
@@ -2407,14 +1747,13 @@ export type ListRacesQuery = {
     items:  Array< {
       __typename: "Races",
       id: string,
+      sweeps_start?: string | null,
+      sweeps_end?: string | null,
       sweeps_winner?: string | null,
       seriesID: string,
-      active?: boolean | null,
-      ended?: string | null,
-      started?: string | null,
-      gameID: string,
       createdAt: string,
       updatedAt: string,
+      racesGameId?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -2434,42 +1773,13 @@ export type RacesBySeriesIDQuery = {
     items:  Array< {
       __typename: "Races",
       id: string,
+      sweeps_start?: string | null,
+      sweeps_end?: string | null,
       sweeps_winner?: string | null,
       seriesID: string,
-      active?: boolean | null,
-      ended?: string | null,
-      started?: string | null,
-      gameID: string,
       createdAt: string,
       updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type RacesByGameIDAndStartedQueryVariables = {
-  gameID: string,
-  started?: ModelStringKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelRacesFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type RacesByGameIDAndStartedQuery = {
-  racesByGameIDAndStarted?:  {
-    __typename: "ModelRacesConnection",
-    items:  Array< {
-      __typename: "Races",
-      id: string,
-      sweeps_winner?: string | null,
-      seriesID: string,
-      active?: boolean | null,
-      ended?: string | null,
-      started?: string | null,
-      gameID: string,
-      createdAt: string,
-      updatedAt: string,
+      racesGameId?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -2487,7 +1797,6 @@ export type GetSeriesQuery = {
       __typename: "ModelRacesConnection",
       nextToken?: string | null,
     } | null,
-    title?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -2505,7 +1814,6 @@ export type ListSeriesQuery = {
     items:  Array< {
       __typename: "Series",
       id: string,
-      title?: string | null,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -2552,66 +1860,6 @@ export type ListLinksQuery = {
       kofi?: string | null,
       createdAt: string,
       updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type GetRacersQueryVariables = {
-  id: string,
-};
-
-export type GetRacersQuery = {
-  getRacers?:  {
-    __typename: "Racers",
-    id: string,
-    name: string,
-    about_info?: string | null,
-    image?: string | null,
-    links?:  {
-      __typename: "Links",
-      id: string,
-      twitter?: string | null,
-      instagram?: string | null,
-      twitch?: string | null,
-      tiktok?: string | null,
-      youtube?: string | null,
-      kofi?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    RaceResults?:  {
-      __typename: "ModelRaceResultsConnection",
-      nextToken?: string | null,
-    } | null,
-    racess?:  {
-      __typename: "ModelRacesRacersConnection",
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    racersLinksId?: string | null,
-  } | null,
-};
-
-export type ListRacersQueryVariables = {
-  filter?: ModelRacersFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListRacersQuery = {
-  listRacers?:  {
-    __typename: "ModelRacersConnection",
-    items:  Array< {
-      __typename: "Racers",
-      id: string,
-      name: string,
-      about_info?: string | null,
-      image?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      racersLinksId?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -2733,110 +1981,6 @@ export type ListSuggestionsQuery = {
   } | null,
 };
 
-export type GetRacesRacersQueryVariables = {
-  id: string,
-};
-
-export type GetRacesRacersQuery = {
-  getRacesRacers?:  {
-    __typename: "RacesRacers",
-    id: string,
-    racesId: string,
-    racersId: string,
-    races:  {
-      __typename: "Races",
-      id: string,
-      sweeps_winner?: string | null,
-      seriesID: string,
-      active?: boolean | null,
-      ended?: string | null,
-      started?: string | null,
-      gameID: string,
-      createdAt: string,
-      updatedAt: string,
-    },
-    racers:  {
-      __typename: "Racers",
-      id: string,
-      name: string,
-      about_info?: string | null,
-      image?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      racersLinksId?: string | null,
-    },
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type ListRacesRacersQueryVariables = {
-  filter?: ModelRacesRacersFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListRacesRacersQuery = {
-  listRacesRacers?:  {
-    __typename: "ModelRacesRacersConnection",
-    items:  Array< {
-      __typename: "RacesRacers",
-      id: string,
-      racesId: string,
-      racersId: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type RacesRacersByRacesIdQueryVariables = {
-  racesId: string,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelRacesRacersFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type RacesRacersByRacesIdQuery = {
-  racesRacersByRacesId?:  {
-    __typename: "ModelRacesRacersConnection",
-    items:  Array< {
-      __typename: "RacesRacers",
-      id: string,
-      racesId: string,
-      racersId: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type RacesRacersByRacersIdQueryVariables = {
-  racersId: string,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelRacesRacersFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type RacesRacersByRacersIdQuery = {
-  racesRacersByRacersId?:  {
-    __typename: "ModelRacesRacersConnection",
-    items:  Array< {
-      __typename: "RacesRacers",
-      id: string,
-      racesId: string,
-      racersId: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
 export type OnCreateGameSubscriptionVariables = {
   filter?: ModelSubscriptionGameFilterInput | null,
 };
@@ -2861,29 +2005,10 @@ export type OnCreateGameSubscription = {
       nintendo?: string | null,
       createdAt: string,
       updatedAt: string,
-      gameStoreLinkGameId?: string | null,
-    } | null,
-    RaceResults?:  {
-      __typename: "ModelRaceResultsConnection",
-      nextToken?: string | null,
-    } | null,
-    Races?:  {
-      __typename: "ModelRacesConnection",
-      nextToken?: string | null,
-    } | null,
-    TopTime?:  {
-      __typename: "TopTime",
-      id: string,
-      runner?: string | null,
-      time?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      topTimeGameId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
     gameGameStoreLinkId?: string | null,
-    gameTopTimeId?: string | null,
   } | null,
 };
 
@@ -2911,29 +2036,10 @@ export type OnUpdateGameSubscription = {
       nintendo?: string | null,
       createdAt: string,
       updatedAt: string,
-      gameStoreLinkGameId?: string | null,
-    } | null,
-    RaceResults?:  {
-      __typename: "ModelRaceResultsConnection",
-      nextToken?: string | null,
-    } | null,
-    Races?:  {
-      __typename: "ModelRacesConnection",
-      nextToken?: string | null,
-    } | null,
-    TopTime?:  {
-      __typename: "TopTime",
-      id: string,
-      runner?: string | null,
-      time?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      topTimeGameId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
     gameGameStoreLinkId?: string | null,
-    gameTopTimeId?: string | null,
   } | null,
 };
 
@@ -2961,29 +2067,10 @@ export type OnDeleteGameSubscription = {
       nintendo?: string | null,
       createdAt: string,
       updatedAt: string,
-      gameStoreLinkGameId?: string | null,
-    } | null,
-    RaceResults?:  {
-      __typename: "ModelRaceResultsConnection",
-      nextToken?: string | null,
-    } | null,
-    Races?:  {
-      __typename: "ModelRacesConnection",
-      nextToken?: string | null,
-    } | null,
-    TopTime?:  {
-      __typename: "TopTime",
-      id: string,
-      runner?: string | null,
-      time?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      topTimeGameId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
     gameGameStoreLinkId?: string | null,
-    gameTopTimeId?: string | null,
   } | null,
 };
 
@@ -2997,23 +2084,8 @@ export type OnCreateTopTimeSubscription = {
     id: string,
     runner?: string | null,
     time?: string | null,
-    Game?:  {
-      __typename: "Game",
-      id: string,
-      game_title?: string | null,
-      run_category?: string | null,
-      sr_game_link?: string | null,
-      background_image?: string | null,
-      game_box_image?: string | null,
-      game_info?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      gameGameStoreLinkId?: string | null,
-      gameTopTimeId?: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
-    topTimeGameId?: string | null,
   } | null,
 };
 
@@ -3027,23 +2099,8 @@ export type OnUpdateTopTimeSubscription = {
     id: string,
     runner?: string | null,
     time?: string | null,
-    Game?:  {
-      __typename: "Game",
-      id: string,
-      game_title?: string | null,
-      run_category?: string | null,
-      sr_game_link?: string | null,
-      background_image?: string | null,
-      game_box_image?: string | null,
-      game_info?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      gameGameStoreLinkId?: string | null,
-      gameTopTimeId?: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
-    topTimeGameId?: string | null,
   } | null,
 };
 
@@ -3057,6 +2114,22 @@ export type OnDeleteTopTimeSubscription = {
     id: string,
     runner?: string | null,
     time?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateRaceResultsSubscriptionVariables = {
+  filter?: ModelSubscriptionRaceResultsFilterInput | null,
+};
+
+export type OnCreateRaceResultsSubscription = {
+  onCreateRaceResults?:  {
+    __typename: "RaceResults",
+    id: string,
+    points?: number | null,
+    link?: string | null,
+    time?: string | null,
     Game?:  {
       __typename: "Game",
       id: string,
@@ -3069,35 +2142,10 @@ export type OnDeleteTopTimeSubscription = {
       createdAt: string,
       updatedAt: string,
       gameGameStoreLinkId?: string | null,
-      gameTopTimeId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    topTimeGameId?: string | null,
-  } | null,
-};
-
-export type OnCreateRaceResultsSubscriptionVariables = {
-  filter?: ModelSubscriptionRaceResultsFilterInput | null,
-};
-
-export type OnCreateRaceResultsSubscription = {
-  onCreateRaceResults?:  {
-    __typename: "RaceResults",
-    id: string,
-    aboutID: string,
-    r1_points?: string | null,
-    r1_link?: string | null,
-    r1_time?: string | null,
-    r2_points?: string | null,
-    r2_link?: string | null,
-    r2_time?: string | null,
-    r3_points?: string | null,
-    r3_link?: string | null,
-    r3_time?: string | null,
-    gameID: string,
-    createdAt: string,
-    updatedAt: string,
+    raceResultsGameId?: string | null,
   } | null,
 };
 
@@ -3109,19 +2157,25 @@ export type OnUpdateRaceResultsSubscription = {
   onUpdateRaceResults?:  {
     __typename: "RaceResults",
     id: string,
-    aboutID: string,
-    r1_points?: string | null,
-    r1_link?: string | null,
-    r1_time?: string | null,
-    r2_points?: string | null,
-    r2_link?: string | null,
-    r2_time?: string | null,
-    r3_points?: string | null,
-    r3_link?: string | null,
-    r3_time?: string | null,
-    gameID: string,
+    points?: number | null,
+    link?: string | null,
+    time?: string | null,
+    Game?:  {
+      __typename: "Game",
+      id: string,
+      game_title?: string | null,
+      run_category?: string | null,
+      sr_game_link?: string | null,
+      background_image?: string | null,
+      game_box_image?: string | null,
+      game_info?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      gameGameStoreLinkId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
+    raceResultsGameId?: string | null,
   } | null,
 };
 
@@ -3133,19 +2187,25 @@ export type OnDeleteRaceResultsSubscription = {
   onDeleteRaceResults?:  {
     __typename: "RaceResults",
     id: string,
-    aboutID: string,
-    r1_points?: string | null,
-    r1_link?: string | null,
-    r1_time?: string | null,
-    r2_points?: string | null,
-    r2_link?: string | null,
-    r2_time?: string | null,
-    r3_points?: string | null,
-    r3_link?: string | null,
-    r3_time?: string | null,
-    gameID: string,
+    points?: number | null,
+    link?: string | null,
+    time?: string | null,
+    Game?:  {
+      __typename: "Game",
+      id: string,
+      game_title?: string | null,
+      run_category?: string | null,
+      sr_game_link?: string | null,
+      background_image?: string | null,
+      game_box_image?: string | null,
+      game_info?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      gameGameStoreLinkId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
+    raceResultsGameId?: string | null,
   } | null,
 };
 
@@ -3162,23 +2222,8 @@ export type OnCreateGameStoreLinkSubscription = {
     playstation?: string | null,
     xbox?: string | null,
     nintendo?: string | null,
-    Game?:  {
-      __typename: "Game",
-      id: string,
-      game_title?: string | null,
-      run_category?: string | null,
-      sr_game_link?: string | null,
-      background_image?: string | null,
-      game_box_image?: string | null,
-      game_info?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      gameGameStoreLinkId?: string | null,
-      gameTopTimeId?: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
-    gameStoreLinkGameId?: string | null,
   } | null,
 };
 
@@ -3195,23 +2240,8 @@ export type OnUpdateGameStoreLinkSubscription = {
     playstation?: string | null,
     xbox?: string | null,
     nintendo?: string | null,
-    Game?:  {
-      __typename: "Game",
-      id: string,
-      game_title?: string | null,
-      run_category?: string | null,
-      sr_game_link?: string | null,
-      background_image?: string | null,
-      game_box_image?: string | null,
-      game_info?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      gameGameStoreLinkId?: string | null,
-      gameTopTimeId?: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
-    gameStoreLinkGameId?: string | null,
   } | null,
 };
 
@@ -3228,6 +2258,23 @@ export type OnDeleteGameStoreLinkSubscription = {
     playstation?: string | null,
     xbox?: string | null,
     nintendo?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateRacesSubscriptionVariables = {
+  filter?: ModelSubscriptionRacesFilterInput | null,
+};
+
+export type OnCreateRacesSubscription = {
+  onCreateRaces?:  {
+    __typename: "Races",
+    id: string,
+    sweeps_start?: string | null,
+    sweeps_end?: string | null,
+    sweeps_winner?: string | null,
+    seriesID: string,
     Game?:  {
       __typename: "Game",
       id: string,
@@ -3240,34 +2287,10 @@ export type OnDeleteGameStoreLinkSubscription = {
       createdAt: string,
       updatedAt: string,
       gameGameStoreLinkId?: string | null,
-      gameTopTimeId?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    gameStoreLinkGameId?: string | null,
-  } | null,
-};
-
-export type OnCreateRacesSubscriptionVariables = {
-  filter?: ModelSubscriptionRacesFilterInput | null,
-};
-
-export type OnCreateRacesSubscription = {
-  onCreateRaces?:  {
-    __typename: "Races",
-    id: string,
-    sweeps_winner?: string | null,
-    seriesID: string,
-    Racers?:  {
-      __typename: "ModelRacesRacersConnection",
-      nextToken?: string | null,
-    } | null,
-    active?: boolean | null,
-    ended?: string | null,
-    started?: string | null,
-    gameID: string,
-    createdAt: string,
-    updatedAt: string,
+    racesGameId?: string | null,
   } | null,
 };
 
@@ -3279,18 +2302,26 @@ export type OnUpdateRacesSubscription = {
   onUpdateRaces?:  {
     __typename: "Races",
     id: string,
+    sweeps_start?: string | null,
+    sweeps_end?: string | null,
     sweeps_winner?: string | null,
     seriesID: string,
-    Racers?:  {
-      __typename: "ModelRacesRacersConnection",
-      nextToken?: string | null,
+    Game?:  {
+      __typename: "Game",
+      id: string,
+      game_title?: string | null,
+      run_category?: string | null,
+      sr_game_link?: string | null,
+      background_image?: string | null,
+      game_box_image?: string | null,
+      game_info?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      gameGameStoreLinkId?: string | null,
     } | null,
-    active?: boolean | null,
-    ended?: string | null,
-    started?: string | null,
-    gameID: string,
     createdAt: string,
     updatedAt: string,
+    racesGameId?: string | null,
   } | null,
 };
 
@@ -3302,18 +2333,26 @@ export type OnDeleteRacesSubscription = {
   onDeleteRaces?:  {
     __typename: "Races",
     id: string,
+    sweeps_start?: string | null,
+    sweeps_end?: string | null,
     sweeps_winner?: string | null,
     seriesID: string,
-    Racers?:  {
-      __typename: "ModelRacesRacersConnection",
-      nextToken?: string | null,
+    Game?:  {
+      __typename: "Game",
+      id: string,
+      game_title?: string | null,
+      run_category?: string | null,
+      sr_game_link?: string | null,
+      background_image?: string | null,
+      game_box_image?: string | null,
+      game_info?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      gameGameStoreLinkId?: string | null,
     } | null,
-    active?: boolean | null,
-    ended?: string | null,
-    started?: string | null,
-    gameID: string,
     createdAt: string,
     updatedAt: string,
+    racesGameId?: string | null,
   } | null,
 };
 
@@ -3329,7 +2368,6 @@ export type OnCreateSeriesSubscription = {
       __typename: "ModelRacesConnection",
       nextToken?: string | null,
     } | null,
-    title?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -3347,7 +2385,6 @@ export type OnUpdateSeriesSubscription = {
       __typename: "ModelRacesConnection",
       nextToken?: string | null,
     } | null,
-    title?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -3365,7 +2402,6 @@ export type OnDeleteSeriesSubscription = {
       __typename: "ModelRacesConnection",
       nextToken?: string | null,
     } | null,
-    title?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -3425,117 +2461,6 @@ export type OnDeleteLinksSubscription = {
     kofi?: string | null,
     createdAt: string,
     updatedAt: string,
-  } | null,
-};
-
-export type OnCreateRacersSubscriptionVariables = {
-  filter?: ModelSubscriptionRacersFilterInput | null,
-};
-
-export type OnCreateRacersSubscription = {
-  onCreateRacers?:  {
-    __typename: "Racers",
-    id: string,
-    name: string,
-    about_info?: string | null,
-    image?: string | null,
-    links?:  {
-      __typename: "Links",
-      id: string,
-      twitter?: string | null,
-      instagram?: string | null,
-      twitch?: string | null,
-      tiktok?: string | null,
-      youtube?: string | null,
-      kofi?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    RaceResults?:  {
-      __typename: "ModelRaceResultsConnection",
-      nextToken?: string | null,
-    } | null,
-    racess?:  {
-      __typename: "ModelRacesRacersConnection",
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    racersLinksId?: string | null,
-  } | null,
-};
-
-export type OnUpdateRacersSubscriptionVariables = {
-  filter?: ModelSubscriptionRacersFilterInput | null,
-};
-
-export type OnUpdateRacersSubscription = {
-  onUpdateRacers?:  {
-    __typename: "Racers",
-    id: string,
-    name: string,
-    about_info?: string | null,
-    image?: string | null,
-    links?:  {
-      __typename: "Links",
-      id: string,
-      twitter?: string | null,
-      instagram?: string | null,
-      twitch?: string | null,
-      tiktok?: string | null,
-      youtube?: string | null,
-      kofi?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    RaceResults?:  {
-      __typename: "ModelRaceResultsConnection",
-      nextToken?: string | null,
-    } | null,
-    racess?:  {
-      __typename: "ModelRacesRacersConnection",
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    racersLinksId?: string | null,
-  } | null,
-};
-
-export type OnDeleteRacersSubscriptionVariables = {
-  filter?: ModelSubscriptionRacersFilterInput | null,
-};
-
-export type OnDeleteRacersSubscription = {
-  onDeleteRacers?:  {
-    __typename: "Racers",
-    id: string,
-    name: string,
-    about_info?: string | null,
-    image?: string | null,
-    links?:  {
-      __typename: "Links",
-      id: string,
-      twitter?: string | null,
-      instagram?: string | null,
-      twitch?: string | null,
-      tiktok?: string | null,
-      youtube?: string | null,
-      kofi?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    RaceResults?:  {
-      __typename: "ModelRaceResultsConnection",
-      nextToken?: string | null,
-    } | null,
-    racess?:  {
-      __typename: "ModelRacesRacersConnection",
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    racersLinksId?: string | null,
   } | null,
 };
 
@@ -3681,117 +2606,6 @@ export type OnDeleteSuggestionsSubscription = {
     __typename: "Suggestions",
     id: string,
     suggestion: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnCreateRacesRacersSubscriptionVariables = {
-  filter?: ModelSubscriptionRacesRacersFilterInput | null,
-};
-
-export type OnCreateRacesRacersSubscription = {
-  onCreateRacesRacers?:  {
-    __typename: "RacesRacers",
-    id: string,
-    racesId: string,
-    racersId: string,
-    races:  {
-      __typename: "Races",
-      id: string,
-      sweeps_winner?: string | null,
-      seriesID: string,
-      active?: boolean | null,
-      ended?: string | null,
-      started?: string | null,
-      gameID: string,
-      createdAt: string,
-      updatedAt: string,
-    },
-    racers:  {
-      __typename: "Racers",
-      id: string,
-      name: string,
-      about_info?: string | null,
-      image?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      racersLinksId?: string | null,
-    },
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnUpdateRacesRacersSubscriptionVariables = {
-  filter?: ModelSubscriptionRacesRacersFilterInput | null,
-};
-
-export type OnUpdateRacesRacersSubscription = {
-  onUpdateRacesRacers?:  {
-    __typename: "RacesRacers",
-    id: string,
-    racesId: string,
-    racersId: string,
-    races:  {
-      __typename: "Races",
-      id: string,
-      sweeps_winner?: string | null,
-      seriesID: string,
-      active?: boolean | null,
-      ended?: string | null,
-      started?: string | null,
-      gameID: string,
-      createdAt: string,
-      updatedAt: string,
-    },
-    racers:  {
-      __typename: "Racers",
-      id: string,
-      name: string,
-      about_info?: string | null,
-      image?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      racersLinksId?: string | null,
-    },
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnDeleteRacesRacersSubscriptionVariables = {
-  filter?: ModelSubscriptionRacesRacersFilterInput | null,
-};
-
-export type OnDeleteRacesRacersSubscription = {
-  onDeleteRacesRacers?:  {
-    __typename: "RacesRacers",
-    id: string,
-    racesId: string,
-    racersId: string,
-    races:  {
-      __typename: "Races",
-      id: string,
-      sweeps_winner?: string | null,
-      seriesID: string,
-      active?: boolean | null,
-      ended?: string | null,
-      started?: string | null,
-      gameID: string,
-      createdAt: string,
-      updatedAt: string,
-    },
-    racers:  {
-      __typename: "Racers",
-      id: string,
-      name: string,
-      about_info?: string | null,
-      image?: string | null,
-      createdAt: string,
-      updatedAt: string,
-      racersLinksId?: string | null,
-    },
     createdAt: string,
     updatedAt: string,
   } | null,

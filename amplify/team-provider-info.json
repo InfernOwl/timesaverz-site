@@ -1,4 +1,25 @@
 {
+  "prod": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-timesaverzsite-prod-6224c-authRole",
+      "UnauthRoleArn": "arn:aws:iam::534823548223:role/amplify-timesaverzsite-prod-6224c-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::534823548223:role/amplify-timesaverzsite-prod-6224c-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-timesaverzsite-prod-6224c-deployment",
+      "UnauthRoleName": "amplify-timesaverzsite-prod-6224c-unauthRole",
+      "StackName": "amplify-timesaverzsite-prod-6224c",
+      "StackId": "arn:aws:cloudformation:us-east-2:534823548223:stack/amplify-timesaverzsite-prod-6224c/68b3bed0-0d5b-11ef-8fb5-02e1f5d39219",
+      "AmplifyAppId": "dk8gtj1pvs0bg"
+    },
+    "categories": {
+      "auth": {
+        "timesaverzsite": {}
+      },
+      "storage": {
+        "s3timesaverzsweepsstorage": {}
+      }
+    }
+  },
   "staging": {
     "awscloudformation": {
       "AuthRoleName": "amplify-amplify393a76a0a2d04-staging-f00a8-authRole",
