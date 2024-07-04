@@ -29,11 +29,30 @@ export const createGame = /* GraphQL */ `mutation CreateGame(
       nintendo
       createdAt
       updatedAt
+      gameStoreLinkGameId
+      __typename
+    }
+    RaceResults {
+      nextToken
+      __typename
+    }
+    Races {
+      nextToken
+      __typename
+    }
+    TopTime {
+      id
+      runner
+      time
+      createdAt
+      updatedAt
+      topTimeGameId
       __typename
     }
     createdAt
     updatedAt
     gameGameStoreLinkId
+    gameTopTimeId
     __typename
   }
 }
@@ -62,11 +81,30 @@ export const updateGame = /* GraphQL */ `mutation UpdateGame(
       nintendo
       createdAt
       updatedAt
+      gameStoreLinkGameId
+      __typename
+    }
+    RaceResults {
+      nextToken
+      __typename
+    }
+    Races {
+      nextToken
+      __typename
+    }
+    TopTime {
+      id
+      runner
+      time
+      createdAt
+      updatedAt
+      topTimeGameId
       __typename
     }
     createdAt
     updatedAt
     gameGameStoreLinkId
+    gameTopTimeId
     __typename
   }
 }
@@ -95,11 +133,30 @@ export const deleteGame = /* GraphQL */ `mutation DeleteGame(
       nintendo
       createdAt
       updatedAt
+      gameStoreLinkGameId
+      __typename
+    }
+    RaceResults {
+      nextToken
+      __typename
+    }
+    Races {
+      nextToken
+      __typename
+    }
+    TopTime {
+      id
+      runner
+      time
+      createdAt
+      updatedAt
+      topTimeGameId
       __typename
     }
     createdAt
     updatedAt
     gameGameStoreLinkId
+    gameTopTimeId
     __typename
   }
 }
@@ -115,8 +172,23 @@ export const createTopTime = /* GraphQL */ `mutation CreateTopTime(
     id
     runner
     time
+    Game {
+      id
+      game_title
+      run_category
+      sr_game_link
+      background_image
+      game_box_image
+      game_info
+      createdAt
+      updatedAt
+      gameGameStoreLinkId
+      gameTopTimeId
+      __typename
+    }
     createdAt
     updatedAt
+    topTimeGameId
     __typename
   }
 }
@@ -132,8 +204,23 @@ export const updateTopTime = /* GraphQL */ `mutation UpdateTopTime(
     id
     runner
     time
+    Game {
+      id
+      game_title
+      run_category
+      sr_game_link
+      background_image
+      game_box_image
+      game_info
+      createdAt
+      updatedAt
+      gameGameStoreLinkId
+      gameTopTimeId
+      __typename
+    }
     createdAt
     updatedAt
+    topTimeGameId
     __typename
   }
 }
@@ -149,8 +236,23 @@ export const deleteTopTime = /* GraphQL */ `mutation DeleteTopTime(
     id
     runner
     time
+    Game {
+      id
+      game_title
+      run_category
+      sr_game_link
+      background_image
+      game_box_image
+      game_info
+      createdAt
+      updatedAt
+      gameGameStoreLinkId
+      gameTopTimeId
+      __typename
+    }
     createdAt
     updatedAt
+    topTimeGameId
     __typename
   }
 }
@@ -164,25 +266,19 @@ export const createRaceResults = /* GraphQL */ `mutation CreateRaceResults(
 ) {
   createRaceResults(input: $input, condition: $condition) {
     id
-    points
-    link
-    time
-    Game {
-      id
-      game_title
-      run_category
-      sr_game_link
-      background_image
-      game_box_image
-      game_info
-      createdAt
-      updatedAt
-      gameGameStoreLinkId
-      __typename
-    }
+    aboutID
+    r1_points
+    r1_link
+    r1_time
+    r2_points
+    r2_link
+    r2_time
+    r3_points
+    r3_link
+    r3_time
+    gameID
     createdAt
     updatedAt
-    raceResultsGameId
     __typename
   }
 }
@@ -196,25 +292,19 @@ export const updateRaceResults = /* GraphQL */ `mutation UpdateRaceResults(
 ) {
   updateRaceResults(input: $input, condition: $condition) {
     id
-    points
-    link
-    time
-    Game {
-      id
-      game_title
-      run_category
-      sr_game_link
-      background_image
-      game_box_image
-      game_info
-      createdAt
-      updatedAt
-      gameGameStoreLinkId
-      __typename
-    }
+    aboutID
+    r1_points
+    r1_link
+    r1_time
+    r2_points
+    r2_link
+    r2_time
+    r3_points
+    r3_link
+    r3_time
+    gameID
     createdAt
     updatedAt
-    raceResultsGameId
     __typename
   }
 }
@@ -228,25 +318,19 @@ export const deleteRaceResults = /* GraphQL */ `mutation DeleteRaceResults(
 ) {
   deleteRaceResults(input: $input, condition: $condition) {
     id
-    points
-    link
-    time
-    Game {
-      id
-      game_title
-      run_category
-      sr_game_link
-      background_image
-      game_box_image
-      game_info
-      createdAt
-      updatedAt
-      gameGameStoreLinkId
-      __typename
-    }
+    aboutID
+    r1_points
+    r1_link
+    r1_time
+    r2_points
+    r2_link
+    r2_time
+    r3_points
+    r3_link
+    r3_time
+    gameID
     createdAt
     updatedAt
-    raceResultsGameId
     __typename
   }
 }
@@ -265,8 +349,23 @@ export const createGameStoreLink = /* GraphQL */ `mutation CreateGameStoreLink(
     playstation
     xbox
     nintendo
+    Game {
+      id
+      game_title
+      run_category
+      sr_game_link
+      background_image
+      game_box_image
+      game_info
+      createdAt
+      updatedAt
+      gameGameStoreLinkId
+      gameTopTimeId
+      __typename
+    }
     createdAt
     updatedAt
+    gameStoreLinkGameId
     __typename
   }
 }
@@ -285,8 +384,23 @@ export const updateGameStoreLink = /* GraphQL */ `mutation UpdateGameStoreLink(
     playstation
     xbox
     nintendo
+    Game {
+      id
+      game_title
+      run_category
+      sr_game_link
+      background_image
+      game_box_image
+      game_info
+      createdAt
+      updatedAt
+      gameGameStoreLinkId
+      gameTopTimeId
+      __typename
+    }
     createdAt
     updatedAt
+    gameStoreLinkGameId
     __typename
   }
 }
@@ -305,8 +419,23 @@ export const deleteGameStoreLink = /* GraphQL */ `mutation DeleteGameStoreLink(
     playstation
     xbox
     nintendo
+    Game {
+      id
+      game_title
+      run_category
+      sr_game_link
+      background_image
+      game_box_image
+      game_info
+      createdAt
+      updatedAt
+      gameGameStoreLinkId
+      gameTopTimeId
+      __typename
+    }
     createdAt
     updatedAt
+    gameStoreLinkGameId
     __typename
   }
 }
@@ -320,26 +449,18 @@ export const createRaces = /* GraphQL */ `mutation CreateRaces(
 ) {
   createRaces(input: $input, condition: $condition) {
     id
-    sweeps_start
-    sweeps_end
     sweeps_winner
     seriesID
-    Game {
-      id
-      game_title
-      run_category
-      sr_game_link
-      background_image
-      game_box_image
-      game_info
-      createdAt
-      updatedAt
-      gameGameStoreLinkId
+    Racers {
+      nextToken
       __typename
     }
+    active
+    ended
+    started
+    gameID
     createdAt
     updatedAt
-    racesGameId
     __typename
   }
 }
@@ -353,26 +474,18 @@ export const updateRaces = /* GraphQL */ `mutation UpdateRaces(
 ) {
   updateRaces(input: $input, condition: $condition) {
     id
-    sweeps_start
-    sweeps_end
     sweeps_winner
     seriesID
-    Game {
-      id
-      game_title
-      run_category
-      sr_game_link
-      background_image
-      game_box_image
-      game_info
-      createdAt
-      updatedAt
-      gameGameStoreLinkId
+    Racers {
+      nextToken
       __typename
     }
+    active
+    ended
+    started
+    gameID
     createdAt
     updatedAt
-    racesGameId
     __typename
   }
 }
@@ -386,26 +499,18 @@ export const deleteRaces = /* GraphQL */ `mutation DeleteRaces(
 ) {
   deleteRaces(input: $input, condition: $condition) {
     id
-    sweeps_start
-    sweeps_end
     sweeps_winner
     seriesID
-    Game {
-      id
-      game_title
-      run_category
-      sr_game_link
-      background_image
-      game_box_image
-      game_info
-      createdAt
-      updatedAt
-      gameGameStoreLinkId
+    Racers {
+      nextToken
       __typename
     }
+    active
+    ended
+    started
+    gameID
     createdAt
     updatedAt
-    racesGameId
     __typename
   }
 }
@@ -423,6 +528,7 @@ export const createSeries = /* GraphQL */ `mutation CreateSeries(
       nextToken
       __typename
     }
+    title
     createdAt
     updatedAt
     __typename
@@ -442,6 +548,7 @@ export const updateSeries = /* GraphQL */ `mutation UpdateSeries(
       nextToken
       __typename
     }
+    title
     createdAt
     updatedAt
     __typename
@@ -461,6 +568,7 @@ export const deleteSeries = /* GraphQL */ `mutation DeleteSeries(
       nextToken
       __typename
     }
+    title
     createdAt
     updatedAt
     __typename
@@ -532,6 +640,123 @@ export const deleteLinks = /* GraphQL */ `mutation DeleteLinks(
 ` as GeneratedMutation<
   APITypes.DeleteLinksMutationVariables,
   APITypes.DeleteLinksMutation
+>;
+export const createRacers = /* GraphQL */ `mutation CreateRacers(
+  $input: CreateRacersInput!
+  $condition: ModelRacersConditionInput
+) {
+  createRacers(input: $input, condition: $condition) {
+    id
+    name
+    about_info
+    image
+    links {
+      id
+      twitter
+      instagram
+      twitch
+      tiktok
+      youtube
+      kofi
+      createdAt
+      updatedAt
+      __typename
+    }
+    RaceResults {
+      nextToken
+      __typename
+    }
+    racess {
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    racersLinksId
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateRacersMutationVariables,
+  APITypes.CreateRacersMutation
+>;
+export const updateRacers = /* GraphQL */ `mutation UpdateRacers(
+  $input: UpdateRacersInput!
+  $condition: ModelRacersConditionInput
+) {
+  updateRacers(input: $input, condition: $condition) {
+    id
+    name
+    about_info
+    image
+    links {
+      id
+      twitter
+      instagram
+      twitch
+      tiktok
+      youtube
+      kofi
+      createdAt
+      updatedAt
+      __typename
+    }
+    RaceResults {
+      nextToken
+      __typename
+    }
+    racess {
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    racersLinksId
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateRacersMutationVariables,
+  APITypes.UpdateRacersMutation
+>;
+export const deleteRacers = /* GraphQL */ `mutation DeleteRacers(
+  $input: DeleteRacersInput!
+  $condition: ModelRacersConditionInput
+) {
+  deleteRacers(input: $input, condition: $condition) {
+    id
+    name
+    about_info
+    image
+    links {
+      id
+      twitter
+      instagram
+      twitch
+      tiktok
+      youtube
+      kofi
+      createdAt
+      updatedAt
+      __typename
+    }
+    RaceResults {
+      nextToken
+      __typename
+    }
+    racess {
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    racersLinksId
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteRacersMutationVariables,
+  APITypes.DeleteRacersMutation
 >;
 export const createSweepstakesEntry = /* GraphQL */ `mutation CreateSweepstakesEntry(
   $input: CreateSweepstakesEntryInput!
@@ -697,4 +922,121 @@ export const deleteSuggestions = /* GraphQL */ `mutation DeleteSuggestions(
 ` as GeneratedMutation<
   APITypes.DeleteSuggestionsMutationVariables,
   APITypes.DeleteSuggestionsMutation
+>;
+export const createRacesRacers = /* GraphQL */ `mutation CreateRacesRacers(
+  $input: CreateRacesRacersInput!
+  $condition: ModelRacesRacersConditionInput
+) {
+  createRacesRacers(input: $input, condition: $condition) {
+    id
+    racesId
+    racersId
+    races {
+      id
+      sweeps_winner
+      seriesID
+      active
+      ended
+      started
+      gameID
+      createdAt
+      updatedAt
+      __typename
+    }
+    racers {
+      id
+      name
+      about_info
+      image
+      createdAt
+      updatedAt
+      racersLinksId
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateRacesRacersMutationVariables,
+  APITypes.CreateRacesRacersMutation
+>;
+export const updateRacesRacers = /* GraphQL */ `mutation UpdateRacesRacers(
+  $input: UpdateRacesRacersInput!
+  $condition: ModelRacesRacersConditionInput
+) {
+  updateRacesRacers(input: $input, condition: $condition) {
+    id
+    racesId
+    racersId
+    races {
+      id
+      sweeps_winner
+      seriesID
+      active
+      ended
+      started
+      gameID
+      createdAt
+      updatedAt
+      __typename
+    }
+    racers {
+      id
+      name
+      about_info
+      image
+      createdAt
+      updatedAt
+      racersLinksId
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateRacesRacersMutationVariables,
+  APITypes.UpdateRacesRacersMutation
+>;
+export const deleteRacesRacers = /* GraphQL */ `mutation DeleteRacesRacers(
+  $input: DeleteRacesRacersInput!
+  $condition: ModelRacesRacersConditionInput
+) {
+  deleteRacesRacers(input: $input, condition: $condition) {
+    id
+    racesId
+    racersId
+    races {
+      id
+      sweeps_winner
+      seriesID
+      active
+      ended
+      started
+      gameID
+      createdAt
+      updatedAt
+      __typename
+    }
+    racers {
+      id
+      name
+      about_info
+      image
+      createdAt
+      updatedAt
+      racersLinksId
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteRacesRacersMutationVariables,
+  APITypes.DeleteRacesRacersMutation
 >;

@@ -7,9 +7,9 @@ type Game @model @auth(rules: [{allow: public}]) {
   game_box_image: String
   game_info: String
   GameStoreLink: GameStoreLink @hasOne
-  RaceResults: [RaceResults] @hasMany(indexName: "byGame", fields: ["id"])
   Races: [Races] @hasMany(indexName: "byGame", fields: ["id"])
   TopTime: TopTime @hasOne
+  RaceResults: [RaceResults] @hasMany(indexName: "byGame", fields: ["id"])
 }
 
 type TopTime @model @auth(rules: [{allow: public}]) {
@@ -101,4 +101,5 @@ type Placeholder @model @auth(rules: [{allow: public}]) {
 type Suggestions @model @auth(rules: [{allow: public}]) {
   id: ID!
   suggestion: String!
-} 
+}
+ 

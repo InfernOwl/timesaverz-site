@@ -26,11 +26,30 @@ export const onCreateGame = /* GraphQL */ `subscription OnCreateGame($filter: Mo
       nintendo
       createdAt
       updatedAt
+      gameStoreLinkGameId
+      __typename
+    }
+    RaceResults {
+      nextToken
+      __typename
+    }
+    Races {
+      nextToken
+      __typename
+    }
+    TopTime {
+      id
+      runner
+      time
+      createdAt
+      updatedAt
+      topTimeGameId
       __typename
     }
     createdAt
     updatedAt
     gameGameStoreLinkId
+    gameTopTimeId
     __typename
   }
 }
@@ -56,11 +75,30 @@ export const onUpdateGame = /* GraphQL */ `subscription OnUpdateGame($filter: Mo
       nintendo
       createdAt
       updatedAt
+      gameStoreLinkGameId
+      __typename
+    }
+    RaceResults {
+      nextToken
+      __typename
+    }
+    Races {
+      nextToken
+      __typename
+    }
+    TopTime {
+      id
+      runner
+      time
+      createdAt
+      updatedAt
+      topTimeGameId
       __typename
     }
     createdAt
     updatedAt
     gameGameStoreLinkId
+    gameTopTimeId
     __typename
   }
 }
@@ -86,11 +124,30 @@ export const onDeleteGame = /* GraphQL */ `subscription OnDeleteGame($filter: Mo
       nintendo
       createdAt
       updatedAt
+      gameStoreLinkGameId
+      __typename
+    }
+    RaceResults {
+      nextToken
+      __typename
+    }
+    Races {
+      nextToken
+      __typename
+    }
+    TopTime {
+      id
+      runner
+      time
+      createdAt
+      updatedAt
+      topTimeGameId
       __typename
     }
     createdAt
     updatedAt
     gameGameStoreLinkId
+    gameTopTimeId
     __typename
   }
 }
@@ -103,8 +160,23 @@ export const onCreateTopTime = /* GraphQL */ `subscription OnCreateTopTime($filt
     id
     runner
     time
+    Game {
+      id
+      game_title
+      run_category
+      sr_game_link
+      background_image
+      game_box_image
+      game_info
+      createdAt
+      updatedAt
+      gameGameStoreLinkId
+      gameTopTimeId
+      __typename
+    }
     createdAt
     updatedAt
+    topTimeGameId
     __typename
   }
 }
@@ -117,8 +189,23 @@ export const onUpdateTopTime = /* GraphQL */ `subscription OnUpdateTopTime($filt
     id
     runner
     time
+    Game {
+      id
+      game_title
+      run_category
+      sr_game_link
+      background_image
+      game_box_image
+      game_info
+      createdAt
+      updatedAt
+      gameGameStoreLinkId
+      gameTopTimeId
+      __typename
+    }
     createdAt
     updatedAt
+    topTimeGameId
     __typename
   }
 }
@@ -131,8 +218,23 @@ export const onDeleteTopTime = /* GraphQL */ `subscription OnDeleteTopTime($filt
     id
     runner
     time
+    Game {
+      id
+      game_title
+      run_category
+      sr_game_link
+      background_image
+      game_box_image
+      game_info
+      createdAt
+      updatedAt
+      gameGameStoreLinkId
+      gameTopTimeId
+      __typename
+    }
     createdAt
     updatedAt
+    topTimeGameId
     __typename
   }
 }
@@ -145,25 +247,19 @@ export const onCreateRaceResults = /* GraphQL */ `subscription OnCreateRaceResul
 ) {
   onCreateRaceResults(filter: $filter) {
     id
-    points
-    link
-    time
-    Game {
-      id
-      game_title
-      run_category
-      sr_game_link
-      background_image
-      game_box_image
-      game_info
-      createdAt
-      updatedAt
-      gameGameStoreLinkId
-      __typename
-    }
+    aboutID
+    r1_points
+    r1_link
+    r1_time
+    r2_points
+    r2_link
+    r2_time
+    r3_points
+    r3_link
+    r3_time
+    gameID
     createdAt
     updatedAt
-    raceResultsGameId
     __typename
   }
 }
@@ -176,25 +272,19 @@ export const onUpdateRaceResults = /* GraphQL */ `subscription OnUpdateRaceResul
 ) {
   onUpdateRaceResults(filter: $filter) {
     id
-    points
-    link
-    time
-    Game {
-      id
-      game_title
-      run_category
-      sr_game_link
-      background_image
-      game_box_image
-      game_info
-      createdAt
-      updatedAt
-      gameGameStoreLinkId
-      __typename
-    }
+    aboutID
+    r1_points
+    r1_link
+    r1_time
+    r2_points
+    r2_link
+    r2_time
+    r3_points
+    r3_link
+    r3_time
+    gameID
     createdAt
     updatedAt
-    raceResultsGameId
     __typename
   }
 }
@@ -207,25 +297,19 @@ export const onDeleteRaceResults = /* GraphQL */ `subscription OnDeleteRaceResul
 ) {
   onDeleteRaceResults(filter: $filter) {
     id
-    points
-    link
-    time
-    Game {
-      id
-      game_title
-      run_category
-      sr_game_link
-      background_image
-      game_box_image
-      game_info
-      createdAt
-      updatedAt
-      gameGameStoreLinkId
-      __typename
-    }
+    aboutID
+    r1_points
+    r1_link
+    r1_time
+    r2_points
+    r2_link
+    r2_time
+    r3_points
+    r3_link
+    r3_time
+    gameID
     createdAt
     updatedAt
-    raceResultsGameId
     __typename
   }
 }
@@ -243,8 +327,23 @@ export const onCreateGameStoreLink = /* GraphQL */ `subscription OnCreateGameSto
     playstation
     xbox
     nintendo
+    Game {
+      id
+      game_title
+      run_category
+      sr_game_link
+      background_image
+      game_box_image
+      game_info
+      createdAt
+      updatedAt
+      gameGameStoreLinkId
+      gameTopTimeId
+      __typename
+    }
     createdAt
     updatedAt
+    gameStoreLinkGameId
     __typename
   }
 }
@@ -262,8 +361,23 @@ export const onUpdateGameStoreLink = /* GraphQL */ `subscription OnUpdateGameSto
     playstation
     xbox
     nintendo
+    Game {
+      id
+      game_title
+      run_category
+      sr_game_link
+      background_image
+      game_box_image
+      game_info
+      createdAt
+      updatedAt
+      gameGameStoreLinkId
+      gameTopTimeId
+      __typename
+    }
     createdAt
     updatedAt
+    gameStoreLinkGameId
     __typename
   }
 }
@@ -281,8 +395,23 @@ export const onDeleteGameStoreLink = /* GraphQL */ `subscription OnDeleteGameSto
     playstation
     xbox
     nintendo
+    Game {
+      id
+      game_title
+      run_category
+      sr_game_link
+      background_image
+      game_box_image
+      game_info
+      createdAt
+      updatedAt
+      gameGameStoreLinkId
+      gameTopTimeId
+      __typename
+    }
     createdAt
     updatedAt
+    gameStoreLinkGameId
     __typename
   }
 }
@@ -293,26 +422,18 @@ export const onDeleteGameStoreLink = /* GraphQL */ `subscription OnDeleteGameSto
 export const onCreateRaces = /* GraphQL */ `subscription OnCreateRaces($filter: ModelSubscriptionRacesFilterInput) {
   onCreateRaces(filter: $filter) {
     id
-    sweeps_start
-    sweeps_end
     sweeps_winner
     seriesID
-    Game {
-      id
-      game_title
-      run_category
-      sr_game_link
-      background_image
-      game_box_image
-      game_info
-      createdAt
-      updatedAt
-      gameGameStoreLinkId
+    Racers {
+      nextToken
       __typename
     }
+    active
+    ended
+    started
+    gameID
     createdAt
     updatedAt
-    racesGameId
     __typename
   }
 }
@@ -323,26 +444,18 @@ export const onCreateRaces = /* GraphQL */ `subscription OnCreateRaces($filter: 
 export const onUpdateRaces = /* GraphQL */ `subscription OnUpdateRaces($filter: ModelSubscriptionRacesFilterInput) {
   onUpdateRaces(filter: $filter) {
     id
-    sweeps_start
-    sweeps_end
     sweeps_winner
     seriesID
-    Game {
-      id
-      game_title
-      run_category
-      sr_game_link
-      background_image
-      game_box_image
-      game_info
-      createdAt
-      updatedAt
-      gameGameStoreLinkId
+    Racers {
+      nextToken
       __typename
     }
+    active
+    ended
+    started
+    gameID
     createdAt
     updatedAt
-    racesGameId
     __typename
   }
 }
@@ -353,26 +466,18 @@ export const onUpdateRaces = /* GraphQL */ `subscription OnUpdateRaces($filter: 
 export const onDeleteRaces = /* GraphQL */ `subscription OnDeleteRaces($filter: ModelSubscriptionRacesFilterInput) {
   onDeleteRaces(filter: $filter) {
     id
-    sweeps_start
-    sweeps_end
     sweeps_winner
     seriesID
-    Game {
-      id
-      game_title
-      run_category
-      sr_game_link
-      background_image
-      game_box_image
-      game_info
-      createdAt
-      updatedAt
-      gameGameStoreLinkId
+    Racers {
+      nextToken
       __typename
     }
+    active
+    ended
+    started
+    gameID
     createdAt
     updatedAt
-    racesGameId
     __typename
   }
 }
@@ -387,6 +492,7 @@ export const onCreateSeries = /* GraphQL */ `subscription OnCreateSeries($filter
       nextToken
       __typename
     }
+    title
     createdAt
     updatedAt
     __typename
@@ -403,6 +509,7 @@ export const onUpdateSeries = /* GraphQL */ `subscription OnUpdateSeries($filter
       nextToken
       __typename
     }
+    title
     createdAt
     updatedAt
     __typename
@@ -419,6 +526,7 @@ export const onDeleteSeries = /* GraphQL */ `subscription OnDeleteSeries($filter
       nextToken
       __typename
     }
+    title
     createdAt
     updatedAt
     __typename
@@ -481,6 +589,114 @@ export const onDeleteLinks = /* GraphQL */ `subscription OnDeleteLinks($filter: 
 ` as GeneratedSubscription<
   APITypes.OnDeleteLinksSubscriptionVariables,
   APITypes.OnDeleteLinksSubscription
+>;
+export const onCreateRacers = /* GraphQL */ `subscription OnCreateRacers($filter: ModelSubscriptionRacersFilterInput) {
+  onCreateRacers(filter: $filter) {
+    id
+    name
+    about_info
+    image
+    links {
+      id
+      twitter
+      instagram
+      twitch
+      tiktok
+      youtube
+      kofi
+      createdAt
+      updatedAt
+      __typename
+    }
+    RaceResults {
+      nextToken
+      __typename
+    }
+    racess {
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    racersLinksId
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateRacersSubscriptionVariables,
+  APITypes.OnCreateRacersSubscription
+>;
+export const onUpdateRacers = /* GraphQL */ `subscription OnUpdateRacers($filter: ModelSubscriptionRacersFilterInput) {
+  onUpdateRacers(filter: $filter) {
+    id
+    name
+    about_info
+    image
+    links {
+      id
+      twitter
+      instagram
+      twitch
+      tiktok
+      youtube
+      kofi
+      createdAt
+      updatedAt
+      __typename
+    }
+    RaceResults {
+      nextToken
+      __typename
+    }
+    racess {
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    racersLinksId
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateRacersSubscriptionVariables,
+  APITypes.OnUpdateRacersSubscription
+>;
+export const onDeleteRacers = /* GraphQL */ `subscription OnDeleteRacers($filter: ModelSubscriptionRacersFilterInput) {
+  onDeleteRacers(filter: $filter) {
+    id
+    name
+    about_info
+    image
+    links {
+      id
+      twitter
+      instagram
+      twitch
+      tiktok
+      youtube
+      kofi
+      createdAt
+      updatedAt
+      __typename
+    }
+    RaceResults {
+      nextToken
+      __typename
+    }
+    racess {
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    racersLinksId
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteRacersSubscriptionVariables,
+  APITypes.OnDeleteRacersSubscription
 >;
 export const onCreateSweepstakesEntry = /* GraphQL */ `subscription OnCreateSweepstakesEntry(
   $filter: ModelSubscriptionSweepstakesEntryFilterInput
@@ -637,4 +853,118 @@ export const onDeleteSuggestions = /* GraphQL */ `subscription OnDeleteSuggestio
 ` as GeneratedSubscription<
   APITypes.OnDeleteSuggestionsSubscriptionVariables,
   APITypes.OnDeleteSuggestionsSubscription
+>;
+export const onCreateRacesRacers = /* GraphQL */ `subscription OnCreateRacesRacers(
+  $filter: ModelSubscriptionRacesRacersFilterInput
+) {
+  onCreateRacesRacers(filter: $filter) {
+    id
+    racesId
+    racersId
+    races {
+      id
+      sweeps_winner
+      seriesID
+      active
+      ended
+      started
+      gameID
+      createdAt
+      updatedAt
+      __typename
+    }
+    racers {
+      id
+      name
+      about_info
+      image
+      createdAt
+      updatedAt
+      racersLinksId
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateRacesRacersSubscriptionVariables,
+  APITypes.OnCreateRacesRacersSubscription
+>;
+export const onUpdateRacesRacers = /* GraphQL */ `subscription OnUpdateRacesRacers(
+  $filter: ModelSubscriptionRacesRacersFilterInput
+) {
+  onUpdateRacesRacers(filter: $filter) {
+    id
+    racesId
+    racersId
+    races {
+      id
+      sweeps_winner
+      seriesID
+      active
+      ended
+      started
+      gameID
+      createdAt
+      updatedAt
+      __typename
+    }
+    racers {
+      id
+      name
+      about_info
+      image
+      createdAt
+      updatedAt
+      racersLinksId
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateRacesRacersSubscriptionVariables,
+  APITypes.OnUpdateRacesRacersSubscription
+>;
+export const onDeleteRacesRacers = /* GraphQL */ `subscription OnDeleteRacesRacers(
+  $filter: ModelSubscriptionRacesRacersFilterInput
+) {
+  onDeleteRacesRacers(filter: $filter) {
+    id
+    racesId
+    racersId
+    races {
+      id
+      sweeps_winner
+      seriesID
+      active
+      ended
+      started
+      gameID
+      createdAt
+      updatedAt
+      __typename
+    }
+    racers {
+      id
+      name
+      about_info
+      image
+      createdAt
+      updatedAt
+      racersLinksId
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteRacesRacersSubscriptionVariables,
+  APITypes.OnDeleteRacesRacersSubscription
 >;

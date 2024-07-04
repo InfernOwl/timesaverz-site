@@ -26,11 +26,30 @@ export const getGame = /* GraphQL */ `query GetGame($id: ID!) {
       nintendo
       createdAt
       updatedAt
+      gameStoreLinkGameId
+      __typename
+    }
+    RaceResults {
+      nextToken
+      __typename
+    }
+    Races {
+      nextToken
+      __typename
+    }
+    TopTime {
+      id
+      runner
+      time
+      createdAt
+      updatedAt
+      topTimeGameId
       __typename
     }
     createdAt
     updatedAt
     gameGameStoreLinkId
+    gameTopTimeId
     __typename
   }
 }
@@ -52,6 +71,7 @@ export const listGames = /* GraphQL */ `query ListGames(
       createdAt
       updatedAt
       gameGameStoreLinkId
+      gameTopTimeId
       __typename
     }
     nextToken
@@ -64,8 +84,23 @@ export const getTopTime = /* GraphQL */ `query GetTopTime($id: ID!) {
     id
     runner
     time
+    Game {
+      id
+      game_title
+      run_category
+      sr_game_link
+      background_image
+      game_box_image
+      game_info
+      createdAt
+      updatedAt
+      gameGameStoreLinkId
+      gameTopTimeId
+      __typename
+    }
     createdAt
     updatedAt
+    topTimeGameId
     __typename
   }
 }
@@ -85,6 +120,7 @@ export const listTopTimes = /* GraphQL */ `query ListTopTimes(
       time
       createdAt
       updatedAt
+      topTimeGameId
       __typename
     }
     nextToken
@@ -98,25 +134,19 @@ export const listTopTimes = /* GraphQL */ `query ListTopTimes(
 export const getRaceResults = /* GraphQL */ `query GetRaceResults($id: ID!) {
   getRaceResults(id: $id) {
     id
-    points
-    link
-    time
-    Game {
-      id
-      game_title
-      run_category
-      sr_game_link
-      background_image
-      game_box_image
-      game_info
-      createdAt
-      updatedAt
-      gameGameStoreLinkId
-      __typename
-    }
+    aboutID
+    r1_points
+    r1_link
+    r1_time
+    r2_points
+    r2_link
+    r2_time
+    r3_points
+    r3_link
+    r3_time
+    gameID
     createdAt
     updatedAt
-    raceResultsGameId
     __typename
   }
 }
@@ -132,12 +162,19 @@ export const listRaceResults = /* GraphQL */ `query ListRaceResults(
   listRaceResults(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
-      points
-      link
-      time
+      aboutID
+      r1_points
+      r1_link
+      r1_time
+      r2_points
+      r2_link
+      r2_time
+      r3_points
+      r3_link
+      r3_time
+      gameID
       createdAt
       updatedAt
-      raceResultsGameId
       __typename
     }
     nextToken
@@ -148,6 +185,84 @@ export const listRaceResults = /* GraphQL */ `query ListRaceResults(
   APITypes.ListRaceResultsQueryVariables,
   APITypes.ListRaceResultsQuery
 >;
+export const raceResultsByAboutID = /* GraphQL */ `query RaceResultsByAboutID(
+  $aboutID: ID!
+  $sortDirection: ModelSortDirection
+  $filter: ModelRaceResultsFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  raceResultsByAboutID(
+    aboutID: $aboutID
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      aboutID
+      r1_points
+      r1_link
+      r1_time
+      r2_points
+      r2_link
+      r2_time
+      r3_points
+      r3_link
+      r3_time
+      gameID
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.RaceResultsByAboutIDQueryVariables,
+  APITypes.RaceResultsByAboutIDQuery
+>;
+export const raceResultsByGameID = /* GraphQL */ `query RaceResultsByGameID(
+  $gameID: ID!
+  $sortDirection: ModelSortDirection
+  $filter: ModelRaceResultsFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  raceResultsByGameID(
+    gameID: $gameID
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      aboutID
+      r1_points
+      r1_link
+      r1_time
+      r2_points
+      r2_link
+      r2_time
+      r3_points
+      r3_link
+      r3_time
+      gameID
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.RaceResultsByGameIDQueryVariables,
+  APITypes.RaceResultsByGameIDQuery
+>;
 export const getGameStoreLink = /* GraphQL */ `query GetGameStoreLink($id: ID!) {
   getGameStoreLink(id: $id) {
     id
@@ -156,8 +271,23 @@ export const getGameStoreLink = /* GraphQL */ `query GetGameStoreLink($id: ID!) 
     playstation
     xbox
     nintendo
+    Game {
+      id
+      game_title
+      run_category
+      sr_game_link
+      background_image
+      game_box_image
+      game_info
+      createdAt
+      updatedAt
+      gameGameStoreLinkId
+      gameTopTimeId
+      __typename
+    }
     createdAt
     updatedAt
+    gameStoreLinkGameId
     __typename
   }
 }
@@ -180,6 +310,7 @@ export const listGameStoreLinks = /* GraphQL */ `query ListGameStoreLinks(
       nintendo
       createdAt
       updatedAt
+      gameStoreLinkGameId
       __typename
     }
     nextToken
@@ -193,26 +324,18 @@ export const listGameStoreLinks = /* GraphQL */ `query ListGameStoreLinks(
 export const getRaces = /* GraphQL */ `query GetRaces($id: ID!) {
   getRaces(id: $id) {
     id
-    sweeps_start
-    sweeps_end
     sweeps_winner
     seriesID
-    Game {
-      id
-      game_title
-      run_category
-      sr_game_link
-      background_image
-      game_box_image
-      game_info
-      createdAt
-      updatedAt
-      gameGameStoreLinkId
+    Racers {
+      nextToken
       __typename
     }
+    active
+    ended
+    started
+    gameID
     createdAt
     updatedAt
-    racesGameId
     __typename
   }
 }
@@ -225,13 +348,14 @@ export const listRaces = /* GraphQL */ `query ListRaces(
   listRaces(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
-      sweeps_start
-      sweeps_end
       sweeps_winner
       seriesID
+      active
+      ended
+      started
+      gameID
       createdAt
       updatedAt
-      racesGameId
       __typename
     }
     nextToken
@@ -255,13 +379,14 @@ export const racesBySeriesID = /* GraphQL */ `query RacesBySeriesID(
   ) {
     items {
       id
-      sweeps_start
-      sweeps_end
       sweeps_winner
       seriesID
+      active
+      ended
+      started
+      gameID
       createdAt
       updatedAt
-      racesGameId
       __typename
     }
     nextToken
@@ -272,6 +397,42 @@ export const racesBySeriesID = /* GraphQL */ `query RacesBySeriesID(
   APITypes.RacesBySeriesIDQueryVariables,
   APITypes.RacesBySeriesIDQuery
 >;
+export const racesByGameIDAndStarted = /* GraphQL */ `query RacesByGameIDAndStarted(
+  $gameID: ID!
+  $started: ModelStringKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelRacesFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  racesByGameIDAndStarted(
+    gameID: $gameID
+    started: $started
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      sweeps_winner
+      seriesID
+      active
+      ended
+      started
+      gameID
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.RacesByGameIDAndStartedQueryVariables,
+  APITypes.RacesByGameIDAndStartedQuery
+>;
 export const getSeries = /* GraphQL */ `query GetSeries($id: ID!) {
   getSeries(id: $id) {
     id
@@ -279,6 +440,7 @@ export const getSeries = /* GraphQL */ `query GetSeries($id: ID!) {
       nextToken
       __typename
     }
+    title
     createdAt
     updatedAt
     __typename
@@ -293,6 +455,7 @@ export const listSeries = /* GraphQL */ `query ListSeries(
   listSeries(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
+      title
       createdAt
       updatedAt
       __typename
@@ -343,6 +506,63 @@ export const listLinks = /* GraphQL */ `query ListLinks(
   }
 }
 ` as GeneratedQuery<APITypes.ListLinksQueryVariables, APITypes.ListLinksQuery>;
+export const getRacers = /* GraphQL */ `query GetRacers($id: ID!) {
+  getRacers(id: $id) {
+    id
+    name
+    about_info
+    image
+    links {
+      id
+      twitter
+      instagram
+      twitch
+      tiktok
+      youtube
+      kofi
+      createdAt
+      updatedAt
+      __typename
+    }
+    RaceResults {
+      nextToken
+      __typename
+    }
+    racess {
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    racersLinksId
+    __typename
+  }
+}
+` as GeneratedQuery<APITypes.GetRacersQueryVariables, APITypes.GetRacersQuery>;
+export const listRacers = /* GraphQL */ `query ListRacers(
+  $filter: ModelRacersFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listRacers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      about_info
+      image
+      createdAt
+      updatedAt
+      racersLinksId
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListRacersQueryVariables,
+  APITypes.ListRacersQuery
+>;
 export const getSweepstakesEntry = /* GraphQL */ `query GetSweepstakesEntry($id: ID!) {
   getSweepstakesEntry(id: $id) {
     id
@@ -462,4 +682,122 @@ export const listSuggestions = /* GraphQL */ `query ListSuggestions(
 ` as GeneratedQuery<
   APITypes.ListSuggestionsQueryVariables,
   APITypes.ListSuggestionsQuery
+>;
+export const getRacesRacers = /* GraphQL */ `query GetRacesRacers($id: ID!) {
+  getRacesRacers(id: $id) {
+    id
+    racesId
+    racersId
+    races {
+      id
+      sweeps_winner
+      seriesID
+      active
+      ended
+      started
+      gameID
+      createdAt
+      updatedAt
+      __typename
+    }
+    racers {
+      id
+      name
+      about_info
+      image
+      createdAt
+      updatedAt
+      racersLinksId
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetRacesRacersQueryVariables,
+  APITypes.GetRacesRacersQuery
+>;
+export const listRacesRacers = /* GraphQL */ `query ListRacesRacers(
+  $filter: ModelRacesRacersFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listRacesRacers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      racesId
+      racersId
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListRacesRacersQueryVariables,
+  APITypes.ListRacesRacersQuery
+>;
+export const racesRacersByRacesId = /* GraphQL */ `query RacesRacersByRacesId(
+  $racesId: ID!
+  $sortDirection: ModelSortDirection
+  $filter: ModelRacesRacersFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  racesRacersByRacesId(
+    racesId: $racesId
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      racesId
+      racersId
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.RacesRacersByRacesIdQueryVariables,
+  APITypes.RacesRacersByRacesIdQuery
+>;
+export const racesRacersByRacersId = /* GraphQL */ `query RacesRacersByRacersId(
+  $racersId: ID!
+  $sortDirection: ModelSortDirection
+  $filter: ModelRacesRacersFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  racesRacersByRacersId(
+    racersId: $racersId
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      racesId
+      racersId
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.RacesRacersByRacersIdQueryVariables,
+  APITypes.RacesRacersByRacersIdQuery
 >;
