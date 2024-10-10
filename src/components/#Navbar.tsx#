@@ -31,7 +31,7 @@ const Navbar = () => {
         setCurrent(e.key);
     };
     
-    return <Menu className="nav_container" onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} />;
+    return <Menu className="nave_container" onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} />;
 };
 
 export default Navbar;
