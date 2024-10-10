@@ -44,6 +44,7 @@
 /* CUSTOM CSS */
 
 .nav_container {
+  background-color: yellow;
   opacity: 1;
 }
 
@@ -80,6 +81,7 @@
   flex-direction: column;
   background: black;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 /* antd adjustment css */
