@@ -12,6 +12,9 @@ const RaceContainer = (props: RaceProps) => {
     var startedDate = new Date(props.race_obj.started);
     var today = new Date();
 
+    // No longer hiding future games
+    // Removing code to add placeholder race object
+    /*
     if (startedDate === null || (startedDate < today || props.race_obj.active) ) {
         return (
             <>
@@ -25,6 +28,13 @@ const RaceContainer = (props: RaceProps) => {
             </>
         )
     }
+    */
+
+    return (
+        <>
+            <RaceObj series={props.series} race_obj={props.race_obj} focused={props.focused}></RaceObj>
+        </>
+    )
 };
 
 export default RaceContainer;
