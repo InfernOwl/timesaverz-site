@@ -138,9 +138,11 @@ const Sweepstakes = () => {
                 )
             }
         }
+
+        console.log(seriesData[0].title)
         
-        currentSeries.push({"title": `Series ${seriesData[0].title}`,
-                            "value": `Series ${seriesData[0].title}`,
+        currentSeries.push({"title": `${seriesData[0].title}`,
+                            "value": `${seriesData[0].title}`,
                             "selectable": false,
                             "children": seriesChildren});
         treeDataArray.push(currentSeries[0]);
