@@ -34,10 +34,9 @@ const Body = () => {
         const currentRaces = await client.graphql({
             query: racesBySeriesID,
             variables: {
-                seriesID: seriesData[seriesData.length - 1].id
+                seriesID: seriesData[0].id
             }
         })
-
 
         setRaceList(currentRaces.data.racesBySeriesID.items);
     }

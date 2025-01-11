@@ -48,7 +48,6 @@ const RaceObj = (props: RaceProps) => {
             variables: { id: props.race_obj.gameID }
         })
 
-        console.log(currentGameData);
         setGameData(currentGameData.data.getGame);
 
     }
@@ -72,7 +71,6 @@ const RaceObj = (props: RaceProps) => {
 
     const content = (data: LinksObject) => {
 
-        console.log(data);
         let steam = (data.steam !== "" && data.steam !== null) ? <Button type="primary" href={data.steam} target="_blank">Steam</Button> : "";
         let epic = (data.epic !== "" && data.epic !== null) ? <Button type="primary" href={data.epic} target="_blank">Epic</Button> : "";
         let playstation = (data.playstation !== "" && data.playstation !== null) ? <Button type="primary" href={data.playstation} target="_blank">Playstation</Button> : "";
