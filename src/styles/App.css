@@ -80,6 +80,7 @@
   flex-direction: column;
   background: black;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 /* antd adjustment css */
