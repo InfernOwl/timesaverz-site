@@ -221,10 +221,13 @@ const Standings = (props: StandingProps) => {
 
         totalTableData.race = "Total:";
 
+        console.log(props)
         for (let i = 0; i < totalArr.length; i++) {
             if (props.finished) {
-                if (totalArr[i].person === props.top_time[0].runner) {
-                    totalArr[i].total += 2;
+                if (props.top_time.length > 0) {
+                    if (totalArr[i].person === props.top_time[0].runner) {
+                        totalArr[i].total += 2;
+                    }
                 }
 
                 totals = totalArr.map(a => a.total);

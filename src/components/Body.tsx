@@ -31,10 +31,23 @@ const Body = () => {
 
     // Using series id get list of races in series
     const raceGrab = async () => {
+        
+        for (var item of seriesData) {
+            var created = new Date(item.createdAt)
+            console.log(created)
+        }
+
+        seriesData.sort((a:any,b:any) => {
+            var aDate:any = new Date(a.createdAt);
+            var bDate:any = new Date(b.createdAt);
+
+            return +aDate - +bDate;
+
+        })
         const currentRaces = await client.graphql({
             query: racesBySeriesID,
             variables: {
-                seriesID: seriesData[0].id
+                seriesID: seriesData[seriesData.length - 1].id
             }
         })
 
