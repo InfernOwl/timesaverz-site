@@ -48,7 +48,6 @@ const Sweepstakes = () => {
     };
 
     const onChangeGame = (e: any) => {
-        console.log(e);
         setStateGame(e);
     };
     
@@ -66,8 +65,16 @@ const Sweepstakes = () => {
             query: listSeries
         })
 
-        console.log(currentSeriesData.data.listSeries.items)
-        setSeriesList(currentSeriesData.data.listSeries.items)
+        //Sort series's by date
+        var seriesList = currentSeriesData.data.listSeries.items.sort((a:any,b:any) => {
+            var aDate:any = new Date(a.createdAt);
+            var bDate:any = new Date(b.createdAt);
+
+            return +aDate - +bDate;
+
+        })
+        
+        setSeriesList(seriesList)
     }
 
     // Using series id get list of races in series
@@ -88,7 +95,6 @@ const Sweepstakes = () => {
         }
 
         setGameList(gamesList);
-
     }
 
     //Using the races pulled and game id's, list out all games in series by name
@@ -112,13 +118,8 @@ const Sweepstakes = () => {
     // get the game name and assign it to the appropriate series
     
     if (seriesData !== undefined && gameData === undefined) {
-        raceGrab(seriesData[0].id)
-    }
-
-    // if (seriesData !== undefined && raceData === undefined) {
-    //     raceGrab();
-    // }
-    
+        raceGrab(seriesData[seriesData.length - 1].id)
+    }    
     
 
     const seriesGamesSort = () => {
@@ -139,10 +140,17 @@ const Sweepstakes = () => {
             }
         }
 
-        console.log(seriesData[0].title)
+        //Sort series's by date
+        seriesData.sort((a:any,b:any) => {
+            var aDate:any = new Date(a.createdAt);
+            var bDate:any = new Date(b.createdAt);
+
+            return +aDate - +bDate;
+
+        })
         
-        currentSeries.push({"title": `${seriesData[0].title}`,
-                            "value": `${seriesData[0].title}`,
+        currentSeries.push({"title": `${seriesData[seriesData.length - 1].title}`,
+                            "value": `${seriesData[seriesData.length - 1].title}`,
                             "selectable": false,
                             "children": seriesChildren});
         treeDataArray.push(currentSeries[0]);
