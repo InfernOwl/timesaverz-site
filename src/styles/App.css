@@ -80,7 +80,7 @@
   flex-wrap: nowrap;
   flex-direction: column;
   background: black;
-  overflow-y: hidden;
+  overflow-y: auto;
   overflow-x: hidden;
 }
 
