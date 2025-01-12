@@ -40,7 +40,7 @@ const Body = () => {
             return +aDate - +bDate;
 
         })
-        
+
         const currentRaces = await client.graphql({
             query: racesBySeriesID,
             variables: {
@@ -83,7 +83,7 @@ const Body = () => {
                 //     }
                 // })
 
-                <Series series_id={seriesData ? seriesData[0].title : ""} races={raceData ? raceData : ""}></Series>
+                <Series series_id={seriesData ? seriesData[seriesData.length - 1].title : ""} races={raceData ? raceData : ""}></Series>
             }
         </>
     )
