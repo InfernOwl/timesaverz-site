@@ -31,13 +31,22 @@ const Body = () => {
 
     // Using series id get list of races in series
     const raceGrab = async () => {
+        
+        //Sort series's by date
+        seriesData.sort((a:any,b:any) => {
+            var aDate:any = new Date(a.createdAt);
+            var bDate:any = new Date(b.createdAt);
+
+            return +aDate - +bDate;
+
+        })
+
         const currentRaces = await client.graphql({
             query: racesBySeriesID,
             variables: {
                 seriesID: seriesData[seriesData.length - 1].id
             }
         })
-
 
         setRaceList(currentRaces.data.racesBySeriesID.items);
     }
@@ -74,7 +83,7 @@ const Body = () => {
                 //     }
                 // })
 
-                <Series series_id={seriesData ? seriesData[0].title : ""} races={raceData ? raceData : ""}></Series>
+                <Series series_id={seriesData ? seriesData[seriesData.length - 1].title : ""} races={raceData ? raceData : ""}></Series>
             }
         </>
     )

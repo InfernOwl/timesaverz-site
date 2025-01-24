@@ -4,8 +4,11 @@ import { useState } from "react";
 import { Button, Form, Input, TreeSelect  } from "antd";
 import seriesJSON from '../constants/series.json';
 
+import { Amplify } from "aws-amplify";
+import config from "../amplifyconfiguration.json";
 import { generateClient } from "aws-amplify/api";
 import { createSweepstakesEntry} from "../graphql/mutations";
+import { listSeries, racesBySeriesID, getGame } from "../graphql/queries";
 
 type FieldType = {
     name?: string;
@@ -15,6 +18,7 @@ type FieldType = {
     speedrunLink?: string;
 }
 
+Amplify.configure(config);
 const client = generateClient();
 
 const Sweepstakes = () => {
@@ -26,7 +30,11 @@ const Sweepstakes = () => {
     const [stateSteam, setStateSteam] = useState<string>("");    
     const [stateSpeedrunLink, setStateSpeedrunLink] = useState<string>("");
 
-    var datesSet: boolean = false;
+    // Constants for series and game list
+    const [seriesData, setSeriesList] = useState<any>();
+    const [gameData, setGameList] = useState<string[]>();
+    const [treeData, setTreeData] = useState<any>();
+
     var startDate: string = "";
     var endDate: string = "";
 
@@ -40,7 +48,6 @@ const Sweepstakes = () => {
     };
 
     const onChangeGame = (e: any) => {
-        console.log(e);
         setStateGame(e);
     };
     
@@ -51,54 +58,104 @@ const Sweepstakes = () => {
     const onChangeSpeedrunLink = (e: any) => {
         setStateSpeedrunLink(e.target.value);
     };
+    
+    // Get list of all series
+    const seriesGrab = async () => {
+        const currentSeriesData = await client.graphql({
+            query: listSeries
+        })
+
+        //Sort series's by date
+        var seriesList = currentSeriesData.data.listSeries.items.sort((a:any,b:any) => {
+            var aDate:any = new Date(a.createdAt);
+            var bDate:any = new Date(b.createdAt);
+
+            return +aDate - +bDate;
+
+        })
+        
+        setSeriesList(seriesList)
+    }
+
+    // Using series id get list of races in series
+    const raceGrab = async (seriesId:any) => {
+        const currentRaces = await client.graphql({
+            query: racesBySeriesID,
+            variables: {
+                seriesID: seriesId
+            }
+        })
+
+        var gamesList: string[] = [];
+
+        for (var race of currentRaces.data.racesBySeriesID.items) {
+            gameGrab(race.gameID).then((p:any) => {
+                gamesList.push(p)
+            })
+        }
+
+        setGameList(gamesList);
+    }
+
+    //Using the races pulled and game id's, list out all games in series by name
+    const gameGrab = async (gameId:any) => {
+        var currentGame = await client.graphql({
+            query: getGame,
+            variables: {
+                id: gameId
+            }
+        })
+
+        return currentGame.data.getGame?.game_title;
+    }
+
+    if (seriesData === undefined) {
+        seriesGrab();
+    }
+
+    // TODO:
+    // For each series, get a list of races. Then for each race
+    // get the game name and assign it to the appropriate series
+    
+    if (seriesData !== undefined && gameData === undefined) {
+        raceGrab(seriesData[seriesData.length - 1].id)
+    }    
+    
 
     const seriesGamesSort = () => {
 
         var treeDataArray:any = [];
 
-        seriesJSON.series.map((key: any, val: any) => {
-            let currentSeries:any = [];
-            let seriesChildren : any = [];
+        let currentSeries:any = [];
+        let seriesChildren : any = [];
 
-            
-
-            key.races.map((k:any, v:any) => {
-
-                if (k.standings.started) {
-                    if (!k.standings.finished) {
-
-                        if (!datesSet) {
-                            startDate = k.sweeps_start;
-                            endDate = k.sweeps_end;
-                            datesSet = true;
-                        }
-
-                        seriesChildren.push(
-                            {
-                                "value": k.game_title, 
-                                "title":<p style={{ color: 'green'}}>{k.game_title}</p>,
-                            }
-                        )
-                    } else {
-                        seriesChildren.push(
-                            {
-                                "title":<p style={{ color: 'red', pointerEvents: "none"}}>{k.game_title}</p>,
-                                "selectable": false
-                            }
-                        )
+        if (gameData !== undefined) {
+            for (var game of gameData) {
+                seriesChildren.push(
+                    {
+                        "value": game, 
+                        "title":<p style={{ color: 'green'}}>{game}</p>,
                     }
-                }
-            })
+                )
+            }
+        }
 
-            
-            currentSeries.push({"title": `Series ${key.series_id}`,
-                                "value": `Series ${key.series_id}`,
-                                "selectable": false,
-                                "children": seriesChildren});
-            treeDataArray.push(currentSeries[0]);
+        //Sort series's by date
+        seriesData.sort((a:any,b:any) => {
+            var aDate:any = new Date(a.createdAt);
+            var bDate:any = new Date(b.createdAt);
+
+            return +aDate - +bDate;
+
         })
+        
+        currentSeries.push({"title": `${seriesData[seriesData.length - 1].title}`,
+                            "value": `${seriesData[seriesData.length - 1].title}`,
+                            "selectable": false,
+                            "children": seriesChildren});
+        treeDataArray.push(currentSeries[0]);
 
-        return treeDataArray;
+        setTreeData(treeDataArray);
     }
 
     
@@ -183,7 +240,8 @@ const Sweepstakes = () => {
                               dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
                               placeholder="Please Select Game"
                               onChange={onChangeGame}
-                              treeData={seriesGamesSort()} />
+                              onClick={seriesGamesSort}
+                              treeData={treeData} />
                         </Form.Item>
                         <Form.Item<FieldType>
                           label="Steam ID"
